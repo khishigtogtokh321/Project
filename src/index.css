@@ -1,0 +1,17 @@
+body {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+
+.rbc-toolbar button {
+  font-size: 14px;   /* текстийн хэмжээ */
+  padding: 4px 10px; /* дотоод padding */
+}
+
+.rbc-header,
+.rbc-toolbar-label {
+  text-transform: capitalize; /* Сар, өдөр, долоо хоногийг том үсгээр эхлүүлэх */
+  font-weight: 600;           /* Илүү тод харагдуулах */
+  font-size: 14px;
+}

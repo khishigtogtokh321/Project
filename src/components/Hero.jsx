@@ -1,6 +1,7 @@
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
+import HowToBook from "./HowToBook";
 
 export default function Hero() {
 
@@ -13,19 +14,17 @@ export default function Hero() {
       };
     
   return (
-    <Container className="py-5">
-      <Row className="align-items-center ">
-        <Col md={6}>
-          <h1 className=" fs-1 " style={{color: '#37296F'}} >Эрүүл мэнддээ санаа<br />тавих цогц шийдэл</h1>
+    <Container style={{
+      position: "relative",
+      top: "40px"
+    }}>
+      <Row className="text-center my-5">
+        <Col >
+          <h1 className=" fw-bold display-5 " style={{color: "#37296F", fontWeight: "700"}} >Эрүүл мэнддээ санаа<br />тавих цогц шийдэл</h1>
           
           <SearchBar/>
-    
+          <HowToBook />  
         </Col>
-        <Col md={6} className="text-center">
-          <img src="src/assets/doctor.png" alt="Doctor" className="img-fluid" />
-        </Col>
-
-      
       </Row>
     </Container>
   );

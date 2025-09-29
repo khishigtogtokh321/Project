@@ -1,57 +1,76 @@
 
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { GeoAltFill, EnvelopeFill, TelephoneFill } from "react-bootstrap-icons";
+import { GeoAltFill, EnvelopeFill, TelephoneFill, ArrowRight } from "react-bootstrap-icons";
+import { FaMapLocationDot } from 'react-icons/fa6';
+import { HiOutlineMail } from 'react-icons/hi';
+import { BsTelephoneForward } from 'react-icons/bs';
 
 const Contact = () => {
   return (
-    <Container fluid className="py-5" style={{ backgroundColor: "#fff" }}>
-      <Container>
-        <Row>
-          {/* Зүүн талын мэдээлэл */}
-          <Col md={6}>
-            <h2>Бидэнтэй холбогдох зам <br />үргэлж нээлттэй</h2>
-            <p style={{ color: "#00000065"}}>
-             Манай компани мэдээллийн технологийн шийдэл боловсруулахаас <br />
-             гадна харилцагчиддаа мэргэжлийн зөвлөгөө өгөх, борлуулалтын <br />
-             дараах үйлчилгээ үзүүлэх зэрэгт онцгой анхаарч ажилладаг билээ. <br />
-             Тантай, танай байгууллагатай хамтран ажиллахдаа бид үргэлж <br />
-             баяртай байх болно.
+    <div style={{ backgroundColor: '#f9f8fa', maxHeight: '800px'}}>
+    <Container className="my-5" style={{height: '700px'}} >
+      <Row className="align-items-center" style={{ position: 'relative', top: '100px'}}>
+        {/* Left Text Section */}
+        <Col md={6} className="mb-4">
+          <h1 className="fw-bold">Бидэнтэй холбогдох зам <br />үргэлж нээлттэй</h1>
+          <p className="text-muted">
+              Манай компани мэдээллийн технологийн шийдэл боловсруулахаас <br />
+              гадна харилцагчиддаа мэргэжлийн зөвлөгөө өгөх, борлуулалтын <br />
+              дараах үйлчилгээ үзүүлэх зэрэгт онцгой анхаарч ажилладаг билээ. <br />
+              Тантай, танай байгууллагатай хамтран ажиллахдаа бид үргэлж <br />
+              баяртай байх болно.
+          </p>
+
+          <div className="mt-4">
+            <p>
+              <FaMapLocationDot className="me-3 text-primary" size={40}  />
+           
+              <span>СБД, 9-р хороо, Хоймор офисс, 504 тоот</span>
             </p>
-            <p><GeoAltFill className="me-4"/> СБД, 9-р хороо, Хоймор офисс, 504 тоот</p>
-            <p><EnvelopeFill className="me-4"/> info@example.mn</p>
-            <p><TelephoneFill className="me-4"/> +976 80000000</p>
-          </Col>
+            <p>
+              <HiOutlineMail className="me-3 text-primary" size={40} />
+              <span>info@example.mn</span>
+            </p>
+            <p>
+              <BsTelephoneForward className="me-3 text-primary" size={40} />
+              <span>+976 80013319</span>
+            </p>
+          </div>
+        </Col>
 
-          {/* Баруун талын форм */}
-          <Col md={6}>
-            <div style={{ backgroundColor: "#f8f9fa", padding: "20px", borderRadius: "8px" , fontFamily : 'Arial sans-serif' }}>
-              <h3>Бидэнтэй холбогдох</h3>
-              <Form>
-                <Form.Group className="mb-3" controlId="formName">
-                  <Form.Control type="text" placeholder="Нэр" />
-                </Form.Group>
+        {/* Right Form Section */}
+        <Col md={6} className="d-flex justify-content-center">
+          <div className=" p-4 shadow rounded bg-white" style={{ maxWidth: '450px', width: '100%'}}>
+            <Form style={{ maxHeight: 'auto'}}>
+              <Form.Group className="mb-3" controlId="formName">
+                <Form.Label>Нэр</Form.Label>
+                <Form.Control type="text" placeholder="Таны нэр*" />
+              </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formEmail">
-                  <Form.Control type="email" placeholder="Имэйл" />
-                </Form.Group>
+              <Form.Group className="mb-3" controlId="formEmail">
+                <Form.Label>И-мэйл</Form.Label>
+                <Form.Control type="email" placeholder="И-мэйл хаяг*" />
+              </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formAddress">
-                  <Form.Control type="text" placeholder="Хаяг" />
-                </Form.Group>
+              <Form.Group className="mb-3" controlId="formIndustry">
+                <Form.Label>Агуулга</Form.Label>
+                <Form.Control type="text" placeholder="Агуулга" />
+              </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formMessage">
-                  <Form.Control as="textarea" rows={3} placeholder="Агуулга" />
-                </Form.Group>
+              <Form.Group className="mb-3" controlId="formMessage">
+                <Form.Label>Захиа</Form.Label>
+                <Form.Control as="textarea" rows={4} placeholder="Таны захиа" />
+              </Form.Group>
 
-                <Button variant="primary" type="submit">
-                  Илгээх
-                </Button>
-              </Form>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+              <Button variant="primary" type="submit" className="d-flex align-items-center">
+                Илгээх <ArrowRight className="ms-2" />
+              </Button>
+            </Form>
+          </div>
+        </Col>
+      </Row>
     </Container>
+    </div>
   );
 };
 

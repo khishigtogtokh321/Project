@@ -1,3 +1,26 @@
+:root{
+  /* Color palette (image-д нийцүүлсэн) */
+  --navy: #0b3650;         /* гол хар ногоон/цэнхэр - гарчиг */
+  --sky:  #08a6ff;         /* цэнхэр акцент */
+  --muted: #6b7b86;        /* тайлбар текст */
+  --card-bg: #ffffff;
+  --soft: #f5f8fb;         /* зөөлөн фон */
+  --accent-weak: #eaf6ff;  /* карт доторх зөөлөн хөвөгч өнгө */
+  --btn-gradient-start: #00a8ff;
+  --btn-gradient-end: #0397e6;
+  --shadow-lg: 0 18px 40px rgba(11,54,80,0.08);
+
+  /* Font sizes (desktop base) */
+  --h1-desktop: 44px;
+  --h1-tablet: 36px;
+  --h1-mobile: 28px;
+  --lead: 18px;
+  --list-item: 16px;
+  --small: 14px;
+}
+
+
+
 body {
   font-family: 'Poppins', 'Inter', sans-serif;
   background-color: #fff;
@@ -14,4 +37,229 @@ body {
   text-transform: capitalize; /* Сар, өдөр, долоо хоногийг том үсгээр эхлүүлэх */
   font-weight: 600;           /* Илүү тод харагдуулах */
   font-size: 14px;
+}
+
+
+
+.search-box {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.divider {
+  width: 1px;
+  background-color: #CAC4D0;
+  height: 30px;
+  margin: 5px 5px;
+}
+
+.search-btn {
+  background: #37296F;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn svg {
+  color: #fff;
+  font-size: 16px;
+}
+
+/* Responsive for tablet/mobile */
+@media (max-width: 1023px) {
+  .search-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input,
+  .search-btn {
+    width: 100%;
+    border-radius: 8px; /* rounded edges */
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    margin: 5px 0;
+  }
+}
+
+.card_button{
+  position: relative;
+  top: 90px;
+  display: flex;
+  border-radius: 20px solid black;
+  cursor: pointer;
+  border-color: #333;
+}
+
+.CardCol{
+  padding: 20px;
+  margin: 30px;
+}
+
+/* user section */
+
+#dropdown-item-button {
+  background-color: #fff;
+  border-radius: 50px;
+  align-items: center;
+  text-align: center;
+  height: 38px;
+  width: 60px;
+}
+
+
+.custom-dropdown .dropdown-toggle::after{
+   border-top-color: rgba(170, 0, 255, 0.993);
+  
+}
+
+
+/* features */
+
+.nav-link {
+  font-size: 1rem;
+  margin-left: 15px;
+  text-decoration: none !important;
+}
+
+.nav-link:hover {
+  color: #00AEEF !important;
+}
+
+.HowToBook{
+  height: 420px;
+  position: relative;
+  top: 80px;
+  
+}
+
+
+/* company logo scrolling  */
+
+.logo-slider {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background: #fff;
+}
+
+.logo-track {
+  display: flex;
+  width: calc(200px * 12); /* item-ийн өргөн * (лого давхарласан тоо) */
+  animation: scroll  20s infinite;
+}
+
+.logo-item {
+  flex: 0 0 auto;
+  width: 200px; /* лого нэг бүрийн зай */
+  padding: 10px;
+}
+
+.logo-item img {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+
+.contact-container h1{
+    font-size: 2.5rem;
+}
+.contact-container p{
+  font-size: 1rem;
+}
+.contact-container button{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+.img-fruid{
+  position: relative;
+  bottom: 40px;
+  right: 150px;
+}
+
+.About-left{
+  position: relative;
+  bottom: 40px;
+  left: 50px;
+}
+
+
+.feature-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  width: 100%; /* Col-д тааруулж full width */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+
+}
+
+.icon-wrap {
+  margin-bottom: 16px;
+  transition: transform 0.3s ease, stroke 0.3s ease;
+}
+
+.feature-card:hover .icon-wrap svg {
+  transform: scale(1.1);
+  stroke: #FF3B6C; /* hover өнгө */
+}
+
+.feature-card h5 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.feature-card p.extra-text {
+  font-size: 0.9rem;
+  color: #00A3FF;
+  transition: opacity 0.3s ease;
 }

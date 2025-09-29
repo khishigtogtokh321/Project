@@ -1,0 +1,20 @@
+/* MyBookingCalendar.css */
+
+/* Slot lines */
+.rbc-time-slot {
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Event color like Calendly */
+.rbc-event {
+  background-color: #1a73e8 !important;
+  color: white !important;
+  border-radius: 6px;
+  padding: 2px 4px;
+}
+
+/* Selected slot hover */
+.rbc-slot-bg:hover {
+  background-color: #d2e3fc;
+  cursor: pointer;
+}

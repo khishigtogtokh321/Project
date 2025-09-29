@@ -1,101 +1,78 @@
-// src/components/Features.jsx
-import React, { useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import {
-  FaLaptop,
-  FaBell,
-  FaUsers,
-  FaSync,
-  FaMobileAlt,
-  FaUserFriends
+  FaCity,
+  FaUserTie,
+  FaLock
 } from "react-icons/fa";
+import { BsCalendar2Check } from 'react-icons/bs';
+import { MdOutlineAppSettingsAlt } from 'react-icons/md';
+import { MdOutlineNotificationsActive } from 'react-icons/md';
 
-const FEATURES_MN = [
-  {
-    id: 1,
-    icon: <FaLaptop size={44} />,
-    title: "Хаанаас ч цаг авах",
-    text: "Your own mobile-optimised booking website",
-    extraText: "Or integration with your existing site, Facebook, Instagram, Google, or branded client app",
-  },
-  {
-    id: 2,
-    icon: <FaBell size={44} />,
-    title: "Сануулга",
-    text: "Имэйл, мессеж болон Telegram-р дамжуулан сануулга илгээнэ."
-  },
-  {
-    id: 3,
-    icon: <FaUsers size={44} />,
-    title: "Сэтгэгдэл",
-    text: "Систем автоматаар хэрэглэгчийн санал хүсэлтийг хүлээн авна."
-  },
-  {
-    id: 4,
-    icon: <FaSync size={44} />,
-    title: "Давтамжтай захиалга",
-    text: "Давтамжтай цаг авах боломжийг хялбар болгодог."
-  },
-  {
-    id: 5,
-    icon: <FaMobileAlt size={44} />,
-    title: "Хэрэглэгчийн апп",
-    text: "Цагийг шинээр авах, өөрчлөх, эсвэл цуцлах боломжтой."
-  },
-  {
-    id: 6,
-    icon: <FaUserFriends size={44} />,
-    title: "Бүлгээр цаг авах",
-    text: "Бүхэл бүтэн бүлэг хамтдаа цаг авах боломжтой."
-  }
-];
-
-function Features() {
-  const [hoveredIds, setHoveredIds] = useState([]);
-
-  const toggleHover = (id, isEnter) => {
-    if (isEnter) {
-      setHoveredIds((prev) => [...prev, id]);
-    } else {
-      setHoveredIds((prev) => prev.filter((x) => x !== id));
-    }
-  };
-
-
-
+const Features = () => {
   return (
-    <Container className="my-4">
-      {/* Section Title */}
-      <h2 className="text-center mb-5">
-        Манай <span className="accent">боломжууд</span>
-      </h2>
+    <section className="py-4 features-section" style={{maxHeight: '1300px'}}>
+      <h2 className="fw-bold text-align-center " style={{color: '#B697FF', textAlign: 'center', marginBottom: '90px'}}  >Манай <span>боломжууд</span></h2>
+      <Container >
+        
+        {/* 1 */}
+        <Row className="features-left align-items-center mb-5 ">
+          <Col  md={{ span: 4, offset: 3 }}>
+            <h4 className="fw-bold" >Хаанаас ч цаг авах</h4>
+            <p className="text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse varius enim in eros elementum tristique.
+            </p>
+          </Col>
+          <Col md={4} className="text-center">
+            <BsCalendar2Check className="feature-icon" />
+          </Col>
+        </Row>
 
-      {/* Features Grid */}
-      <Row>
-        {FEATURES_MN.map((f) => {
-          const isHovered = hoveredIds.includes(f.id);
-          return (
-            <Col key={f.id} md={4} sm={6} className="mb-4">
-              <div
-                className="feature-card text-center p-3"
-                onMouseEnter={() => toggleHover(f.id, true)}
-                onMouseLeave={() => toggleHover(f.id, false)}
-              >
-                <div className="icon-wrap mb-2" style={{ transition: "all 0.3s" }}>
-                  {f.icon}
-                </div>
-                <h5>{f.title}</h5>
-                <p className="text-muted mb-0">{f.text}</p>
-                {isHovered && f.extraText && (
-                  <p className="text-muted mt-0 color-primary" >{f.extraText}</p>
-                )}
-              </div>
-            </Col>
-          );
-        })}
-      </Row>
-    </Container>
+        {/* 2 */}
+        <Row className="features-right align-items-center mb-5 justify-content-center flex-row-reverse">
+          <Col  md={4}>
+            <h4 className="fw-bold" style={{color: '#B697FF'}} >Давтамжтай захиалга</h4>
+            <p className="text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse varius enim in eros elementum tristique.
+            </p>
+          </Col>
+          <Col md={4} className="text-center">
+            <FaCity className="feature-icon" />
+          </Col>
+        </Row>
+
+        {/* 3 */}
+        <Row className="features-left align-items-center  mb-5">
+          <Col  md={{ span: 4, offset: 3 }}>
+            <h4 className="fw-bold" style={{color: '#B697FF'}}  >Хэрэглэгчийн апп</h4>
+            <p className="text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse varius enim in eros elementum tristique.
+            </p>
+          </Col>
+          <Col md={4} className="text-center">
+            <MdOutlineAppSettingsAlt className="feature-icon" />
+          </Col>
+        </Row>
+
+        {/* 4 */}
+        <Row className="features-right align-items-center justify-content-center mb-5 flex-row-reverse">
+          <Col md={4}>
+            <h4 className="fw-bold" style={{color: '#B697FF'}} >Сануулга</h4>
+            <p className="text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse varius enim in eros elementum tristique.
+            </p>
+          </Col>
+          <Col md={4} className="text-center">
+            <MdOutlineNotificationsActive className="feature-icon" />
+          </Col>
+        </Row>
+      </Container>
+    </section>
   );
-}
+};
 
 export default Features;

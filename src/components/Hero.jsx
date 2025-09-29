@@ -20,7 +20,7 @@ export default function Hero() {
     }}>
       <Row className="text-center my-5">
         <Col >
-          <h1 className=" fw-bold display-5 " style={{color: "#37296F", fontWeight: "700"}} >Эрүүл мэнддээ санаа<br />тавих цогц шийдэл</h1>
+          <h1 className=" fw-bold display-5 " style={{color: "#B697FF", fontWeight: "700", fontSize: '45px'}} >Эрүүл мэнддээ санаа<br /><span style={{color: "#9797ffff", fontWeight: "700"}} >тавих цогц шийдэл</span> </h1>
           
           <SearchBar/>
           <HowToBook />  

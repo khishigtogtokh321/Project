@@ -9,6 +9,7 @@ import AppointmentForm from "./pages/AppointmentForm";
 import PaymentUI from "./pages/PaymentUI";
 import AppointmentPage from "./pages/AppointmentPage";
 import RegisterPage from "./pages/RegisterPage";
+import ServiceChose from "./pages/ServiceChose";
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/emch-songoh" element={<Booking />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="serviceChose" element={< ServiceChose/>} />
         <Route path="/uilcluulegciin-medeelel" element={<AppointmentForm />} />
         <Route path="/payment" element={<PaymentUI />} />
         <Route path="/tsag-awaltiin-medeelel" element={<AppointmentPage />} />

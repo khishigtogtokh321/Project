@@ -89,6 +89,15 @@ body {
   font-size: 16px;
 }
 
+.near-me button {
+  border: none;
+  height: 40px;
+}
+.near-me button::FaLocationArrow{
+  border: none;
+  height: 40px;
+}
+
 .dropdown-list {
   margin-top: 10px;
   background: #fff;
@@ -303,5 +312,74 @@ h5 {
 }
 
 
+/* emnelgiin medeelel */
+
+.header-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.header {
+  min-height: 100px;
+}
+
+.map-placeholder {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.emnelegHeader {
+  box-shadow: var(--shadow-lg);
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+.emnelegHeader .header {
+  margin: 0;
+  padding: 20px ;
+}
+.emnelegHeader .header-img{
+  margin-left: 100px;
+}
 
 
+
+.emnelegNavbar {
+  box-shadow: var(--shadow-lg);
+  background-color: #fff;
+  margin-left: 100px;
+  z-index: 999;
+
+}
+
+.emnelegNavbar .nav-item{
+  margin: 0;
+}
+.emnelegNavbar .nav-link {
+  color: var(--navy);
+  font-weight: 600;
+  padding: 10px 15px;
+}
+.emnelegNavbar .nav-link.active{
+  border-bottom: solid 2px var(--sky);
+  color: var(--sky);
+}
+
+
+
+.dividerDoctor {
+  background-color: #00a8ff;
+  width: 1px;
+  height: 300px;
+  margin: 5px 5px;
+
+}
+
+
+/* doctor card */
+
+.doctor-card-img{
+  position: relative;
+  top: -20px;
+}

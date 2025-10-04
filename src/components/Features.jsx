@@ -32,7 +32,7 @@ const Features = () => {
         {/* 2 */}
         <Row className="features-right align-items-center mb-5 justify-content-center flex-row-reverse">
           <Col  md={4}>
-            <h4 className="fw-bold" style={{color: '#B697FF'}} >Давтамжтай захиалга</h4>
+            <h4 className="fw-bold"  >Давтамжтай захиалга</h4>
             <p className="text-muted">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Suspendisse varius enim in eros elementum tristique.
@@ -46,7 +46,7 @@ const Features = () => {
         {/* 3 */}
         <Row className="features-left align-items-center  mb-5">
           <Col  md={{ span: 4, offset: 3 }}>
-            <h4 className="fw-bold" style={{color: '#B697FF'}}  >Хэрэглэгчийн апп</h4>
+            <h4 className="fw-bold"  >Хэрэглэгчийн апп</h4>
             <p className="text-muted">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Suspendisse varius enim in eros elementum tristique.
@@ -60,7 +60,7 @@ const Features = () => {
         {/* 4 */}
         <Row className="features-right align-items-center justify-content-center mb-5 flex-row-reverse">
           <Col md={4}>
-            <h4 className="fw-bold" style={{color: '#B697FF'}} >Сануулга</h4>
+            <h4 className="fw-bold"  >Сануулга</h4>
             <p className="text-muted">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Suspendisse varius enim in eros elementum tristique.

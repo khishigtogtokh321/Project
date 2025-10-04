@@ -1,5 +1,7 @@
-import { Container, Row, Col, Form } from "react-bootstrap";
-import { FaSearch } from "react-icons/fa";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { FaSearch , FaMapMarkerAlt } from "react-icons/fa";
+import { FaLocationArrow } from 'react-icons/fa6';
+
 import React, { useState } from "react";
 
 
@@ -65,6 +67,16 @@ export default function SearchBar() {
      r.name.toLowerCase().includes(query.toLowerCase())
   );
 
+  const handleNearMe = () => {
+    if (!navigator.geolocation) return alert("Таны хөтчид байршлыг авах боломжгүй.");
+       navigator.geolocation.getCurrentPosition((pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        console.log("User location:", lat, lng);
+    // Ойролцоох эмнэлэг хайх логик энд
+      });
+    };
+
   return (
     <div className="app-container">
       <div className="search-section" >
@@ -78,12 +90,19 @@ export default function SearchBar() {
             onFocus={() => setOpen(true)}
           />
            <span className="divider"></span>
+
           <input
             type="text"
             className="form-control where-input"
-            placeholder="Эмнэлгийн хаяг / газрын зураг"
+            placeholder="Эмнэлгийн хаяг"
            
           />
+          
+          <div md="auto" className="near-me d-flex ">
+            <Button variant="outline-primary "  onClick={handleNearMe} >
+              <FaLocationArrow  /> 
+            </Button>
+          </div>
           <button className="search-btn">
               <FaSearch />
           </button>

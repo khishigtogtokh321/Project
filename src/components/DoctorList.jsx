@@ -16,7 +16,7 @@ export default function DoctorList() {
       Салбар2: ["2 Oct 14:00", "2 Oct 15:30", "10 Oct 16:00"]
     },
     description:
-      "Conventional doctor. My ENT practice is located in the outskirts...",
+      "Uilcilgeenii jagsaalt",
     image: "https://via.placeholder.com/150"
   },
   {

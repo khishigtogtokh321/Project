@@ -10,6 +10,8 @@ import PaymentUI from "./pages/PaymentUI";
 import AppointmentPage from "./pages/AppointmentPage";
 import RegisterPage from "./pages/RegisterPage";
 import ServiceChose from "./pages/ServiceChose";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+
 
 
 export default function App() {

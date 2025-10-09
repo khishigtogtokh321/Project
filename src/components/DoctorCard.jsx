@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Card, Button, Row, Col } from "react-bootstrap";
+import { Container, Card, Button, Row, Col , ListGroup, ListGroupItem} from "react-bootstrap";
 
 export default function DoctorCard({ doctor }) {
   const [activeBranch, setActiveBranch] = useState(doctor.branches[0] || "");
@@ -20,8 +20,8 @@ export default function DoctorCard({ doctor }) {
       <Card className="p-2 m-2" style={{ borderColor: "#00a8ff" }}>
         <Row >
           {/* Зураг ба нэр */}
-         <Col md={4} className="doctor-card-img"  style={{ borderRight: '1px solid #ddd'}}>
-              <div class="container" style={{position: 'relative' , top: '40px'}} >
+         <Col md={4} className="doctor-card-img"  style={{  borderRight: '1px solid #ddd', position: 'ralative', top: '5px'}}>
+              <div class="container" >
                 <div class="row row-cols-auto">
                   <div class="col" style={{borderRadius: "5px" , borderColor: "#000000"}}>
                     <img
@@ -49,8 +49,8 @@ export default function DoctorCard({ doctor }) {
         
 
           {/* Салбар ба сул цагууд */}
-          <Col md={4} className="p-3" style={{ borderRight: "1px solid #ddd" }}>
-            <div className="mb-2">
+          <Col md={4} className="p-2" style={{ borderRight: "1px solid #ddd" }}>
+            <div className="mb-1">
               {doctor.branches.map((branch) => (
                 <Button
                   key={branch}
@@ -58,30 +58,39 @@ export default function DoctorCard({ doctor }) {
                   size="sm"
                   onClick={() => setActiveBranch(branch)}
                   className="me-1"
-                >
+                  >
                   {branch}
                 </Button>
               ))}
+                 <hr />
             </div>
-            <hr />
-            <p className="small text-muted">Хаяг: {address}</p>
-            <h6 className="mb-3">Сул цагууд</h6>
-            <div className="d-flex flex-wrap gap-2">
-              {times.map((time, idx) => (
-                <Button key={idx} variant="outline-primary" size="sm">
-                  {time}
-                </Button>
-              ))}
-            </div>
-            <div className="mt-3">
-              <Button variant="primary">Цаг авах</Button>
+            <div style={{ textAlign: 'left', marginLeft: '5px' }}>
+              <p className="small text-muted">Хаяг: {address}</p>
+              {/* appointment booking availability */}
+              <div className="d-flex flex-wrap gap-2">
+                {times.map((time, idx) => (
+                  <Button key={idx} variant="outline-primary" size="sm">
+                    {time}
+                  </Button>
+                ))}
+              </div>
+              <div className="mt-3">
+                <Button variant="primary">Өөр цаг харах</Button>
+              </div>
+
             </div>
           </Col>
 
           {/* Тайлбар */}
           <Col md={3} className="text-center">
-            <h6 className="mb-2">Тайлбар</h6>
-            <p className="small text-muted">{doctor.description}</p>
+            <h6 className="mb-2 text-start m-2 text-primary">Үйлчилгээ</h6>
+            <ListGroup  className="flex-wrap text-start " style={{ fontSize: '14px'}}>
+              <ListGroup.Item> Согог заслын эмчилгээт </ListGroup.Item>
+              <ListGroup.Item> Шүд шилжүүлэн суулгах </ListGroup.Item>
+              <ListGroup.Item> Хүүхдийн шүдний эмчилгээ </ListGroup.Item>
+              <ListGroup.Item> Сувгийн эмчилгээ </ListGroup.Item>
+              <ListGroup.Item> Дэлгэмэл болон бүх төрлийн рентген CBCT зураг</ListGroup.Item>
+            </ListGroup>
           </Col>
         </Row>
       </Card>

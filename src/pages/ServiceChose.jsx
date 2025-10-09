@@ -5,6 +5,8 @@ import {  Clock, Person, InfoCircle, CheckCircle, Paypal } from "react-bootstrap
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import { FaRegCalendarCheck } from 'react-icons/fa';
+import { FaHospitalUser } from 'react-icons/fa6';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 export default function ServiceChose() {
     const [selectedService, setSelectedService] = useState("");
@@ -86,7 +88,7 @@ export default function ServiceChose() {
                                             <div>
                                                 <div>Имплант</div>
                                                 <small className="text-muted d-flex align-items-center">
-                                                    <Paypal className="me-1" size={16} /> 30000 MNT
+                                                    <payment className="me-1" size={16} /> 30000 MNT
                                                 </small>
                                             </div>
                                         </div>
@@ -102,7 +104,7 @@ export default function ServiceChose() {
                                             <div>
                                                 <div>Шүд шилжүүлэн суулгах</div>
                                                 <small className="text-muted d-flex align-items-center">
-                                                    <Paypal className="me-1" size={16} /> 30000 MNT
+                                                    <payment className="me-1" size={16} /> 30000 MNT
                                                 </small>
                                             </div>
                                         </div>
@@ -118,7 +120,7 @@ export default function ServiceChose() {
                                             <div>
                                                 <div>Хуванцар болон цутгамал шүдэлбэр</div>
                                                 <small className="text-muted d-flex align-items-center">
-                                                    <Paypal className="me-1" size={16} /> 30000 MNT
+                                                    <payment className="me-1" size={16} /> 30000 MNT
                                                 </small>
                                             </div>
                                         </div>
@@ -134,7 +136,7 @@ export default function ServiceChose() {
                                             <div>
                                                 <div>Хүүхдийн шүдний эмчилгээ</div>
                                                 <small className="text-muted d-flex align-items-center">
-                                                    <Paypal className="me-1" size={16} /> 30000 MNT
+                                                    <payment className="me-1" size={16} /> 30000 MNT
                                                 </small>
                                             </div>
                                         </div>
@@ -150,7 +152,7 @@ export default function ServiceChose() {
                                             <div>
                                                 <div>Сувгийн эмчилгээ</div>
                                                 <small className="text-muted d-flex align-items-center">
-                                                    <Paypal className="me-1" size={16} /> 30000 MNT
+                                                    <payment className="me-1" size={16} /> 30000 MNT
                                                 </small>
                                             </div>
                                         </div>
@@ -288,7 +290,7 @@ export default function ServiceChose() {
                             <Card.Body>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <h6 className="text-primary d-flex align-items-center">
-                                        <Person className="me-2" /> Үйлчилгээ
+                                        <FaHospitalUser className="me-2" /> Үйлчилгээ
                                     </h6>
                                     <Button variant="link" size="sm">Солих</Button>
                                 </div>

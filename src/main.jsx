@@ -8,8 +8,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <App />
-  </React.StrictMode>,
+
   
 );

@@ -383,3 +383,99 @@ h5 {
   position: relative;
   top: -20px;
 }
+
+
+.custom-nav {
+  border: none !important;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 14px;
+  padding: 10px 0;
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #6c757d !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.tab-item:hover {
+  color: #0d6efd !important;
+  transform: translateY(-2px);
+}
+
+.tab-item span {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  width: 80px;
+  border-radius: 10px;
+  background: linear-gradient(to right, #007bff, #00bfff);
+  opacity: 0;
+  transform: scaleX(0);
+  transition: all 0.35s ease;
+}
+
+.active-tab {
+  color: #0d6efd !important;
+  font-weight: 600;
+}
+
+.active-tab::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Fade-in анимейшн */
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card style-ийг улам гоё болгоё */
+.card {
+  border-radius: 16px !important;
+  overflow: hidden;
+  transition: all 0.3s ease !important;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-title {
+  font-size: 1.2rem !important;
+  color: #0d6efd;
+}
+
+.card-text {
+  color: #5a5a5a;
+  font-size: 0.95rem;
+}
+
+
+
+
+

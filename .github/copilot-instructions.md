@@ -1,68 +1,55 @@
-# Copilot Instructions for Appointment Booking Project
+# Copilot instructions — appointment-booking
 
-## Overview
-This project is a React-based appointment booking website built using Vite. It includes components for user interaction, pages for navigation, and assets for styling and branding. The project is structured to facilitate modular development and maintainability.
+These notes are targeted at AI coding agents (and humans) who will make focused edits in this Vite + React codebase. Keep the guidance compact and actionable so an agent can start making correct, repository-consistent changes immediately.
 
-## Key Components
-- **Components** (`src/components/`):
-  - `HeroCard.jsx`: Displays cards with variant styles (e.g., Primary, Light, Warning).
-  - `MyNavbar.jsx`: Navigation bar for the website.
-  - `Footer.jsx`: Footer section for the website.
-  - Other reusable UI components like `DoctorCard`, `SearchBar`, etc.
-- **Pages** (`src/pages/`):
-  - `Home.jsx`: The landing page of the website.
-  - `AppointmentPage.jsx`: Page for booking appointments.
-  - `Login.jsx` and `RegisterPage.jsx`: Authentication-related pages.
-  - `PaymentUI.jsx`: Handles payment-related UI.
-- **Assets** (`src/assets/`): Contains images and other static resources.
+1) Big picture
+- Framework: React app bootstrapped with Vite. Entrypoint: `src/main.jsx` -> mounts `src/App.jsx`.
+- Routing: client-side routing via `react-router-dom` defined in `src/App.jsx`. Key pages live in `src/pages/` and are registered as <Route> elements there.
+- UI toolkit: the project primarily uses React Bootstrap (`react-bootstrap` + `bootstrap` CSS). You'll also see MUI packages and Tailwind in deps — but most UI code uses Bootstrap components (see `src/components/*`).
 
-## Developer Workflows
-### Build and Run
-- Install dependencies: `npm install`
-- Start the development server: `npm run dev`
-- Build for production: `npm run build`
-- Preview the production build: `npm run preview`
+2) Important directories & files
+- `src/components/` — reusable UI components (e.g. `MyNavbar.jsx`, `Footer.jsx`, `DoctorCard.jsx`).
+- `src/pages/` — full pages (e.g. `Home.jsx`, `AppointmentPage.jsx`, `Booking.jsx`, `Login.jsx`, `RegisterPage.jsx`).
+- `src/assets/` — images and logos; some files are referenced via literal paths (e.g., `src/assets/doctorImage.png`) inside JSX.
+- `src/main.jsx` — app bootstrap (imports global CSS and renders `<App/>`).
+- `src/App.jsx` — Router + site layout (Navbar + Routes + Footer).
+- `vite.config.js` — dev server binds to any host and enforces port 5173 (see `server.host`, `port: 5173`, `strictPort: true`).
+- `package.json` — useful scripts: `dev`, `build`, `preview`, `lint`.
 
-### Linting
-- ESLint is configured for this project. Run `npm run lint` to check for linting issues.
+3) Developer workflows (commands)
+- Install: `npm install`
+- Dev server (HMR): `npm run dev` (Vite server, default port 5173; `strictPort: true` — it will error if 5173 is taken).
+- Build for production: `npm run build`.
+- Preview production build: `npm run preview`.
+- Lint: `npm run lint` (runs `eslint .` per `package.json`).
 
-## Project-Specific Conventions
-- **Styling**: CSS files are colocated with components or pages where applicable (e.g., `MyBookingCalendar.css` in `src/pages/`).
-- **Card Variants**: The `HeroCard` component uses Bootstrap's card variants (`Primary`, `Light`, `Warning`) for styling.
-- **React-Bootstrap**: The project leverages `react-bootstrap` for UI components.
+4) Project-specific patterns & gotchas
+- Routing paths use Mongolian-friendly slugs (for example `/emch-songoh`, `/tsag-awaltiin-medeelel`). When adding routes, mirror that style and update `MyNavbar.jsx` if the page should be reachable from the header.
+- Asset references: some components use string paths like `src/assets/foo.png` in <Image src=.../> instead of importing the asset. Prefer the pattern already used in the file you're editing (keep consistency). If you switch to static import (import doctor from '...'), update JSX to use the imported variable.
+- No global state library is present (no Redux). Props are the common communication pattern between components. Search for usage of Context or custom hooks before introducing a new global store.
+- Payments & external resources: `src/pages/AppointmentPage.jsx` contains placeholder payment UIs (QR images fetched from a public QR generator, card form mock). These are UI-only and do not call a payment backend in this repo.
 
-## External Dependencies
-- **React**: Core library for building the UI.
-- **Vite**: Development server and build tool.
-- **React-Bootstrap**: For pre-styled UI components.
-- **React-Icons**: For including icons in the UI.
+5) Integration points & dependencies to check before edits
+- `react-router-dom` — routes and Links in `src/App.jsx` and `src/components/MyNavbar.jsx`.
+- `react-bootstrap` / `bootstrap` — preferred UI primitives. Look at imports at the top of files (example: `import { Navbar, Nav, Container } from 'react-bootstrap'`).
+- `react-big-calendar` is used and its CSS imported in `src/App.jsx` and `src/main.jsx`.
+- Authentication hints: `jwt-decode` is in `package.json` — search `Login.jsx`/`RegisterPage.jsx` to see how tokens are handled if you touch auth code.
 
-## Integration Points
-- **Routing**: Likely handled via `react-router-dom` (not explicitly mentioned but inferred from the presence of multiple pages).
-- **State Management**: Not explicitly mentioned; consider adding details if Redux, Context API, or other state management tools are used.
+6) How to add a new page or route (concrete example)
+- Create `src/pages/MyNewPage.jsx` (export default React component).
+- Add a Route in `src/App.jsx`: <Route path="/my-new-page" element={<MyNewPage/>} />.
+- Add a Nav link in `src/components/MyNavbar.jsx` using `Nav.Link as={Link} to="/my-new-page"` if you want it in the header.
 
-## Examples
-### Adding a New Card to `HeroCard`
-To add a new card variant:
-1. Update the `cards` array in `HeroCard.jsx`:
-   ```javascript
-   {
-     variant: 'Success',
-     header: 'Success Header',
-     title: 'Success Card Title',
-     text: 'This is a success card. It indicates a positive action.',
-   }
-   ```
-2. The new card will automatically render with the specified styles.
+7) Minimal contract for automated edits
+- Inputs: changed JSX/JS file(s) or new component(s).
+- Outputs: app builds (`npm run build`), dev server runs (`npm run dev`), no new ESLint errors.
+- Error modes: broken imports (path issues), Vite port collision (port 5173 enforced), unresolved images when replacing string paths with imports.
 
-### Running Lint Checks
-Run the following command to check for linting issues:
-```bash
-npm run lint
-```
+8) Files to inspect for every significant change (quick checklist)
+- `src/App.jsx` — route registration and global layout.
+- `src/main.jsx` — global CSS and bootstrap imports.
+- `vite.config.js` — dev server settings (important if tests or CI run dev server).
+- `package.json` — scripts and dependencies.
+- Any file you edit for import path consistency (search the repo for the same import style to match it).
 
-## Notes
-- Follow the modular structure for adding new components or pages.
-- Ensure assets are optimized before adding them to the `src/assets/` directory.
-
-For further details, refer to the `README.md` file or project-specific documentation.
+If anything here is unclear or you want deeper rules (for example, preferred asset import style, or whether to prefer Bootstrap vs MUI in new pages), tell me which area to expand and I will iterate.

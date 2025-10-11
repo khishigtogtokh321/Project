@@ -2,7 +2,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
 import HowToBook from "./HowToBook";
-
+import SearchCard from "./SearchCard";
 
 export default function Hero() {
 
@@ -21,11 +21,11 @@ export default function Hero() {
     }}>
       <Row className="text-center my-5">
         <Col >
-          <h1 className=" fw-bold display-5 " style={{color: "#B697FF", fontWeight: "700", fontSize: '45px'}} >Эрүүл мэнддээ санаа<br /><span style={{color: "#9797ffff", fontWeight: "700"}} >тавих цогц шийдэл</span> </h1>
+          <h1 className=" fw-bold display-5 " style={{color: "#B697FF", fontWeight: "700", fontSize: '60px'}} >Эрүүл мэнддээ санаа<br /><span style={{color: "#9797ffff", fontWeight: "600", fontSize: '55px'}} >тавих цогц шийдэл</span> </h1>
           <SearchBar/>
-          <HowToBook />  
+          <SearchCard />
         </Col>
-      </Row>222222
+      </Row>
     </Container>
   );
 }

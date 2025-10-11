@@ -1,64 +1,90 @@
-# AGENTS.md — React + Vite App
+# AGENTS.md — React + Vite (Default port 5173)
 
-This file guides any coding agent working in this repository.
+This guide defines how any coding agent (e.g., Codex) should work in this repository.
 
-## Scope
-- Applies to the entire repository.
-- Editing is allowed only under `src/**` and `docs/**` unless explicitly requested by the user.
+## 1) Scope
+- Applies to the whole repo.
+- Allowed edits: `src/**`, `docs/**`, `public/**` (for new static assets).
+- Config files (`vite.config.*`, `package.json`, CI/Docker) require explicit user approval.
 
-## Environment
-- Package manager: `npm`.
-- Dev server: Vite.
-- Required dev port: `5174`.
-- **Do not auto-start** the dev server. Start it only if the user explicitly asks.
+## 2) Environment
+- Package manager: npm
+- Dev server: Vite
+- Dev port: 5173 (Vite default)
+- Do **not** auto-start the dev server. Start it only when the user explicitly asks.
 
-## Commands (use exactly these)
-- Install deps: `npm ci` (preferred). Use `npm install` only if lockfile changes are intentional.
+## 3) Commands (use exactly these)
+- Install: `npm ci`  *(use `npm install` only if lockfile updates are intentional)*
 - Lint: `npm run lint`
-- Test: _No test runner configured_. If tests are requested, propose adding **Vitest** and a `test` script first.
-- Dev (5174): `npm run dev -- --host --port 5174 --strictPort`
+- Test: _No runner configured_. If tests are requested, propose adding **Vitest** and a `test` script first.
+- Dev (5173): `npm run dev`
 - Build: `npm run build`
-- Preview: `npm run preview` (do not open a browser unless asked)
+- Preview: `npm run preview`  *(do not open a browser unless asked)*
 
 **Notes**
-- Current Vite config sets `server.port = 5173` with `strictPort: true`. The CLI flag `--port 5174` takes precedence at runtime; prefer the flag unless the user requests a permanent config change.
-- Environment variables must use Vite prefix: `import.meta.env.VITE_*`. Do **not** read `process.env` in client code.
+- If `vite.config.*` sets `server.port = 5173` with `strictPort: true`, keep it; do not override the port via CLI unless asked for a temporary test.
+- Client-side env variables must use the Vite prefix: `import.meta.env.VITE_*`. Do **not** read `process.env` in client code.
 
-## Allowed Edits
-- ✅ `src/**` — application code, components, pages, styles, and **new assets** (keep existing binary assets untouched unless asked).
-- ✅ `docs/**` — documentation and guides.
-- 🚫 Everything else (e.g., `vite.config.*`, `package.json`, CI, Docker) — require explicit user approval.
+## 4) Allowed Edits
+- ✅ `src/**` — components, pages, styles, and **new assets** (avoid modifying existing binary assets unless requested)
+- ✅ `docs/**` — documentation and guides
+- 🟡 `public/**` — add new static files OK
+- 🚫 Everything else requires approval (e.g., `vite.config.*`, `package.json`, CI, Docker)
 
-## Approvals
+## 5) Approvals
 **Auto-approve (safe)**
-- Running: `npm ci`, `npm run lint`
-- Running tests (once a test runner exists)
-- Editing files under `src/**` and `docs/**`
+- Running `npm ci`, `npm run lint`
+- Running tests once a test runner exists
+- Editing under `src/**` and `docs/**`
 
-**Require explicit approval**
+**Ask first**
 - Starting the dev server or opening a browser
 - Installing/removing packages; changing `package.json` / `package-lock.json`
-- Editing files outside `src/**` and `docs/**`
-- Destructive changes (deletes, large refactors, sweeping formatting)
-- Network-heavy or long-running processes (e.g., Docker, downloads)
+- Editing config files (`vite.config.*`, CI/Docker)
+- Destructive changes (deletes, large refactors, sweeping reformat)
+- Network-heavy or long-running tasks (downloads, docker build/pull)
 - Adding a test framework or new npm scripts
 
-## Working Style
-- Keep changes minimal and focused on the task.
-- Match existing code style; do not disable ESLint rules globally.
-- Prefer surgical fixes over broad refactors.
-- If something is ambiguous, leave a brief note in `docs/notes.md` and ask for confirmation.
+## 6) UI & Responsive Policy (Bootstrap-only)
+- CSS framework: **Bootstrap only** (custom CSS minimal, only when necessary).
+- Breakpoints: Bootstrap `xs/sm/md/lg/xl/xxl`. On smaller screens keep UI **clean and concise**.
+- Phones/Tablets (md↓):
+  - Hide or avoid rendering heavy visuals (large hero images, decorative blocks).
+  - Use utilities: `d-none d-md-block` (hidden on phones/tablets, visible md+), `d-block d-md-none` (visible on phones/tablets).
+- Desktops (lg↑): large hero/extra cards/sections are allowed.
 
-## Definition of Done
-- `npm run build` succeeds without errors.
-- `npm run lint` passes (document any intentional exceptions).
-- Dev server starts on `5174` **when asked**: `npm run dev -- --host --port 5174 --strictPort`.
-- No edits outside `src/**` and `docs/**` without approval.
-- Non-trivial behavior changes are documented in `docs/`.
-- No unused files or dead code are introduced.
+### Images / Assets
+- Use `<picture>` with `media` or `srcset/sizes` so small screens download **smaller** images.
+- Heavy components/large images should **render only on lg+** (e.g., via `matchMedia('(min-width: 992px)')`).
+- Always set `loading="lazy"`, `decoding="async"`, `img-fluid`, and width/height to reduce CLS.
 
-## Troubleshooting
-- **Port in use:** with `strictPort`, the server will fail if `5174` is occupied.
-  - Windows: `netstat -ano | findstr :5174` → `taskkill /PID <PID> /F`
-  - WSL/Linux: `ss -ltnp | grep 5174` → `sudo fuser -k 5174/tcp`
-- **No tests:** acknowledge absence; offer Vitest setup only on request.
+### Component patterns
+- Hero/Banner: show large image **only on lg+** (`d-none d-lg-block`); on mobile keep brief copy + one primary action.
+- Features/Stats: on mobile show **two items max**, hide extras via `d-none d-lg-block` or conditional render.
+- Navbar: `navbar-expand-lg`; collapsed menu on mobile; primary CTA as a separate mobile button (`d-lg-none`).
+
+## 7) Working Style
+- Keep changes minimal and task-focused. Match existing style; do not disable ESLint rules globally.
+- If something is ambiguous, leave a short note in `docs/notes.md` and ask for confirmation.
+
+## 8) Definition of Done
+- `npm run build` succeeds; `npm run lint` passes (document intentional exceptions).
+- Dev server can start on **5173** when asked: `npm run dev`.
+- No edits outside allowed paths without approval.
+- Non-trivial behavior changes documented in `docs/`.
+- No dead code or unused files introduced.
+- **Responsive checks:** Bootstrap-only; heavy visuals not rendered/downloaded on md↓; desktop (lg↑) layout intact; images lazy-load with proper sizing (no CLS).
+
+## 9) Troubleshooting
+- **Port in use (5173):**
+  - Windows:
+    ```
+    netstat -ano | findstr :5173
+    taskkill /PID <PID> /F
+    ```
+  - WSL/Linux:
+    ```
+    ss -ltnp | grep 5173 || echo "free"
+    sudo fuser -k 5173/tcp
+    ```
+- **No tests:** acknowledge absence; offer Vitest setup only if requested.

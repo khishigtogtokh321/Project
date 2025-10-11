@@ -20,10 +20,11 @@ export default function App() {
       <MyNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/booking" element={<Booking />} />
         <Route path="/emch-songoh" element={<Booking />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="serviceChose" element={< ServiceChose/>} />
+        <Route path="/service-chose" element={<ServiceChose />} />
         <Route path="/uilcluulegciin-medeelel" element={<AppointmentForm />} />
         <Route path="/payment" element={<PaymentUI />} />
         <Route path="/tsag-awaltiin-medeelel" element={<AppointmentPage />} />

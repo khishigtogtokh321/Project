@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Container, Row, Col, Card, Form, Button, Dropdown, Image} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export default function AppointmentForm() {
-  const [payment, setPayment] = useState("Сонгох");
   const [selectedPayment, setSelectedPayment] = useState("");
   const navigate = useNavigate();
   console.log("Selected payment:", selectedPayment);

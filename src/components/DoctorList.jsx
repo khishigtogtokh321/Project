@@ -1,4 +1,3 @@
-import React from "react";
 import DoctorCard from "./DoctorCard";
 
 export default function DoctorList() {
@@ -65,11 +64,5 @@ export default function DoctorList() {
     }
   ];
 
-  return (
-    <div>
-      {doctors.map((doctor, idx) => (
-        <DoctorCard key={idx} doctor={doctor} />
-      ))}
-    </div>
-  );
+  return doctors.map((doctor, idx) => <DoctorCard key={idx} doctor={doctor} />);
 }

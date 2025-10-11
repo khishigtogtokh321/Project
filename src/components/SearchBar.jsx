@@ -1,9 +1,9 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { FaSearch , FaMapMarkerAlt } from "react-icons/fa";
-import { FaLocationArrow } from 'react-icons/fa6';
+import { useMemo, useState } from "react";
+import { Button } from "react-bootstrap";
+import { FaSearch } from "react-icons/fa";
+import { FaLocationArrow } from "react-icons/fa6";
 
-import React, { useState } from "react";
-
+import SearchCard from "./SearchCard";
 
 const mockResults = [
   {
@@ -34,113 +34,138 @@ const mockResults = [
     location: "Saint-Lô",
     logo: "👤",
   },
-   {
+  {
     id: 5,
-    name: "Phonème - Saint-Lô - Germain Lebictel",
+    name: "Phonème - Paris 15 - Montparnasse",
     type: "Audioprothésiste",
-    location: "Saint-Lô",
+    location: "Paris",
     logo: "👤",
   },
-   {
+  {
     id: 6,
-    name: "Phonème - Saint-Lô - Germain Lebictel",
-    type: "Audioprothésiste",
-    location: "Saint-Lô",
-    logo: "👤",
-  },
-   {
-    id: 7,
-    name: "Phonème - Saint-Lô - Germain Lebictel",
-    type: "Audioprothésiste",
-    location: "Saint-Lô",
-    logo: "👤",
+    name: "Audition Conseil - Tours",
+    type: "Centre auditif",
+    location: "Tours",
+    logo: "🎧",
   },
 ];
 
-
 export default function SearchBar() {
-
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
 
-  const filtered = mockResults.filter((r) => 
-     r.name.toLowerCase().includes(query.toLowerCase())
+  const filtered = useMemo(
+    () =>
+      mockResults.filter((result) =>
+        result.name.toLowerCase().includes(query.trim().toLowerCase())
+      ),
+    [query]
   );
 
   const handleNearMe = () => {
-    if (!navigator.geolocation) return alert("Таны хөтчид байршлыг авах боломжгүй.");
-       navigator.geolocation.getCurrentPosition((pos) => {
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
-        console.log("User location:", lat, lng);
-    // Ойролцоох эмнэлэг хайх логик энд
-      });
-    };
+    if (!navigator.geolocation) {
+      alert("Таны хөтчид байршлыг авах боломжгүй.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      console.log("User location:", lat, lng);
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setOpen(false);
+  };
 
   return (
-    <div className="app-container">
-      <div className="search-section" >
-        <div className="search-box">
+    <div className="search-widget">
+      <form
+        className="search-box"
+        role="search"
+        aria-label="Эмч, эмнэлгийн хайлт"
+        onSubmit={handleSubmit}
+      >
+        <div className="search-field">
+          <label htmlFor="search-query" className="visually-hidden">
+            Үйлчилгээ эсвэл эмчийн нэр
+          </label>
           <input
+            id="search-query"
             type="text"
-            className="form-control"
-            placeholder="Нэр / Үйлчилгээ "
+            className="search-input"
+            placeholder="Нэр / Үйлчилгээ"
+            autoComplete="off"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setOpen(true)}
+            onChange={(event) => setQuery(event.target.value)}
+            aria-autocomplete="list"
+            aria-expanded={open}
+            aria-controls="search-dropdown"
           />
-           <span className="divider"></span>
-
-          <input
-            type="text"
-            className="form-control where-input"
-            placeholder="Эмнэлгийн хаяг"
-           
-          />
-          
-          <div md="auto" className="near-me d-flex ">
-            <Button variant="outline-primary "  onClick={handleNearMe} >
-              <FaLocationArrow  /> 
-            </Button>
-          </div>
-          <button className="search-btn">
-              <FaSearch />
-          </button>
         </div>
-        {open && (
-          <div 
-            className="dropdown-list" 
-            onMouseLeave={() => setOpen(false)}  
-          >
-            {filtered.length === 0 ? (
-              <div className="dropdown-empty">No results</div>
-            ) : (
-              filtered.map((item) => (
-                <div
-                  key={item.id}
-                  className="dropdown-item"
-                  onMouseDown={() => {
-                    setQuery(item.name);
-                    setOpen(false);
-                  }}
-                >
-                  <img src="src/assets/ashidLogo.png" className="item-logo" />
-                  <div className="item-text">
-                    <div className="item-title">{item.name}</div>
-                    <div className="item-sub">
-                      {item.type} - {item.location}
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        )}
-      </div>
 
-      
+        <span className="search-divider" aria-hidden="true" />
+
+        <div className="search-field">
+          <label htmlFor="search-location" className="visually-hidden">
+            Байршлын хайлт
+          </label>
+          <input
+            id="search-location"
+            type="text"
+            className="search-input search-input--location"
+            placeholder="Эмнэлгийн хаяг"
+          />
+        </div>
+
+        <div className="search-actions" aria-label="Туслах товчлуурууд">
+          <Button
+            type="button"
+            variant="outline-primary"
+            className="near-me-button"
+            onClick={handleNearMe}
+            aria-label="Ойр орчмын байршлаар хайх"
+          >
+            <FaLocationArrow aria-hidden="true" />
+          </Button>
+          <Button type="submit" className="search-btn">
+            <FaSearch aria-hidden="true" />
+            <span className="search-btn__label">Хайх</span>
+          </Button>
+        </div>
+      </form>
+
+      {open && (
+        <div
+          id="search-dropdown"
+          className="dropdown-list"
+          role="listbox"
+          onMouseLeave={() => setOpen(false)}
+        >
+          {filtered.length === 0 ? (
+            <div className="dropdown-empty" role="status">
+              Тохирох үр дүн олдсонгүй
+            </div>
+          ) : (
+            filtered.map((item) => (
+              <SearchCard
+                key={item.id}
+                name={item.name}
+                type={item.type}
+                location={item.location}
+                logo={item.logo}
+                onSelect={() => {
+                  setQuery(item.name);
+                  setOpen(false);
+                }}
+              />
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
-};
-
-
+}

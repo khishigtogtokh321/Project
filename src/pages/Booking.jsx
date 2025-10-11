@@ -1,20 +1,10 @@
-import { Container, Col } from "react-bootstrap";
-
-import EmnelgiinMedeelel from "../components/EmnelegMedeelel";
+import EmnelgiinMedeelel from "../components/EmnelgiinMedeelel";
 
 export default function Booking() {
-  
+
   return (
     <>
-    <EmnelgiinMedeelel />
-      <Container className="my-4">
-      
-        <Col md={10}  className="d-flex justify-content-center align-items-center"
-        style={{ height: '150px', position: 'relative', bottom: '20px', left: '50px' }}>
-        </Col>
-      
-       
-      </Container>
+      <EmnelgiinMedeelel />
     </>
   );
 }

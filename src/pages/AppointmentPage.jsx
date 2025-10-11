@@ -1,7 +1,5 @@
 // AppointmentPage.jsx
-import React, { useState } from "react";
-import { Container, Row, Col, Card, Form, Button, Dropdown, Image } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Container, Row, Col, Card, Form, Button, Image } from "react-bootstrap";
 
 // --- Payment UI Components ---
 const SocialPayUI = () => (
@@ -73,11 +71,6 @@ const CardPaymentUI = () => (
 
 // --- Main Appointment Page ---
 export default function AppointmentPage() {
-  const [selectedPayment, setSelectedPayment] = useState("");
-  const navigate = useNavigate();
-
- 
-
   return (
     <Container className="mt-5">
         <Col md={6} className="mx-auto">

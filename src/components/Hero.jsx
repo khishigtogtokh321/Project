@@ -1,31 +1,28 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
 import HowToBook from "./HowToBook";
 
-
 export default function Hero() {
-
-    const [keyword, setKeyword] = useState("");
-    const [location, setLocation] = useState("");
-    
-        const handleSearch = (e) => {
-            e.preventDefault();
-            alert(`Хайлт: ${keyword}, Байршил: ${location}`);
-      };
-    
   return (
-    <Container style={{
-      position: "relative",
-      top: "40px"
-    }}>
-      <Row className="text-center my-5">
-        <Col >
-          <h1 className=" fw-bold display-5 " style={{color: "#B697FF", fontWeight: "700", fontSize: '45px'}} >Эрүүл мэнддээ санаа<br /><span style={{color: "#9797ffff", fontWeight: "700"}} >тавих цогц шийдэл</span> </h1>
-          <SearchBar/>
-          <HowToBook />  
-        </Col>
-      </Row>222222
-    </Container>
+    <section className="hero-section">
+      <Container>
+        <Row className="justify-content-center text-center">
+          <Col lg={10} xl={8}>
+            <h1 className="hero-title">
+              Эрүүл мэнддээ санаа
+              <span className="hero-highlight">тавих цогц шийдэл</span>
+            </h1>
+            <div className="hero-search">
+              <SearchBar />
+            </div>
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Col lg={10} xl={9}>
+            <HowToBook />
+          </Col>
+        </Row>
+      </Container>
+    </section>
   );
 }

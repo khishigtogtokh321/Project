@@ -1,58 +1,48 @@
-import { Container, Row, Col, Card } from "react-bootstrap";
-import { FaUserMd, FaCalendarAlt, FaClipboardCheck, FaHospital } from "react-icons/fa";
+import { Card, Col, Container, Row } from "react-bootstrap";
+import { FaCalendarAlt, FaClipboardCheck, FaHospital, FaUserMd } from "react-icons/fa";
 
-function HowToBook() {
+const steps = [
+  {
+    title: "Эмчээ сонгох",
+    description: "Өөрт тохирсон эмч, эмнэлгээ сонгон хайлт хийнэ.",
+    icon: <FaUserMd className="text-primary" />,
+  },
+  {
+    title: "Цагаа сонгох",
+    description: "Хүссэн өдөр, цагийн хуваарийг сонгож товлоно.",
+    icon: <FaCalendarAlt className="text-success" />,
+  },
+  {
+    title: "Баталгаажуулах",
+    description: "Хувийн мэдээллээ оруулж цаг авалтаа баталгаажуулна.",
+    icon: <FaClipboardCheck className="text-warning" />,
+  },
+  {
+    title: "Үйлчлүүлэх",
+    description: "Сонгосон цагаараа очиж үйлчлүүлнэ.",
+    icon: <FaHospital className="text-danger" />,
+  },
+];
+
+export default function HowToBook() {
   return (
-    <Container className="HowToBook my-5">
-      <h3 className="text-center mb-4">Хэрхэн цаг авах вэ?</h3>
+    <Container className="booking-steps">
+      <h3 className="booking-steps__title text-center">Хэрхэн цаг авах вэ?</h3>
       <Row className="g-4">
-        <Col md={3} sm={6}>
-          <Card className="h-100 text-center shadow-sm border-0">
-            <Card.Body>
-              <FaUserMd size={40} className="mb-3 text-primary" />
-              <Card.Title>1. Эмчээ сонгох</Card.Title>
-              <Card.Text>
-                Өөрт тохирсон эмч, эмнэлгээ сонгон хайлт хийнэ.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={3} sm={6}>
-          <Card className="h-100 text-center shadow-sm border-0">
-            <Card.Body>
-              <FaCalendarAlt size={40} className="mb-3 text-success" />
-              <Card.Title>2. Цагаа сонгох</Card.Title>
-              <Card.Text>
-                Хүссэн өдөр, цагийн хуваарийг сонгож товлоно.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={3} sm={6}>
-          <Card className="h-100 text-center shadow-sm border-0">
-            <Card.Body>
-              <FaClipboardCheck size={40} className="mb-3 text-warning" />
-              <Card.Title>3. Баталгаажуулах</Card.Title>
-              <Card.Text>
-                Хувийн мэдээллээ оруулж цаг авалтаа баталгаажуулна.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={3} sm={6}>
-          <Card className="h-100 text-center shadow-sm border-0">
-            <Card.Body>
-              <FaHospital size={40} className="mb-3 text-danger" />
-              <Card.Title>4. Үйлчлүүлэх</Card.Title>
-              <Card.Text>
-                Сонгосон цагаараа очиж үйлчлүүлнэ.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
+        {steps.map((step) => (
+          <Col key={step.title} md={3} sm={6}>
+            <Card className="h-100 text-center border-0 shadow-sm booking-steps__card">
+              <Card.Body>
+                <div className="booking-steps__icon" aria-hidden="true">
+                  {step.icon}
+                </div>
+                <Card.Title>{step.title}</Card.Title>
+                <Card.Text>{step.description}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
       </Row>
     </Container>
   );
 }
-
-export default HowToBook;

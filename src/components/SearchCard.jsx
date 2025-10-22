@@ -17,6 +17,18 @@ export default function ServiceCard() {
 
   const btnClick = (target) => {
     setActiveKey((prev) => (prev === target ? null : target)); // дахин дарвал reset
+    const targetRef =
+    target === "name" ? nameRef.current :
+    target === "location" ? locationRef.current :
+    target === "near" ? nearRef.current : null;
+
+    if (targetRef) {
+      targetRef.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
   };
 
   const cardState = (id) => {
@@ -27,7 +39,7 @@ export default function ServiceCard() {
   return (
     <div className="default-page">
       <div className="default-title">
-        <h2>Хайлт хийх заавар</h2>
+        <h4>Та дараах аргаар хайлт хийж болно</h4>
       </div>
       <Container className="py-5">
         <nav className="default-pill-nav" aria-label="Quick actions">

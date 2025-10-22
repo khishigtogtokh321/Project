@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import { useState } from "react";
 import HowToBook from "./HowToBook";
 import SearchCard from "./SearchCard";
+import MicroGuide from "./MicroGuide"
 
 export default function Hero() {
 
@@ -21,7 +22,10 @@ export default function Hero() {
     }}>
       <Row className="text-center my-5">
         <Col >
-          <h1 className="Res-hero-text fw-bold display-5 " style={{color: "#3c4fbeff", fontWeight: "700", fontSize: '50px'}} >Эрүүл мэнддээ санаа<br /><span style={{color: "#3c4fbeff", fontWeight: "600", fontSize: '50px'}} >тавих цогц шийдэл</span> </h1>
+          <div className="default-title">
+            <h1 className="hero-text  " >Таны эрүүл мэндийн туслах <br /> хурдан, найдвартай, 24/7 үйлчилгээтэй </h1>
+          </div>
+          <MicroGuide />
           <SearchBar/>
           <SearchCard />
         </Col>

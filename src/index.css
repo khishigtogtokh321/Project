@@ -25,13 +25,16 @@
 }
 
 
+/* =======================================================================================================================================================================
+                      Home page
+                            
+=========================================================================================================================================================================== */
 
 body {
   font-family: 'Poppins', 'Inter', sans-serif;
   background-color: #fff;
 
 }
-
 .rbc-toolbar button {
   font-size: 14px;
   padding: 4px 10px;
@@ -44,120 +47,181 @@ body {
   font-size: 14px;
 }
 
-
-/* search section */
-
-.app-container {
-  padding: 10px;
-  font-family: Arial, sans-serif;
+.hero-text {
+  position: relative;
+  bottom: 50px;
+  color: #001bb5ff;
+  font-weight: 700px;
+  font-size: 50px;
 }
 
-.search-section {
+
+/* ====== Үндсэн Layout ====== */
+.search-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  /* dropdown absolute relative to here */
+  justify-content: center;
+  width: 100%;
   margin-top: 20px;
+  font-family: "Inter", sans-serif;
 }
 
 .search-box {
   display: flex;
-  gap: 10px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  border: 1px solid #00aaffb9;
-  max-width: 700px;
-  width: 100%;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 7px;
+  border: 1px solid #ff00d4b9;
+  width: 85%;
+  max-width: 900px;
 }
 
-.search-box input {
+
+/* ====== Input талбарууд ====== */
+.search-field {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  background: #fff;
+  border-radius: 50px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.search-field input {
+  width: 100%;
   border: none;
   outline: none;
-  flex: 1;
+  background: transparent;
+  font-size: 15px;
+  color: #333;
 }
 
-.search-btn {
-  background: #270ecd;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
+.search-field input::placeholder {
+  color: #7d8790;
+  font-weight: 400;
+}
+
+.icon {
+  color: #007bff;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+/* ====== Location талбар (зүүнээс тусдаа) ====== */
+.location-field {
+  border-left: 2px solid #6cb8d2;
+  border-top: 1px solid #6cb8d2;
+  border-bottom: 1px solid #6cb8d2;
+  padding-left: 25px;
+}
+
+.near-icon {
+  position: absolute;
+  right: 15px;
+  color: #007bff;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.near-icon:hover {
+  transform: scale(1.15);
+  color: #0056d6;
+}
+
+/* ====== Search товч ====== */
+.search-btn {
+  background: #0056d6;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 86, 214, 0.3);
 }
 
-.search-btn svg {
-  color: #fff;
-  font-size: 16px;
+.search-btn:hover {
+  background: #0042b0;
+  transform: scale(1.05);
 }
 
-.near-me button {
-  border: none;
-  height: 40px;
-}
-
-.near-me button::FaLocationArrow {
-  border: none;
-  height: 40px;
-}
-
-.dropdown-list {
-  margin-top: 10px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* ====== Dropdown ====== */
+.suggestion-dropdown {
+  position: absolute;
+  top: 50px;
+  left: 0;
   width: 100%;
-  max-width: 700px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  max-height: 220px;
   overflow-y: auto;
-  max-height: 300px;
-  z-index: 999;
+  z-index: 50;
+  animation: fadeIn 0.2s ease-in-out;
 }
 
-.dropdown-item {
+.suggestion-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 10px;
-  border-bottom: 1px solid #eee;
+  padding: 10px 16px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-.dropdown-item:last-child {
-  border-bottom: none;
+.suggestion-item:hover {
+  background: #f4f7ff;
 }
 
-.dropdown-item:hover {
-  background: #f2f7ff;
+.emoji {
+  font-size: 20px;
+  margin-right: 12px;
 }
 
-.item-logo {
-  height: 55px;
+.suggestion-info strong {
+  color: #111;
+  font-size: 14px;
 }
 
-.item-text .item-title {
-  font-weight: 600;
-}
-
-.item-text .item-sub {
+.suggestion-info small {
+  color: #777;
   font-size: 13px;
-  color: #6b7280;
 }
 
-.dropdown-empty {
-  padding: 16px;
-  color: #6b7280;
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  .search-box {
+    flex-direction: column;
+    border-radius: 25px;
+    padding: 15px;
+    width: 95%;
+  }
+
+  .search-field,
+  .location-field {
+    width: 100%;
+    border: none;
+    padding: 10px 15px;
+  }
+
+  .search-btn {
+    margin-left: 0;
+    align-self: flex-end;
+  }
 }
 
-.divider {
-  width: 1px;
-  background-color: #00a8ff;
-  height: 30px;
-  margin: 5px 5px;
+/* ====== Animation ====== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+
+
 
 .card_button {
   position: relative;
@@ -1082,82 +1146,6 @@ h5 {
 }
 
 
-.search-container {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
-.search-box {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border-radius: 50px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  width: 100%;
-  max-width: 850px;
-}
-
-/* Common input fields */
-.search-field {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-  padding: 10px 16px;
-  border-right: 1px solid #e0e0e0;
-}
-
-.search-field input {
-  border: none;
-  outline: none;
-  flex: 1;
-  font-size: 15px;
-  background: transparent;
-}
-
-/* Icons */
-.icon {
-  color: #007bff;
-  font-size: 16px;
-}
-
-/* Near Me */
-.near-me-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: transparent;
-  border: none;
-  color: #0d1b2a;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 10px 16px;
-  border-right: 1px solid #e0e0e0;
-}
-.near-me-btn:hover {
-  color: #007bff;
-}
-
-/* Search Button */
-.search-btn {
-  background: #001f3f;
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  padding: 10px 22px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.search-btn:hover {
-  background: #004080;
-}
-
 
 @media (max-width: 1022px) {
   .search-box {
@@ -1236,21 +1224,7 @@ h5 {
 }
 
 
-/* ——— Responsive ——— */
-@media (max-width: 1022px) {
-  .Res-hero-text{
-    position: relative;
-    bottom: 20px;
-  }
 
-  
-
-  
-
-  .default-pill-nav {
-    padding: 0.8rem 1.2rem;
-  }
-}
 
 @media (max-width: 992px) {
   .default-pill-nav {

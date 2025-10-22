@@ -1,0 +1,215 @@
+/* Mobile (доош 576px) */
+@media (max-width: 576px) {
+  body{
+    overflow-x: hidden;
+  }
+  .hero-text{
+    font-size: 2.2rem;
+  }
+  .search-box {
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 10px;
+    width: 95%;
+    border-color: #fff;
+    box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.08),   /* зөөлөн доод сүүдэр */
+    0 10px 20px rgba(0, 0, 0, 0.06), /* гүн давхар сүүдэр */
+    inset 0 1px 0 rgba(255, 255, 255, 0.5); /* дотор талын гэрэл тусгал */
+    transition: all 0.3s ease;
+  }
+
+  /* Hover үед илүү гүн харагдуулна */
+  .search-box:hover {
+    box-shadow:
+      0 6px 12px rgba(0, 0, 0, 0.12),
+      0 18px 36px rgba(0, 0, 0, 0.1);
+
+  }
+
+  .search-field,
+  .near-me-btn,
+  .search-btn {
+    width: 100%;
+    border: none;
+    justify-content: center;
+    padding: 10px;
+  }
+  .location-field {
+    border-radius: 0;
+   border-top: 1px solid #cfe9f2;
+  }
+
+  .search-btn {
+    align-self: flex-end;
+    border-radius: 10px;
+    margin-top: 8px;
+    height: 44px;
+  }
+
+    /* 1️⃣ Ерөнхий байрлал */
+ /* === Ерөнхий хэсэг === */
+  .default-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 12px;
+  }
+
+  .default-title {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  /* === Pills === */
+  .default-pill-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 200px;
+    
+  }
+
+  .default-pill {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0, 168, 255, 0.25);
+    color: #007bff;
+    background: rgba(255, 255, 255, 0.85);
+    transition: all 0.25s ease;
+  }
+
+  .default-pill.active {
+    background: linear-gradient(135deg, #00a8ff, #4facfe);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(0, 168, 255, 0.3);
+  }
+
+  /* 3️⃣ Feature card layout — хэвтээ scroll */
+  .feature-grid {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-start;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0 14px;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Scrollbar-ийг бүрэн арилгах */
+  .feature-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .feature-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* 4️⃣ Картууд */
+  .feature-card {
+    flex: 0 0 88%; /* дэлгэцийн 88%-ийг эзэлнэ */
+    min-width: 88%;
+    scroll-snap-align: center;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.6s ease;
+  }
+
+  .feature-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 24px rgba(0, 168, 255, 0.2);
+  }
+
+  /* 5️⃣ Card доторх текст */
+  .feature-card__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0b3650;
+  }
+
+  .feature-card__eyebrow {
+    font-size: 0.8rem;
+    color: #6b7b86;
+    letter-spacing: 0.05em;
+  }
+
+  /* 6️⃣ Fade-in animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Tablet (576–768px) */
+@media (min-width: 576px) and (max-width: 768px) {
+    .search-box {
+      flex-direction: column;
+      border-radius: 20px;
+      padding: 15px;
+    }
+    .search-field,
+    .near-me-btn,
+    .search-btn {
+        width: 100%;
+        border: none;
+        justify-content: center;
+        padding: 12px;
+    }
+
+    .search-btn {
+       align-self: flex-end;
+        border-radius: 10px;
+        margin-top: 6px;
+    }
+}
+
+
+
+/* --- Fade animation --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Small desktop (768–992px) */
+@media (min-width: 768px) and (max-width: 992px) {}
+
+/* Large desktop (992–1200px) */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .search-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input,
+    .search-btn {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .divider {
+        width: 100%;
+        height: 1px;
+        margin: 5px 0;
+        color: #00afef09;
+    }
+}
+
+    /* Extra large (1200px+) */
+    @media (min-width: 1200px) {}

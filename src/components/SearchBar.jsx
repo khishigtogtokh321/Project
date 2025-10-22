@@ -1,121 +1,118 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-// import { FaSearch , FaMapMarkerAlt } from "react-icons/fa";
-// import { FaLocationArrow } from 'react-icons/fa6';
-import { FaSearch, FaMapMarkerAlt, FaLocationArrow, FaArrowRight } from "react-icons/fa";
-
 import React, { useState } from "react";
+import {
+  FaSearch,
+  FaMapMarkerAlt,
+  FaLocationArrow,
+  FaArrowRight,
+  FaUserMd,
+} from "react-icons/fa";
 
 
-// const mockResults = [
-//   {
-//     id: 1,
-//     name: "Discret'Son - Laboratoire auditif",
-//     type: "Centre auditif",
-//     location: "Eaubonne",
-//     logo: "🔊",
-//   },
-//   {
-//     id: 2,
-//     name: "Krys Audition - La Châtre",
-//     type: "Centre auditif",
-//     location: "La Châtre",
-//     logo: "🎧",
-//   },
-//   {
-//     id: 3,
-//     name: "Krys Audition La Couronne - Cc Auchan",
-//     type: "Centre auditif",
-//     location: "La Couronne",
-//     logo: "🎧",
-//   },
-//   {
-//     id: 4,
-//     name: "Phonème - Saint-Lô - Germain Lebictel",
-//     type: "Audioprothésiste",
-//     location: "Saint-Lô",
-//     logo: "👤",
-//   },
-//    {
-//     id: 5,
-//     name: "Phonème - Saint-Lô - Germain Lebictel",
-//     type: "Audioprothésiste",
-//     location: "Saint-Lô",
-//     logo: "👤",
-//   },
-//    {
-//     id: 6,
-//     name: "Phonème - Saint-Lô - Germain Lebictel",
-//     type: "Audioprothésiste",
-//     location: "Saint-Lô",
-//     logo: "👤",
-//   },
-//    {
-//     id: 7,
-//     name: "Phonème - Saint-Lô - Germain Lebictel",
-//     type: "Audioprothésiste",
-//     location: "Saint-Lô",
-//     logo: "👤",
-//   },
-// ];
-
+const mockResults = [
+  { id: 1, name: "Ulaanbaatar Central Hospital", type: "Эмнэлэг", location: "Ulaanbaatar", logo: "🏥" },
+  { id: 2, name: "Zorig Clinic", type: "Шүдний эмнэлэг", location: "Bayanzurkh", logo: "🦷" },
+  { id: 3, name: "Health Partner", type: "Гэр бүлийн эмнэлэг", location: "Sukhbaatar", logo: "👨‍⚕️" },
+  { id: 4, name: "Eren Hospital", type: "Олон улсын эмнэлэг", location: "Songinokhairkhan", logo: "🌍" },
+  { id: 5, name: "Grand Med Hospital", type: "Мэс заслын төв", location: "Ulaanbaatar", logo: "💉" },
+  { id: 6, name: "Songdo Hospital", type: "Олон улсын эмнэлэг", location: "Bayangol", logo: "🌐" },
+];
 
 export default function SearchBar() {
-
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
+  const [results, setResults] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // const filtered = mockResults.filter((r) => 
-  //    r.name.toLowerCase().includes(query.toLowerCase())
-  // );
+  // Хайлт
+  const handleSearch = () => {
+    const filtered = mockResults.filter(
+      (r) =>
+        r.name.toLowerCase().includes(query.toLowerCase()) &&
+        r.location.toLowerCase().includes(location.toLowerCase())
+    );
+    setResults(filtered);
+    setShowSuggestions(false);
+  };
 
-  // const handleNearMe = () => {
-  //   if (!navigator.geolocation) return alert("Таны хөтчид байршлыг авах боломжгүй.");
-  //      navigator.geolocation.getCurrentPosition((pos) => {
-  //       const lat = pos.coords.latitude;
-  //       const lng = pos.coords.longitude;
-  //       console.log("User location:", lat, lng);
-  //   // Ойролцоох эмнэлэг хайх логик энд
-  //     });
-  //   };
+  // GPS
+  const handleNearMe = () => {
+    if (!navigator.geolocation) {
+      alert("Таны хөтөч байршил авах боломжгүй байна.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude.toFixed(4);
+        const lng = pos.coords.longitude.toFixed(4);
+        setLocation(`Current location (Lat: ${lat}, Lng: ${lng})`);
+        alert(`📍 Байршил тодорхойлогдлоо!\nLat: ${lat}, Lng: ${lng}`);
+      },
+      () => alert("Байршил авахад алдаа гарлаа 😢")
+    );
+  };
+
+  const filteredSuggestions = mockResults.filter((r) =>
+    r.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
+    <div >
     <div className="search-container">
-      <div className="search-box">
-        {/* 1️⃣ Service Name Input */}
-        <div className="search-field">
+      <div className="search-box ">
+        {/* Нэр хайх */}
+        <div className="search-field suggestion-field">
           <FaSearch className="icon" />
           <input
             type="text"
-            placeholder="Name, specialty, practice"
+            placeholder="Search by doctor, clinic or specialty..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
           />
+
+          {/* Dropdown */}
+          {showSuggestions && (
+            <div className="suggestion-dropdown fade-in">
+              {filteredSuggestions.map((s) => (
+                <div
+                  key={s.id}
+                  className="suggestion-item"
+                  onClick={() => {
+                    setQuery(s.name);
+                    setShowSuggestions(false);
+                  }}
+                >
+                  <span className="emoji">{s.logo}</span>
+                  <div className="suggestion-info">
+                    <strong>{s.name}</strong>
+                    <small>{s.type} • {s.location}</small>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* 2️⃣ Location Input */}
-        <div className="search-field">
+        {/* Байршил */}
+        <div className="search-field location-field">
           <FaMapMarkerAlt className="icon" />
           <input
             type="text"
-            placeholder="Where?"
+            placeholder="City or district"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
+          <FaLocationArrow className="near-icon" onClick={handleNearMe} />
         </div>
 
-        {/* 3️⃣ Near Me */}
-        <button className="near-me-btn">
-          <FaLocationArrow className="icon" />
-          <span>NEAR ME</span>
-        </button>
-
-        {/* 4️⃣ Search Button */}
-        <button className="search-btn">
-          Search <FaArrowRight />
+        {/* Хайх товч */}
+        <button className="search-btn" onClick={handleSearch}>
+          <FaArrowRight />
         </button>
       </div>
     </div>
+    </div>
   );
-};
-
-
+}

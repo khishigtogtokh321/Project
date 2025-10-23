@@ -20,10 +20,10 @@ const mockResults = [
 export default function SearchBar() {
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
-  const [results, setResults] = useState([]);
+  const [result, setResults] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Хайлт
+
   const handleSearch = () => {
     const filtered = mockResults.filter(
       (r) =>
@@ -34,7 +34,6 @@ export default function SearchBar() {
     setShowSuggestions(false);
   };
 
-  // GPS
   const handleNearMe = () => {
     if (!navigator.geolocation) {
       alert("Таны хөтөч байршил авах боломжгүй байна.");
@@ -60,7 +59,6 @@ export default function SearchBar() {
     <div >
     <div className="search-container">
       <div className="search-box ">
-        {/* Нэр хайх */}
         <div className="search-field suggestion-field">
           <FaSearch className="icon" />
           <input
@@ -71,8 +69,6 @@ export default function SearchBar() {
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
           />
-
-          {/* Dropdown */}
           {showSuggestions && (
             <div className="suggestion-dropdown fade-in">
               {filteredSuggestions.map((s) => (
@@ -94,8 +90,6 @@ export default function SearchBar() {
             </div>
           )}
         </div>
-
-        {/* Байршил */}
         <div className="search-field location-field">
           <FaMapMarkerAlt className="icon" />
           <input
@@ -106,8 +100,6 @@ export default function SearchBar() {
           />
           <FaLocationArrow className="near-icon" onClick={handleNearMe} />
         </div>
-
-        {/* Хайх товч */}
         <button className="search-btn" onClick={handleSearch}>
           <FaArrowRight />
         </button>

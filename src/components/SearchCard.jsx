@@ -8,15 +8,13 @@ const quickLinks = [
 ];
 
 export default function ServiceCard() {
-  const [activeKey, setActiveKey] = useState(null); // null = эффект унтарсан (анхны байдал)
-
-  // Хэрэв карт руу “анх очих”-ыг хүсвэл ref авч scroll хийж болно, одоо бол ХИЙХГҮЙ.
+  const [activeKey, setActiveKey] = useState(null); 
   const nameRef = useRef(null);
   const locationRef = useRef(null);
   const nearRef = useRef(null);
 
   const btnClick = (target) => {
-    setActiveKey((prev) => (prev === target ? null : target)); // дахин дарвал reset
+    setActiveKey((prev) => (prev === target ? null : target)); 
     const targetRef =
     target === "name" ? nameRef.current :
     target === "location" ? locationRef.current :
@@ -56,9 +54,7 @@ export default function ServiceCard() {
           ))}
         </nav>
 
-        {/* Feature cards */}
         <section className="feature-grid" aria-label="Featured services">
-          {/* NAME */}
           <article
             id="name"
             ref={nameRef}
@@ -73,8 +69,6 @@ export default function ServiceCard() {
             <div className="feature-card__illustration" aria-hidden="true" />
            
           </article>
-
-          {/* LOCATION */}
           <article
             id="location"
             ref={locationRef}
@@ -89,8 +83,6 @@ export default function ServiceCard() {
             </div>
             
           </article>
-
-          {/* NEAR ME */}
           <article
             id="near"
             ref={nearRef}

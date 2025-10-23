@@ -10,37 +10,39 @@ import {
 
 
 export default function Features() {
-  const opportunities = [
-    { icon: <Settings size={36} color="blue" />, title: "High Resolution", text: "Crisp and detailed visuals for every screen size." },
-    { icon: <Lightbulb  size={36} color="green" />, title: "Unique Design", text: "Fresh, innovative UI tailored to your brand." },
-    { icon: <Monitor  size={36} color="black" />, title: "Full Responsive", text: "Optimized for desktops, tablets, and mobile devices." },
-    { icon: <Code  size={36} color="yellow" />, title: "Clean Codes", text: "Organized, maintainable, and efficient code structure." },
-    { icon: <Eye  size={36} color="brown" />, title: "Retina Ready", text: "High-density screen support for sharp display quality." },
-    { icon: <Camera  size={36}  />, title: "Unlimited Features", text: "Expand functionality with limitless customization quality." },
+  const features = [
+    { icon: <Settings size={38} />, title: "Precision Interface", text: "Clean visuals that scale perfectly on every device." },
+    { icon: <Lightbulb size={38} />, title: "Smart Design", text: "Simple, modern, and purpose-driven layouts." },
+    { icon: <Monitor size={38} />, title: "Responsive by Nature", text: "Seamlessly adapts to screens of all sizes." },
+    { icon: <Code size={38} />, title: "Optimized Code", text: "Lightweight structure built for performance." },
+    { icon: <Eye size={38} />, title: "Retina Display", text: "Crisp and detailed visuals on high-resolution screens." },
+    { icon: <Camera size={38} />, title: "Expandable", text: "Add new modules without breaking the balance." },
   ];
 
   return (
-    <div className="opportunity-section">
+    <section className="py-5 ">
       <Container>
-        <div className="text-center section-header">
-          <h2 className="section-title">Awesome Opportunities</h2>
-          <p className="section-subtitle">
-            Discover the key advantages that make our platform powerful, flexible, and ready for the modern web.
+        <div className="text-center mb-5">
+          <h2 className="fw-semibold mb-2 feature-heading">
+            Thoughtfully <span className="text-primary">Minimal</span>
+          </h2>
+          <p className="text-muted mx-auto" style={{ maxWidth: "580px" }}>
+            Less noise, more clarity — designed for focus, balance, and simplicity.
           </p>
         </div>
 
-        <Row>
-          {opportunities.map((item, idx) => (
-            <Col md={4} sm={6} xs={12} key={idx} className="opportunity-box">
-              <div className="opportunity-card">
-                <div className="opportunity-icon">{item.icon}</div>
-                <h5 className="opportunity-title">{item.title}</h5>
-                <p className="opportunity-text">{item.text}</p>
+        <Row className="g-4">
+          {features.map((item, idx) => (
+            <Col key={idx} xs={12} sm={6} md={4}>
+              <div className="feature-card-minimal text-center p-4 h-100">
+                <div className="icon-minimal mx-auto mb-3">{item.icon}</div>
+                <h6 className="fw-semibold mb-2">{item.title}</h6>
+                <p className="text-secondary small">{item.text}</p>
               </div>
             </Col>
           ))}
         </Row>
       </Container>
-    </div>
+    </section>
   );
 }

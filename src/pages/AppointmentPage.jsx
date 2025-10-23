@@ -1,121 +1,69 @@
-// AppointmentPage.jsx
-import React, { useState } from "react";
-import { Container, Row, Col, Card, Form, Button, Dropdown, Image } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { Card, Row, Col } from "react-bootstrap";
 
-// --- Payment UI Components ---
-const SocialPayUI = () => (
-  <Card className="shadow-lg p-4 rounded-4 mx-auto my-3" style={{ maxWidth: '500px', width: '100%' }}>
-    <div className="d-flex align-items-center justify-content-center mb-3 bg-light rounded-3 p-2">
-      <Image
-        src="https://seeklogo.com/images/S/socialpay-logo-6F3E425DB7-seeklogo.com.png"
-        alt="SocialPay"
-        width={40}
-        height={40}
-        className="me-2"
-        roundedCircle
-      />
-      <span className="fw-semibold">SocialPay-р төлөх</span>
-    </div>
-    <Image
-      src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://socialpay.mn"
-      alt="QR Code"
-      fluid
-      className="border rounded mx-auto d-block"
-    />
-    <p className="mt-3 text-center text-muted">Бүх банкны аппликейшн ашиглан төлбөрөө хийнэ үү.</p>
-  </Card>
-);
-
-const QPayUI = () => (
-  <Card className="shadow-lg p-4 rounded-4 mx-auto my-3" style={{ maxWidth: '500px', width: '100%' }}>
-    <h5 className="mb-3 text-center">QPay-р төлөх</h5>
-    <Image
-      src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://qpay.mn"
-      alt="QPay QR"
-      fluid
-      className="border rounded mx-auto d-block"
-    />
-    <p className="mt-3 text-center text-muted">Бүх банкны аппликейшн ашиглан төлбөрөө хийнэ үү.</p>
-  </Card>
-);
-
-const CardPaymentUI = () => (
-  <Card className="shadow-lg p-4 rounded-4 mx-auto my-3" style={{ maxWidth: '500px', width: '100%' }}>
-    <h5 className="mb-3 text-center">Картаар төлөх</h5>
-    <Form>
-      <Form.Group className="mb-3">
-        <Form.Label>Картын дугаар</Form.Label>
-        <Form.Control type="text" placeholder="1234 5678 9012 3456" />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Картын нэр</Form.Label>
-        <Form.Control type="text" placeholder="OVOG NER" />
-      </Form.Group>
-      <Row>
-        <Col>
-          <Form.Group className="mb-3">
-            <Form.Label>Expiry</Form.Label>
-            <Form.Control type="text" placeholder="MM/YY" />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group className="mb-3">
-            <Form.Label>CVV</Form.Label>
-            <Form.Control type="password" placeholder="***" />
-          </Form.Group>
-        </Col>
-      </Row>
-      <Button variant="primary" className="w-100 fw-semibold">Төлбөр хийх</Button>
-    </Form>
-  </Card>
-);
-
-// --- Main Appointment Page ---
-export default function AppointmentPage() {
-  const [_selectedPayment, _setSelectedPayment] = useState("");
-  const _navigate = useNavigate();
-
- 
-
+export default function AppointmentReceipt() {
   return (
-    <Container className="mt-5">
-        <Col md={6} className="mx-auto">
-          <Card className="shadow-lg border-0 rounded-4 p-4" >
-            <h4 className="mb-4 text-center text-success fw-bold">Цаг авалтын мэдээлэл</h4>
+    <div className="d-flex justify-content-center py-5 bg-light">
+      <Card
+        className="shadow-sm border border-dashed border-secondary-subtle rounded-4 bg-white px-4 py-3 w-100"
+        style={{ maxWidth: "min(90%, 480px)" }}
+      >
+        <Card.Body className="text-dark">
+          {/* Header */}
+          <h5 className="text-center fw-bold mb-4 text-success">
+            Цаг авалтын мэдээлэл
+          </h5>
 
-            <div className="mb-3">
-              <small className="text-muted">Өдөр & Цаг</small>
-              <p className="fw-bold">2025.09.02 , 9:30PM</p>
-              <p><strong>Хаяг:</strong> Улаанбаатар, Баянзүрх Дүүрэг</p>
-            </div>
+          {/* Date & Time */}
+          <div className="mb-3">
+            <small className="text-muted d-block">Өдөр & Цаг</small>
+            <span className="fw-bold fs-6">2025.09.02 , 9:30PM</span>
+          </div>
 
-            <div className="d-flex align-items-center mb-4">
-              <Image
+          {/* Address */}
+          <div className="mb-3">
+            <small className="fw-semibold text-muted d-block">Хаяг:</small>
+            <span className="fs-6">Улаанбаатар, Баянзүрх Дүүрэг</span>
+          </div>
+
+          {/* Doctor Info */}
+          <Row className="align-items-center mb-3 g-3">
+            <Col xs="auto">
+              <img
                 src="src/assets/doctorImage.png"
                 alt="doctor"
-                roundedCircle
-                width={80}
-                height={80}
-                className="me-3 shadow-sm"
+                className="rounded-circle border border-2 border-light-subtle shadow-sm"
+                width={65}
+                height={65}
               />
-              <div>
-                <p className="mb-0 fw-bold">Ц. Батаа</p>
-                <small className="text-muted">Мэргэжилтэн</small>
-              </div>
-            </div>
+            </Col>
+            <Col>
+              <h6 className="fw-semibold mb-0 fs-5">Ц. Батaa</h6>
+              <small className="text-muted">Мэргэжилтэн</small>
+            </Col>
+          </Row>
 
-            <h6 className="text-primary fw-bold">Үйлчилгээний мэдээлэл</h6>
-            <p className="mb-1">Үйлчилгээ: Эмчилгээ / Шинжилгээ</p>
-            <h6 className="text-primary fw-bold">Төлбөрийн мэдээлэл</h6>
+          {/* Service Info */}
+          <div className="border-top pt-3 mb-2">
+            <h6 className="fw-semibold text-primary mb-1 fs-6">
+              Үйлчилгээний мэдээлэл
+            </h6>
+            <p className="mb-0 text-secondary small">
+              Үйлчилгээ: Эмчилгээ / Шинжилгээ
+            </p>
+          </div>
 
-            <p className="mb-3">Төлсөн Төлбөр: 50,000₮</p>
-          </Card>
-        </Col>
-        <div style={{
-            height: '34px'
-        }}></div>
-      
-    </Container>
+          {/* Payment Info */}
+          <div className="border-top pt-3">
+            <h6 className="fw-semibold text-primary mb-1 fs-6">
+              Төлбөрийн мэдээлэл
+            </h6>
+            <p className="mb-0 text-secondary small">
+              Төлсөн төлбөр: <span className="fw-semibold text-dark">50,000₮</span>
+            </p>
+          </div>
+        </Card.Body>
+      </Card>
+    </div>
   );
 }

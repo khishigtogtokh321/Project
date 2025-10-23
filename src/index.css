@@ -32,7 +32,7 @@
 
 body {
   font-family: 'Poppins', 'Inter', sans-serif;
-  background-color: #fff;
+  background-color: #f8faff;
 
 }
 .rbc-toolbar button {
@@ -339,11 +339,6 @@ body {
   right: 150px;
 }
 
-.About-left {
-  position: relative;
-  bottom: 40px;
-  left: 50px;
-}
 
 
 .features-section {
@@ -514,7 +509,6 @@ h5 {
   }
 }
 
-/* Card style-ийг улам гоё болгоё */
 
 .card-title {
   font-size: 1.2rem !important;
@@ -526,11 +520,6 @@ h5 {
   font-size: 0.95rem;
 }
 
-
-
-/* searchcard */
-
-/* ——— Layout basics ——— */
 .default-page {
   min-height: calc(100vh - 120px);
   /* padding-top: clamp(32px, 6vw, 72px); */
@@ -545,7 +534,7 @@ h5 {
   gap: 0.9rem;
 }
 
-/* ——— Headings ——— */
+
 
 .default-title {
   font-size: clamp(2.5rem, 2.1rem + 1.8vw, 3.6rem);
@@ -602,7 +591,7 @@ h5 {
 
 /* ——— Feature grid (flex-only, supports grow/shrink effect) ——— */
 .feature-grid {
-  margin-top: clamp(40px, 6vw, 72px);
+  margin-top: clamp(16px, 2.1vw, 36px);
   display: flex;
   gap: 16px;
   align-items: stretch;
@@ -810,75 +799,76 @@ h5 {
   min-width: 0;
 }
 
-/* opportuniry */
+/* features section improvements */
 
-.opportunity-section {
-  padding: 60px 0; /* бага padding, стандарт layout */
-  background-color: #ffffff;
-}
-
-.section-header {
-  margin-bottom: 40px;
-}
-
-.section-title {
-  font-weight: 700;
-  font-size: 1.8rem;
+/* --- Section Typography --- */
+.feature-heading {
+  font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+  letter-spacing: -0.2px;
   color: #111827;
 }
 
-.section-subtitle {
-  color: #6b7280;
-  max-width: 650px;
-  margin: 0 auto;
-  font-size: 0.95rem;
+/* --- Card --- */
+.feature-card-minimal {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
-/* === Card Styles === */
-.opportunity-box {
-  margin-bottom: 24px;
+.feature-card-minimal:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  border-color: #cfe0ff;
 }
 
-.opportunity-card {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 30px 20px; /* ✅ default card size */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-  text-align: center;
+/* --- Icon --- */
+.icon-minimal {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #f1f5ff;
+  color: #0d6efd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  cursor: pointer;
 }
 
-.opportunity-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+.feature-card-minimal:hover .icon-minimal {
+  background: #0d6efd;
+  color: #fff;
 }
 
-.opportunity-icon {
-  font-size: 32px; /* ✅ default icon size */
-  color: #0ea5e9;
-  margin-bottom: 16px;
-  transition: transform 0.25s ease, color 0.25s ease;
-}
-
-.opportunity-card:hover .opportunity-icon {
-  transform: scale(1.15);
-  color: #0284c7;
-}
-
-.opportunity-title {
-  font-weight: 600;
-  margin-bottom: 8px;
+/* --- Text --- */
+.feature-card-minimal h6 {
+  font-size: 1rem;
   color: #111827;
-  font-size: 1.05rem;
 }
 
-.opportunity-text {
-  color: #6b7280;
+.feature-card-minimal p {
   font-size: 0.9rem;
+  color: #6b7280;
   line-height: 1.5;
 }
+
+/* --- Responsive tweak --- */
+@media (max-width: 576px) {
+  .feature-card-minimal {
+    padding: 1.2rem;
+  }
+  .icon-minimal {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+
+
+
+
+
 
 .history-container {
   min-height: 100vh;

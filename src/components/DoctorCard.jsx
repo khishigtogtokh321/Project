@@ -16,84 +16,85 @@ export default function DoctorCard({ doctor }) {
       : doctor.address;
 
   return (
-    <Container className="my-4">
-      <Card className="p-2 m-2" style={{ borderColor: "#00a8ff" }}>
-        <Row >
-          {/* Зураг ба нэр */}
-         <Col md={4} className="doctor-card-img"  style={{  borderRight: '1px solid #ddd', position: 'ralative', top: '5px'}}>
-              <div class="container" >
-                <div class="row row-cols-auto">
-                  <div class="col" style={{borderRadius: "5px" , borderColor: "#000000"}}>
-                    <img
-                    src="src/assets/doctorImage.png"
-                    alt="Doctor"
-                    style={{ borderRadius: '5px' , borderColor:  ' 1px #000000'}}
-                    height={80}
-                    borderColor = "#0000"
-                  />
-                  </div>
-                  <div class="col" style={{textAlign: 'left', marginTop: '10px'}}>
-                    <h5>Ц. Батaa</h5>
-                    <p className="text-muted">Мэргэжил</p>
-                  </div>
-                </div>
-                <div className="border p-2 mt-3" style={{textAlign: 'left', borderColor: '#ddd', borderRadius: '5px', backgroundColor: '#f8f9fa' }}>
-                  <p style={{ fontSize: '13px'}}>
-                    Find and replace allows
-                     you to quickly search for a word or phrase in the who
-                     le page and substitute it with something else.
-                     </p>
-                </div>
-            </div>  
-          </Col>
-        
 
-          {/* Салбар ба сул цагууд */}
-          <Col md={4} className="p-2" style={{ borderRight: "1px solid #ddd" }}>
-            <div className="mb-1">
-              {doctor.branches.map((branch) => (
-                <Button
-                  key={branch}
-                  variant={branch === activeBranch ? "primary" : "outline-primary"}
-                  size="sm"
-                  onClick={() => setActiveBranch(branch)}
-                  className="me-1"
-                  >
-                  {branch}
-                </Button>
-              ))}
-                 <hr />
-            </div>
-            <div style={{ textAlign: 'left', marginLeft: '5px' }}>
-              <p className="small text-muted">Хаяг: {address}</p>
-              {/* appointment booking availability */}
-              <div className="d-flex flex-wrap gap-2">
-                {times.map((time, idx) => (
-                  <Button key={idx} variant="outline-primary" size="sm">
-                    {time}
-                  </Button>
-                ))}
-              </div>
-              <div className="mt-3">
-                <Button variant="primary">Өөр цаг харах</Button>
-              </div>
+<Container className="my-4 ">
+  <Card className="p-3 border-primary-subtle">
+    <Row className="gy-3 gy-md-0">
+      {/*  Эмчийн зураг + нэр + тайлбар */}
+      <Col xs={12} md={4} className="shadow-sm rounded-3 bg-white p-3">
+        <div className="d-flex align-items-start gap-3">
+          <img
+            src="src/assets/doctorImage.png"
+            alt="Doctor"
+            className="rounded"
+            style={{ width: "80px", height: "80px", objectFit: "cover" }}
+          />
+          <div className="text-start">
+            <h5 className="mb-0 fw-semibold">Ц. Батaa</h5>
+            <p className="text-muted mb-0 small">Мэргэжил</p>
+          </div>
+        </div>
 
-            </div>
-          </Col>
+        <div className="border rounded bg-light p-2 mt-3 text-start">
+          <p className="small mb-0">
+            Find and replace allows you to quickly search for a word or phrase
+            in the whole page and substitute it with something else.
+          </p>
+        </div>
+      </Col>
 
-          {/* Тайлбар */}
-          <Col md={3} className="text-center">
-            <h6 className="mb-2 text-start m-2 text-primary">Үйлчилгээ</h6>
-            <ListGroup  className="flex-wrap text-start " style={{ fontSize: '14px'}}>
-              <ListGroup.Item> Согог заслын эмчилгээт </ListGroup.Item>
-              <ListGroup.Item> Шүд шилжүүлэн суулгах </ListGroup.Item>
-              <ListGroup.Item> Хүүхдийн шүдний эмчилгээ </ListGroup.Item>
-              <ListGroup.Item> Сувгийн эмчилгээ </ListGroup.Item>
-              <ListGroup.Item> Дэлгэмэл болон бүх төрлийн рентген CBCT зураг</ListGroup.Item>
-            </ListGroup>
-          </Col>
-        </Row>
-      </Card>
-    </Container>
+      {/*  Салбар + цагийн хуваарь */}
+      <Col xs={12} md={4} className="shadow-sm rounded-3 bg-white p-3">
+        <div className=" mb-2 d-flex flex-wrap gap-1">
+          {doctor.branches.map((branch) => (
+            <Button
+              key={branch}
+              variant={branch === activeBranch ? "primary" : "outline-primary"}
+              size="sm"
+              onClick={() => setActiveBranch(branch)}
+            >
+              {branch}
+            </Button>
+          ))}
+        </div>
+       
+        <div className="text-start">
+          <p className="small text-muted mb-2">Хаяг: {address}</p>
+
+          <div className="d-flex flex-wrap gap-2">
+            {times.map((time, idx) => (
+              <Button key={idx} variant="outline-primary" size="sm">
+                {time}
+              </Button>
+            ))}
+          </div>
+
+          <div className="mt-3">
+            <Button variant="primary" size="sm">
+              Өөр цаг харах
+            </Button>
+          </div>
+        </div>
+      </Col>
+
+      {/*  Үйлчилгээний жагсаалт */}
+      <Col xs={12} md={4} className="shadow-sm rounded-3 bg-white p-3">
+        <h6 className="text-primary text-start mb-2">Үйлчилгээ</h6>
+        <ListGroup
+          variant="flush"
+          className="text-start small"
+        >
+          <ListGroup.Item>Согог заслын эмчилгээ</ListGroup.Item>
+          <ListGroup.Item>Шүд шилжүүлэн суулгах</ListGroup.Item>
+          <ListGroup.Item>Хүүхдийн шүдний эмчилгээ</ListGroup.Item>
+          <ListGroup.Item>Сувгийн эмчилгээ</ListGroup.Item>
+          <ListGroup.Item>
+            Дэлгэмэл болон бүх төрлийн рентген CBCT зураг
+          </ListGroup.Item>
+        </ListGroup>
+      </Col>
+    </Row>
+  </Card>
+</Container>
   );
 }

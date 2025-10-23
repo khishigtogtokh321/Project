@@ -5,17 +5,16 @@ import DoctorList from "./DoctorList";
 
 export default function EmnelgiinMedeelel() {
     return (
-    <Container fluid className="emnelegHeader p-0">
+    <Container fluid className="emnelegHeader p-0 bg-light">
    
       <div className="header bg-primary text-white d-flex align-items-center p-3">
         <img src="src/assets/ashidLogo.png" alt="clinic" className="header-img me-3" />
         <div className="header-text">
           <h5 className="mb-0">ТАНД БИД ГОО САЙХАН, НҮҮР БАРДАМ ИНЭЭМСЭГЛЭЛ БЭЛЭГЛЭНЭ.</h5>
-        
         </div>
       </div>
 
-      <Nav variant="underline" defaultActiveKey="keyInfo" className="emnelegNavbar sticky-top " style={ { maxWidth: '86%', zIndex: '1'}}  >
+      <Nav variant="underline" defaultActiveKey="keyInfo" className="emnelegNavbar sticky-top  " style={ { maxWidth: '86%', zIndex: '1'}}  >
         <Nav.Item>
           <Nav.Link className="nav-item-about" eventKey="BidniiTuhai">Бидний тухай</Nav.Link>
         </Nav.Item>
@@ -37,7 +36,7 @@ export default function EmnelgiinMedeelel() {
       <Container className="my-4" >
         <Row>
           {/* Left Column */}
-          <Col md={8}>
+          <Col xs={{ order: 2}} md={{order:1, span: 8}}>
             <Card className="mb-3 p-3" id="BidniiTuhai">
              <h5 className="text-bold">Бидний тухай</h5>
               <p>Манай эмнэлэг нь 2012 онд үүсгэн байгуулагдсан 
@@ -80,19 +79,43 @@ export default function EmnelgiinMedeelel() {
           </Col>
 
           {/* Right Column */}
-          <Col md={4}>
-            <Card className="p-3 mb-3 sticky-top" style={{top: '70px', zIndex:  '0'}}>
-              <h6>Оргилдент</h6> <hr />
-              <ul className="list-unstyled p-2">
-                <li> <span className="text-primary" >Хаяг</span>: Монгол улс, 13000, Улаанбаатар хот, Хан-Уул дүүрэг, 11-р хороо, Маршал таун, 115-р байр</li>
-                <li> <span className="text-primary"> Холбогдох утас:</span> 7000-8811</li>
-                <li> <span className="text-primary"> И-мэйл:</span>info@gmail.com</li>
-                <li> <span className="text-primary"> Цахим орчинд:</span> 7000-8811</li>
-              </ul>
-              <Button variant="primary" className="w-100 mb-2">Үйлчилгээ сонгох</Button>
-              <Button variant="outline-primary" className="w-100">Мэссэж илгээх</Button>
+          <Col xs={{ order: 1 }} md={{ order: 2, span: 4 }}>
+            <Card className="p-3 mb-3 sticky-top" style={{ top: '70px', zIndex: '0' }}>
+              <h5 className="fw-bold  mb-2">Оргилдент</h5>
+              <hr />
+
+              <table className="table table-borderless align-middle small mb-3 table-condensed lh-1 py-0 my-0">
+                <tbody>
+                  <tr>
+                    <th className="text-primary text-nowrap" style={{ width: '40%' }}>Хаяг:</th>
+                    <td>
+                      Монгол улс, Улаанбаатар хот,<br />
+                      Хан-Уул дүүрэг, 11-р хороо,<br />
+                      Маршал таун, 115-р байр
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="text-primary text-nowrap">Утас:</th>
+                    <td>7000-8811</td>
+                  </tr>
+                  <tr>
+                    <th className="text-primary text-nowrap">И-мэйл:</th>
+                    <td>info@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <th className="text-primary text-nowrap">Цахим орчинд:</th>
+                    <td>facebook.com/orgildent</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div className="d-grid gap-2">
+                <Button variant="primary">Эмч сонгох</Button>
+                <Button variant="outline-primary">Буцах</Button>
+              </div>
             </Card>
           </Col>
+
         </Row>
       </Container>
       < DoctorList />

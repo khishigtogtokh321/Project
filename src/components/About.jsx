@@ -8,7 +8,7 @@ export default function About() {
         <Row className=" align-items-center">
           <Col md={6} className="About-left mb-4 mb-md-0">
             <h1 className="fw-bold text-primary">
-              Ashid Dental шүдний <br /> эмнэлгийн програм.{" "}
+              Ashid Dental шүдний <br /> эмнэлгийн програм{" "}
             </h1>
             <p className="text-muted">
               Шүдний эмч, шүдний эмнэлгүүдэд зориулсан мэргэжлийн, цогц програм хангамж.
@@ -23,13 +23,11 @@ export default function About() {
                 хэрэглээнд нийцүүлэн тохируулах бүрэн 
                 боломжтой.     
             </p>
-            <Button variant="primary" className="px-4 rounded-pill">
-              see more
-            </Button>
+            
           </Col>
 
           {/* Doctor + Background + Images */}
-          <Col md={6} className="text-center position-relative">
+          <Col md={6} className="text-center position-relative d-none d-md-block">
             {/* Circle Background */}
             <div
               className="rounded-circle bg-primary position-absolute top-50 start-50 translate-middle"

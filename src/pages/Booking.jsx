@@ -9,7 +9,7 @@ export default function Booking() {
     <EmnelgiinMedeelel />
       <Container className="my-4">
       
-        <Col md={10}  className="d-flex justify-content-center align-items-center"
+        <Col md={10}  className="d-none justify-content-center align-items-center"
         style={{ height: '150px', position: 'relative', bottom: '20px', left: '50px' }}>
         </Col>
       

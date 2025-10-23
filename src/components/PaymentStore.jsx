@@ -37,9 +37,6 @@ function PaymentStore() {
           <Col md={6} className="text-center">
             <img src="/src/assets/doctor.png" alt="" />
           </Col>
-        
-          
-         
         </Row>
       </Container>
     </Container>

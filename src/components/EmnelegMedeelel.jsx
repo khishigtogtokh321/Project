@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Card, Button, Nav } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DoctorList from "./DoctorList";
+import { Link } from "react-router-dom";
 
 export default function EmnelgiinMedeelel() {
     return (
@@ -14,29 +15,47 @@ export default function EmnelgiinMedeelel() {
         </div>
       </div>
 
-      <Nav variant="underline" defaultActiveKey="keyInfo" className="emnelegNavbar sticky-top  " style={ { maxWidth: '86%', zIndex: '1'}}  >
-        <Nav.Item>
-          <Nav.Link className="nav-item-about" eventKey="BidniiTuhai">Бидний тухай</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="map">Хаяг</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link src= "src/components/DoctorList.jsx">Эмч Нар</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="profile">Үйлчилгээ</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="hous">Цагийн авах</Nav.Link>
-        </Nav.Item>
-      </Nav>
+       <Nav
+      variant="underline"
+      defaultActiveKey="BidniiTuhai"
+      className="emnelegNavbar sticky-top justify-content-start gap-2 py-1 bg-white border-bottom shadow-sm"
+    >
+      <Nav.Item>
+        <Nav.Link as={Link} to="/about" eventKey="BidniiTuhai">
+          Бидний тухай
+        </Nav.Link>
+      </Nav.Item>
+
+      <Nav.Item>
+        <Nav.Link as={Link} to="/map" eventKey="map">
+          Хаяг
+        </Nav.Link>
+      </Nav.Item>
+
+      <Nav.Item>
+        <Nav.Link as={Link} to="/doctors" eventKey="doctors">
+          Эмч нар
+        </Nav.Link>
+      </Nav.Item>
+
+      <Nav.Item>
+        <Nav.Link as={Link} to="/services" eventKey="profile">
+          Үйлчилгээ
+        </Nav.Link>
+      </Nav.Item>
+
+      <Nav.Item>
+        <Nav.Link as={Link} to="/appointment" eventKey="hous">
+          Цаг авах
+        </Nav.Link>
+      </Nav.Item>
+    </Nav>
 
       {/* Main Content */}
       <Container className="my-4" >
         <Row>
           {/* Left Column */}
-          <Col xs={{ order: 2}} md={{order:1, span: 8}}>
+          <Col xs={{ order: 2}} md={{order:2}} lg={{order:1, span: 8}}>
             <Card className="mb-3 p-3" id="BidniiTuhai">
              <h5 className="text-bold">Бидний тухай</h5>
               <p>Манай эмнэлэг нь 2012 онд үүсгэн байгуулагдсан 
@@ -56,7 +75,7 @@ export default function EmnelgiinMedeelel() {
                     <div className="col-md-6">
                         <h5 className="text-bold">Хаяг</h5>
                         <p> <span className="text-primary">Салбар 1: </span>Бөхийн өргөө салбар
-                           <p>Монгол улс, 13000, Улаанбаатар хот, Баянзүрх дүүрэг, 6-р хороо, 75/1 байр, Эрхэт оффис, 2 давхар</p>
+                           <p> Баянзүрх дүүрэг, 6-р хороо, 75/1 байр, Эрхэт оффис, 2 давхар</p>
                         </p>
                         <p><span className="text-primary">Салбар 2: </span> Маршал таун салбар
                            <p>Монгол улс, 13000, Улаанбаатар хот, Хан-Уул дүүрэг, 11-р хороо, Маршал таун, 115-р байр</p>
@@ -79,7 +98,7 @@ export default function EmnelgiinMedeelel() {
           </Col>
 
           {/* Right Column */}
-          <Col xs={{ order: 1 }} md={{ order: 2, span: 4 }}>
+          <Col xs={{ order: 1 }} md={{order:1}} lg={{ order: 2, span: 4 }}>
             <Card className="p-3 mb-3 sticky-top" style={{ top: '70px', zIndex: '0' }}>
               <h5 className="fw-bold  mb-2">Оргилдент</h5>
               <hr />

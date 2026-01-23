@@ -11,7 +11,6 @@
   /* hailtiin system  */
   .search-box {
     flex-direction: column;
-
     border-radius: 20px;
     padding: 10px;
     width: 95%;
@@ -193,10 +192,27 @@
 
 /* Tablet (576–768px) */
 @media (min-width: 576px) and (max-width: 768px) {
+
+
+
+  /* search input */
   .search-box {
     flex-direction: column;
     border-radius: 20px;
-    padding: 15px;
+    padding: 10px;
+    width: 100%;
+    border-color: #fff;
+    box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.08),
+      0 10px 20px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .search-box:hover {
+    box-shadow:
+      0 6px 12px rgba(0, 0, 0, 0.12),
+      0 18px 36px rgba(0, 0, 0, 0.1);
   }
 
   .search-field,
@@ -205,54 +221,390 @@
     width: 100%;
     border: none;
     justify-content: center;
-    padding: 12px;
+    padding: 13px;
+  }
+
+  .location-field {
+    border-radius: 0;
+    border-top: 1px solid #cfe9f2;
   }
 
   .search-btn {
     align-self: flex-end;
     border-radius: 10px;
-    margin-top: 6px;
+    margin-top: 8px;
+    height: 44px;
+  }
+
+  /* hailt hiih zaawar */
+  .default-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 12px;
+  }
+
+  .default-title {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .default-pill-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .default-pill-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .default-pill {
+    display: inline-flex;
+    align-items: center;
+    min-width: 120px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0, 168, 255, 0.25);
+    color: #007bff;
+    background: rgba(255, 255, 255, 0.85);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .default-pill.active {
+    background: linear-gradient(135deg, #00a8ff, #4facfe);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(0, 168, 255, 0.3);
+  }
+
+  /* hail hiih zaawar card */
+  .feature-grid {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-start;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0 14px;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .feature-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .feature-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .feature-card {
+    flex: 0 0 88%;
+    min-width: 88%;
+    scroll-snap-align: center;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.6s ease;
+  }
+
+  .feature-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 24px rgba(0, 168, 255, 0.2);
+  }
+
+  .feature-card__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0b3650;
+  }
+
+  .feature-card__eyebrow {
+    font-size: 0.8rem;
+    color: #6b7b86;
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* about */
+  .About-left {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  .emnelegHeader .header {
+    margin: 0;
+    padding: 20px;
+  }
+
+  .emnelegHeader .header-img {
+    margin-left: 5px;
+  }
+
+  .emnelegNavbar {
+    display: none !important;
   }
 }
 
 
 
-/* --- Fade animation --- */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 /* Small desktop (768–992px) */
-@media (min-width: 768px) and (max-width: 992px) {}
+@media (min-width: 768px) and (max-width: 992px) {
+   /* hailt hiih zaawar */
+  .default-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 12px;
+  }
+
+  .default-title {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .default-pill-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .default-pill-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .default-pill {
+    display: inline-flex;
+    align-items: center;
+    min-width: 120px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0, 168, 255, 0.25);
+    color: #007bff;
+    background: rgba(255, 255, 255, 0.85);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .default-pill.active {
+    background: linear-gradient(135deg, #00a8ff, #4facfe);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(0, 168, 255, 0.3);
+  }
+
+  /* hail hiih zaawar card */
+  .feature-grid {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0 14px;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .feature-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .feature-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .feature-card {
+    flex: 0 0 88%;
+    min-width: 68%;
+    scroll-snap-align: center;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.6s ease;
+  }
+
+  .feature-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 24px rgba(0, 168, 255, 0.2);
+  }
+
+  .feature-card__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0b3650;
+  }
+
+  .feature-card__eyebrow {
+    font-size: 0.8rem;
+    color: #6b7b86;
+    letter-spacing: 0.05em;
+  }
+
+
+
+}
 
 /* Large desktop (992–1200px) */
 @media (min-width: 992px) and (max-width: 1200px) {
-  .search-box {
+
+   .default-page {
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    padding-bottom: 12px;
   }
 
-  .search-input,
-  .search-btn {
-    width: 100%;
-    border-radius: 8px;
+  .default-title {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 15px;
   }
 
-  .divider {
+  .default-pill-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
     width: 100%;
-    height: 1px;
-    margin: 5px 0;
-    color: #00afef09;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
+
+  .default-pill-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .default-pill {
+    display: inline-flex;
+    align-items: center;
+    min-width: 120px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0, 168, 255, 0.25);
+    color: #007bff;
+    background: rgba(255, 255, 255, 0.85);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .default-pill.active {
+    background: linear-gradient(135deg, #00a8ff, #4facfe);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(0, 168, 255, 0.3);
+  }
+
+  /* hail hiih zaawar card */
+  .feature-grid {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0 14px;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .feature-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .feature-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .feature-card {
+    flex: 0 0 88%;
+    min-width: 68%;
+    scroll-snap-align: center;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.6s ease;
+  }
+
+  .feature-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 24px rgba(0, 168, 255, 0.2);
+  }
+
+  .feature-card__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0b3650;
+  }
+
+  .feature-card__eyebrow {
+    font-size: 0.8rem;
+    color: #6b7b86;
+    letter-spacing: 0.05em;
+  }
+
+
+
 }
 
 /* Extra large (1200px+) */
 @media (min-width: 1200px) {}
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

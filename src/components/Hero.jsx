@@ -28,6 +28,7 @@ export default function Hero() {
           <MicroGuide />
           <SearchBar/>
           <SearchCard />
+          
         </Col>
       </Row>
     </Container>

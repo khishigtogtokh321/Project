@@ -1,6 +1,4 @@
-
 import React from "react";
-
 
 const ActiveCustomers = () => {
   const logos = [
@@ -11,19 +9,24 @@ const ActiveCustomers = () => {
     "src/assets/logos/prodent-greyscale.png",
   ];
 
- 
   return (
-    <div className="container text-center my-5">
-      <div className="logo-slider">
-        <div className="logo-track">
-          {logos.concat(logos).map((logo, index) => (
-            <div className="logo-item" key={index}>
-              <img src={logo} alt={`logo-${index}`} />
-            </div>
-          ))}
+    <section className="active-customers-section py-5">
+      <div className="container text-center">
+        <h3 className="mb-4 fw-semibold text-primary">
+          Хамтран ажиллаж буй эмнэлгүүд
+        </h3>
+        <div className="logo-slider">
+          <div className="logo-track">
+            {logos.concat(logos).map((logo, index) => (
+              <div className="logo-item" key={index}>
+                <img src={logo} alt={`logo-${index}`} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
+
 export default ActiveCustomers;

@@ -20,8 +20,6 @@ export default function Home() {
       <WhyChooseUs />
       <DoctorsStats />
       <ActiveCustomers />
-      <About />      
-   
     </>
   );
 }

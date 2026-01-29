@@ -37,67 +37,45 @@ export default function HowToBook() {
     <section className="py-5 bg-light position-relative overflow-hidden">
       <Container>
         <div className="text-center mb-5">
-          <h2 className="fw-bold text-dark">How it works</h2>
-          <p className="text-muted">3 алхмаар цаг авах үйл явц</p>
+          <h2 className="fw-bold text-navy h4">Хялбар 3 алхам</h2>
+          <p className="text-muted small">Таны эрүүл мэндийн үйлчилгээ авах үе шат</p>
         </div>
 
         <Row className="g-4 justify-content-center">
-          {steps.map((s) => (
+          {steps.map((s, i) => (
             <Col xs={12} md={4} key={s.id}>
               <motion.div
-                whileHover={{ scale: 1.05, y: -4 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="how-step-card rounded-4 position-relative overflow-hidden shadow-sm p-4 text-center"
-                style={{
-                  backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.25) 100%), url(${s.bg})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backdropFilter: "blur(14px)",
-                  WebkitBackdropFilter: "blur(14px)",
-                  minHeight: "260px",
-                  border: "1px solid rgba(255,255,255,0.3)",
-                }}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="rounded-4 p-4 h-100 bg-white shadow-sm border"
+                style={{ borderColor: '#f1f5f9' }}
               >
-                <div className="position-relative d-flex flex-column align-items-center justify-content-center h-100">
-                  {/* 🔹 Icon circle */}
+                <div className="d-flex flex-column align-items-center text-center">
                   <div
-                    className="rounded-circle mb-3 d-flex align-items-center justify-content-center"
+                    className="rounded-circle mb-4 d-flex align-items-center justify-content-center"
                     style={{
-                      width: 56,
-                      height: 56,
-                      backgroundColor: `${s.accent}20`, // soft transparent accent
-                      boxShadow: `0 0 10px ${s.accent}40`,
+                      width: 60,
+                      height: 60,
+                      backgroundColor: `${s.accent}08`,
+                      color: s.accent,
+                      fontSize: '1.25rem',
+                      border: `1px solid ${s.accent}12`
                     }}
                   >
                     {s.icon}
                   </div>
 
-                  {/* 🔹 Step number */}
-                  <small
-                    className="fw-semibold mb-1"
-                    style={{ color: "rgba(255,255,255,0.7)" }}
-                  >
-                    0{s.id}
-                  </small>
+                  <div className="text-primary fw-bold small text-uppercase mb-2" style={{ letterSpacing: '1px', fontSize: '0.65rem' }}>
+                    Алхам 0{s.id}
+                  </div>
 
-                  {/* 🔹 Title */}
-                  <h4
-                    className="fw-bold mb-2"
-                    style={{ color: "#ffffff", letterSpacing: "0.5px" }}
-                  >
+                  <h5 className="fw-bold text-navy mb-2" style={{ fontSize: '0.95rem' }}>
                     {s.title}
-                  </h4>
+                  </h5>
 
-                  {/* 🔹 Text */}
-                  <p
-                    className="mb-0"
-                    style={{
-                      fontSize: "0.95rem",
-                      lineHeight: "1.5",
-                      color: "rgba(255,255,255,0.85)",
-                      maxWidth: "85%",
-                    }}
-                  >
+                  <p className="text-muted mb-0" style={{ fontSize: "0.85rem", lineHeight: "1.6" }}>
                     {s.text}
                   </p>
                 </div>

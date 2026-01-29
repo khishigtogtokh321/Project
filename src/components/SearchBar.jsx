@@ -56,55 +56,91 @@ export default function SearchBar() {
   );
 
   return (
-    <div >
-    <div className="search-container">
-      <div className="search-box ">
-        <div className="search-field suggestion-field">
-          <FaSearch className="icon" />
+    <div className="search-bar-wrapper w-100">
+      <div className="d-flex flex-column flex-md-row align-items-stretch gap-0 bg-white rounded-4 overflow-hidden border-0">
+        {/* 🔹 Query Field */}
+        <div className="flex-grow-1 position-relative d-flex align-items-center px-3 py-2 border-bottom border-md-bottom-0 border-md-end" style={{ minWidth: '0' }}>
+          <FaSearch className="text-muted me-2 opacity-50" />
           <input
             type="text"
-            placeholder="Search by doctor, clinic or specialty..."
+            placeholder="Эмч, эмнэлэг хайх..."
+            className="border-0 w-100 py-2 outline-none fw-medium"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+            style={{ fontSize: '1rem', outline: 'none', boxShadow: 'none' }}
           />
+
           {showSuggestions && (
-            <div className="suggestion-dropdown fade-in">
-              {filteredSuggestions.map((s) => (
-                <div
-                  key={s.id}
-                  className="suggestion-item"
-                  onClick={() => {
-                    setQuery(s.name);
-                    setShowSuggestions(false);
-                  }}
-                >
-                  <span className="emoji">{s.logo}</span>
-                  <div className="suggestion-info">
-                    <strong>{s.name}</strong>
-                    <small>{s.type} • {s.location}</small>
+            <div className="suggestion-dropdown position-absolute start-0 top-100 w-100 bg-white shadow-lg rounded-bottom-4 border-top z-3 fade-in overflow-hidden">
+              {filteredSuggestions.length > 0 ? (
+                filteredSuggestions.map((s) => (
+                  <div
+                    key={s.id}
+                    className="suggestion-item d-flex align-items-center gap-3 p-3 border-bottom-0 hover-bg-light cursor-pointer transition-all"
+                    onClick={() => {
+                      setQuery(s.name);
+                      setShowSuggestions(false);
+                    }}
+                    style={{ transition: 'background 0.2s' }}
+                  >
+                    <span className="fs-4">{s.logo}</span>
+                    <div className="suggestion-info overflow-hidden">
+                      <div className="text-dark fw-bold text-truncate">{s.name}</div>
+                      <div className="text-muted small text-truncate">{s.type} • {s.location}</div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <div className="p-4 text-muted small text-center">Илэрц олдсонгүй</div>
+              )}
             </div>
           )}
         </div>
-        <div className="search-field location-field">
-          <FaMapMarkerAlt className="icon" />
+
+        {/* 🔹 Location Field */}
+        <div className="flex-grow-1 d-flex align-items-center px-3 py-2 border-bottom border-md-bottom-0" style={{ minWidth: '0' }}>
+          <FaMapMarkerAlt className="text-muted me-2 opacity-50" />
           <input
             type="text"
-            placeholder="City or district"
+            placeholder="Байршил"
+            className="border-0 w-100 py-2 outline-none fw-medium"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
+            style={{ fontSize: '1rem', outline: 'none', boxShadow: 'none' }}
           />
-          <FaLocationArrow className="near-icon" onClick={handleNearMe} />
+          <FaLocationArrow
+            className="text-primary cursor-pointer opacity-75 hover-opacity-100 ms-2"
+            onClick={handleNearMe}
+            title="Миний байршил"
+          />
         </div>
-        <button className="search-btn" onClick={handleSearch}>
+
+        {/* 🔹 Search Button */}
+        <button
+          className="search-submit-btn bg-primary text-white border-0 px-4 py-3 d-flex align-items-center justify-content-center transition-all"
+          onClick={handleSearch}
+          style={{ minWidth: '100px', fontWeight: '600' }}
+        >
+          <span className="d-md-none me-2">Хайх</span>
           <FaArrowRight />
         </button>
       </div>
-    </div>
+
+      <style>{`
+        .search-bar-wrapper .hover-bg-light:hover {
+          background-color: #f8fbff;
+        }
+        .search-bar-wrapper input::placeholder {
+          color: #adb5bd;
+          font-weight: 400;
+        }
+        @media (max-width: 767.98px) {
+          .border-md-end { border-right: none !important; }
+          .border-md-bottom-0 { border-bottom: 0 !important; }
+        }
+      `}</style>
     </div>
   );
 }

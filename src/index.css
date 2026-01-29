@@ -93,12 +93,12 @@
 
 /* Dark section */
 .hp-dark {
-  background: linear-gradient(135deg, #00296b, #004dc9);
+  background: var(--primary-900);
 }
 
 .hp-underline {
   display: inline-block;
-  border-bottom: 3px solid var(--hp-primary);
+  border-bottom: 3px solid var(--primary-500);
   padding-bottom: 4px;
 }
 
@@ -242,41 +242,30 @@ a {
   font-size: 14px;
 }
 
-.hero-text {
-  position: relative;
-  bottom: 50px;
-  color: #001bb5ff;
-  font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
-}
-
-
-/* ====== Үндсэн Layout ====== */
 /* ====== 🔍 Search Redesign (Handled in Component) ====== */
-.search-focus-container {
-  max-width: 900px;
-  margin: 0 auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+
+
+/* Layout Helpers */
+.max-w-600 {
+  max-width: 600px;
 }
 
-.search-focus-container:focus-within {
-  transform: translateY(-2px);
-  box-shadow: 0 25px 60px rgba(10, 29, 55, 0.12) !important;
+.max-w-500 {
+  max-width: 500px;
 }
 
-
-
-.card_button {
-  position: relative;
-  top: 90px;
-  display: flex;
-  border-radius: 20px solid black;
-  cursor: pointer;
-  border-color: #333;
+.bg-gray-25 {
+  background-color: var(--gray-25);
 }
 
-.CardCol {
-  padding: 20px;
-  margin: 30px;
+.bg-white {
+  background-color: var(--white);
+}
+
+.py-6 {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
 }
 
 /* user section */
@@ -1061,36 +1050,7 @@ h5 {
 
 
 
-/* active-customer */
-
-/* 🔹 Modern ActiveCustomers Section */
-.active-customers-section {
-  background: linear-gradient(135deg, #f7fbff, #f0f7ff);
-  position: relative;
-  overflow: hidden;
-}
-
-.active-customers-section::before,
-.active-customers-section::after {
-  content: "";
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle at center, #00a8ff22, transparent);
-  filter: blur(60px);
-  z-index: 0;
-}
-
-.active-customers-section::before {
-  top: -60px;
-  left: -80px;
-}
-
-.active-customers-section::after {
-  bottom: -60px;
-  right: -80px;
-}
+/* active-customer styling handled by utility classes */
 
 /* 🔹 Logo slider animation */
 .logo-slider {

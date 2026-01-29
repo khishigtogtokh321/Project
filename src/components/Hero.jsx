@@ -6,7 +6,7 @@ import Badge from "./ui/Badge";
 
 export default function Hero() {
   return (
-    <section className="py-5" style={{ background: 'var(--gray-25)' }}>
+    <section className="py-5 bg-gray-25">
       <Container>
         <Row className="justify-content-center text-center">
           <Col lg={10} xl={8}>
@@ -30,7 +30,7 @@ export default function Hero() {
               </h1>
 
               {/* 🔹 Fluid Lead Text */}
-              <p className="text-body-lg text-gray-600 mb-5 mx-auto" style={{ maxWidth: '600px' }}>
+              <p className="text-body-lg text-gray-600 mb-5 mx-auto max-w-600">
                 Таны эрүүл мэндийн хөтөч. 300+ гаруй эмнэлэг, 1000+ мэргэжлийн эмч нарыг нэг дороос хайж, цаг захиалгаа баталгаажуулна уу.
               </p>
 

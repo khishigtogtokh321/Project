@@ -16,10 +16,12 @@ export default function SearchBar() {
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isMobileSearchActive, setIsMobileSearchActive] = useState(false);
 
   const handleSearch = () => {
     alert(`Хайлт: ${query}, Байршил: ${location}`);
     setShowSuggestions(false);
+    setIsMobileSearchActive(false);
   };
 
   const handleNearMe = () => {
@@ -40,7 +42,7 @@ export default function SearchBar() {
   );
 
   return (
-    <div className="search-bar-container bg-white rounded-xl shadow-md p-1 border border-gray-100">
+    <div className={`search-bar-container bg-white rounded-xl shadow-md p-1 border border-gray-100 ${isMobileSearchActive ? 'mobile-search-active' : ''}`}>
       <div className="d-flex flex-column flex-md-row align-items-stretch gap-1">
 
         {/* 🔍 Search Input */}
@@ -49,7 +51,10 @@ export default function SearchBar() {
             placeholder="Эмч, эмнэлэг хайх..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onFocus={() => setShowSuggestions(true)}
+            onFocus={() => {
+              setShowSuggestions(true);
+              if (window.innerWidth < 768) setIsMobileSearchActive(true);
+            }}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             leftIcon={<FaSearch />}
             className="border-0 focus:shadow-none"
@@ -104,9 +109,52 @@ export default function SearchBar() {
         </Button>
       </div>
 
+      {isMobileSearchActive && (
+        <div
+          className="d-md-none position-fixed top-0 start-0 w-100 h-100 bg-white z-max p-4 animate-fade-in"
+          style={{ zIndex: 1060 }}
+        >
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h4 className="text-h3 mb-0">Хайлт</h4>
+            <button className="btn-close" onClick={() => setIsMobileSearchActive(false)}></button>
+          </div>
+
+          <Input
+            autoFocus
+            label="Юу хайх вэ?"
+            placeholder="Эмч, эмнэлэг..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            leftIcon={<FaSearch />}
+            className="mb-3"
+          />
+
+          <Input
+            label="Хаана?"
+            placeholder="Байршил"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            leftIcon={<FaMapMarkerAlt />}
+            className="mb-4"
+          />
+
+          <Button variant="primary" size="lg" className="w-100" onClick={handleSearch}>
+            Хайлт хийх
+          </Button>
+        </div>
+      )}
+
       <style>{`
         .search-bar-container .last\\:border-0:last-child { border-bottom: 0; }
         .search-bar-container .hover\\:bg-gray-50:hover { background-color: var(--gray-50); }
+        .z-max { z-index: 1050; }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.3s ease-out;
+        }
       `}</style>
     </div>
   );

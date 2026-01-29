@@ -34,11 +34,11 @@ export default function HowToBook() {
   ];
 
   return (
-    <section className="py-5 bg-light position-relative overflow-hidden">
+    <section className="py-6 bg-gray-50 position-relative overflow-hidden">
       <Container>
         <div className="text-center mb-5">
-          <h2 className="fw-bold text-navy h4">Хялбар 3 алхам</h2>
-          <p className="text-muted small">Таны эрүүл мэндийн үйлчилгээ авах үе шат</p>
+          <h2 className="text-h2 mb-2">Хялбар 3 алхам</h2>
+          <p className="text-body text-gray-500">Таны эрүүл мэндийн үйлчилгээ авах үе шат</p>
         </div>
 
         <Row className="g-4 justify-content-center">
@@ -67,15 +67,15 @@ export default function HowToBook() {
                     {s.icon}
                   </div>
 
-                  <div className="text-primary fw-bold small text-uppercase mb-2" style={{ letterSpacing: '1px', fontSize: '0.65rem' }}>
+                  <div className="text-body-xs text-primary-500 fw-bold mb-2">
                     Алхам 0{s.id}
                   </div>
 
-                  <h5 className="fw-bold text-navy mb-2" style={{ fontSize: '0.95rem' }}>
+                  <h3 className="text-h3 mb-2" style={{ fontSize: '1.125rem' }}>
                     {s.title}
-                  </h5>
+                  </h3>
 
-                  <p className="text-muted mb-0" style={{ fontSize: "0.85rem", lineHeight: "1.6" }}>
+                  <p className="text-body-sm text-gray-600 mb-0">
                     {s.text}
                   </p>
                 </div>

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MyNavbar from "./components/MyNavbar";
 import Footer from "./components/Footer";
+import BottomNav from "./components/ui/BottomNav";
 import Home from "./pages/Home";
 import Booking from "./pages/Booking";
 import CalendarPage from "./pages/CalendarPage";
@@ -12,8 +13,6 @@ import ServiceChose from "./pages/ServiceChose";
 import AppointmentHistory from "./pages/AppointmentHistory";
 import AuthPage from "./pages/AuthPage";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
-
 
 export default function App() {
   return (
@@ -32,6 +31,7 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
       </Routes>
       <Footer />
+      <BottomNav />
     </Router>
   );
 }

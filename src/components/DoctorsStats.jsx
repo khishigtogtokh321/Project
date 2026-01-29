@@ -3,22 +3,22 @@ import { Container } from "react-bootstrap";
 import CountUp from "react-countup";
 import { motion } from "framer-motion";
 
-export default function DoctorsStats(){
+export default function DoctorsStats() {
   return (
     <Container className="py-5 text-center">
       <motion.div
         className="hp-glass rounded-4 py-5 px-3"
-        initial={{opacity:0, y:20}}
-        whileInView={{opacity:1, y:0}}
-        viewport={{ once:true, amount:0.4 }}
-        transition={{ duration:0.45 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.45 }}
       >
-        <h3 className="fw-bold text-primary mb-1">
+        <h3 className="text-h3 mb-2">
           <CountUp end={250} duration={2.5} suffix="+" /> эмч &nbsp;·&nbsp;
           <CountUp end={50} duration={2.2} suffix="+" /> эмнэлэг &nbsp;·&nbsp;
           <CountUp end={1200} duration={2.8} suffix="+" /> амжилттай захиалга
         </h3>
-        <p className="text-muted mb-0">Live data update-тайгаар итгэлийг нэмэгдүүлнэ.</p>
+        <p className="text-body text-gray-500 mb-0">Live data update-тайгаар итгэлийг нэмэгдүүлнэ.</p>
       </motion.div>
     </Container>
   );

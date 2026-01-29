@@ -1,5 +1,5 @@
 import React from 'react';
-import { 运动 } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 /**
  * Standardized Card component with support for various styles and interactions.

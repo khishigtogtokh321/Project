@@ -1206,3 +1206,138 @@ h5 {
 .footer-bottom strong {
   color: #00c8ff;
 }
+
+/* 🧭 Premium Navbar Styles */
+.navbar-custom {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent !important;
+  border-bottom: 1px solid transparent;
+  padding-top: 1.25rem !important;
+  padding-bottom: 1.25rem !important;
+  z-index: 1050;
+}
+
+.navbar-scrolled {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
+  padding-top: 0.6rem !important;
+  padding-bottom: 0.6rem !important;
+}
+
+.navbar-custom .navbar-brand img {
+  transition: transform 0.4s ease;
+}
+
+.navbar-scrolled .navbar-brand img {
+  transform: scale(0.9);
+}
+
+.navbar-custom .nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--navy-900) !important;
+  letter-spacing: 0.025em;
+  padding: 0.5rem 1.5rem !important;
+  transition: all 0.3s ease;
+  opacity: 0.85;
+}
+
+.navbar-custom .nav-link:hover {
+  opacity: 1;
+  color: var(--primary-500) !important;
+}
+
+/* Premium Black Button for Register */
+.btn-nav-register {
+  background: #000 !important;
+  color: #fff !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+  padding: 0.6rem 1.8rem !important;
+  border-radius: 99px !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.btn-nav-register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  background: #222 !important;
+}
+
+.btn-nav-login {
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: var(--navy-900) !important;
+  opacity: 0.7;
+  transition: opacity 0.3s ease !important;
+}
+
+.btn-nav-login:hover {
+  opacity: 1;
+}
+
+/* 🏔️ Refined Hero & Search Island Styles */
+.hero-refined {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(8rem, 12vw, 12rem) !important;
+  padding-bottom: clamp(6rem, 10vw, 10rem) !important;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(0, 102, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.04) 0%, transparent 50%),
+    var(--gray-25);
+}
+
+.hero-refined::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-refined .text-h1 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.search-island {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.02);
+  border-radius: 32px !important;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 767.98px) {
+  .search-island {
+    border-radius: 20px !important;
+    padding: 1.25rem !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.search-island:hover {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.search-island .input-group-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--gray-200);
+  align-self: center;
+}

@@ -1,63 +1,50 @@
 import { Container, Row, Col } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import { motion } from "framer-motion";
-import PartnerLogos from "./PartnerLogos";
 import Badge from "./ui/Badge";
+import { FiCheckCircle, FiStar } from "react-icons/fi";
 
 export default function Hero() {
   return (
-    <section className="py-5 bg-gray-25">
+    <section className="hero-refined d-flex align-items-center" style={{ minHeight: '75vh' }}>
       <Container>
         <Row className="justify-content-center text-center">
           <Col lg={10} xl={8}>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* 🔹 Brand Badge */}
-              <div className="d-flex justify-content-center mb-4">
-                <Badge variant="primary" size="md">
-                  ✨ Танд хамгийн ойр, шилдэг мэргэжилтнүүд
-                </Badge>
-              </div>
-
-              {/* 🔹 Fluid Heading */}
+              {/* 🔹 Punchy Headline */}
               <h1 className="text-h1 mb-3">
                 Мэргэжлийн эмч, эмнэлгийг <br />
                 <span className="text-primary-500">хялбараар олж захиалаарай</span>
               </h1>
 
-              {/* 🔹 Fluid Lead Text */}
-              <p className="text-body-lg text-gray-600 mb-5 mx-auto max-w-600">
-                Таны эрүүл мэндийн хөтөч. 300+ гаруй эмнэлэг, 1000+ мэргэжлийн эмч нарыг нэг дороос хайж, цаг захиалгаа баталгаажуулна уу.
+              {/* 🔹 Minimalist Lead Text (Desktop Only, Small) */}
+              <p className="text-body-sm text-gray-400 mb-5 mx-auto d-none d-lg-block" style={{ maxWidth: '500px' }}>
+                Таны эрүүл мэндийн хөтөч. Хамгийн шилдэг мэргэжилтнүүдээс сонгож цаг захиалгаа баталгаажуулна уу.
               </p>
 
-              {/* 🔹 Refactored Search Focus */}
-              <div className="mb-5">
+              {/* 🔹 Centered Search Focus */}
+              <div className="mb-5 px-1">
                 <SearchBar />
               </div>
 
-              {/* 🔹 Trust Indicators */}
-              <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 text-gray-500">
+              {/* 🔹 Clean Trust Indicators (Subtle) */}
+              <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 text-gray-400 opacity-60">
                 <div className="d-flex align-items-center gap-2">
-                  <span className="text-success-500 fw-bold fs-5">✓</span>
-                  <span className="text-body-sm fw-medium">300+ Эмнэлэг</span>
+                  <FiCheckCircle size={14} className="text-success-400" />
+                  <span style={{ fontSize: '0.75rem', fontWeight: 500 }}>300+ Эмнэлэг</span>
                 </div>
                 <div className="d-flex align-items-center gap-2">
-                  <span className="text-success-500 fw-bold fs-5">✓</span>
-                  <span className="text-body-sm fw-medium">1000+ Эмч</span>
+                  <FiCheckCircle size={14} className="text-success-400" />
+                  <span style={{ fontSize: '0.75rem', fontWeight: 500 }}>1000+ Мэргэжилтэн</span>
                 </div>
                 <div className="d-flex align-items-center gap-2">
-                  <span className="text-warning-500 fw-bold fs-5">★</span>
-                  <span className="text-body-sm fw-medium">4.9 Хэрэглэгчийн үнэлгээ</span>
+                  <FiStar size={14} className="text-warning-400" />
+                  <span style={{ fontSize: '0.75rem', fontWeight: 500 }}>4.8/5 Сэтгэл ханамж</span>
                 </div>
-              </div>
-
-              {/* 🔹 Partner Logos Overlay */}
-              <div className="mt-5 pt-4 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                <PartnerLogos />
               </div>
             </motion.div>
           </Col>

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import {
-  FaSearch,
-  FaMapMarkerAlt,
-  FaLocationArrow,
-  FaArrowRight,
-  FaUserMd,
-} from "react-icons/fa";
-
+import { FaSearch, FaMapMarkerAlt, FaLocationArrow, FaArrowRight } from "react-icons/fa";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
 
 const mockResults = [
   { id: 1, name: "Ulaanbaatar Central Hospital", type: "Эмнэлэг", location: "Ulaanbaatar", logo: "🏥" },
@@ -20,17 +15,10 @@ const mockResults = [
 export default function SearchBar() {
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
-  const [result, setResults] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-
   const handleSearch = () => {
-    const filtered = mockResults.filter(
-      (r) =>
-        r.name.toLowerCase().includes(query.toLowerCase()) &&
-        r.location.toLowerCase().includes(location.toLowerCase())
-    );
-    setResults(filtered);
+    alert(`Хайлт: ${query}, Байршил: ${location}`);
     setShowSuggestions(false);
   };
 
@@ -39,15 +27,11 @@ export default function SearchBar() {
       alert("Таны хөтөч байршил авах боломжгүй байна.");
       return;
     }
-
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        const lat = pos.coords.latitude.toFixed(4);
-        const lng = pos.coords.longitude.toFixed(4);
-        setLocation(`Current location (Lat: ${lat}, Lng: ${lng})`);
-        alert(`📍 Байршил тодорхойлогдлоо!\nLat: ${lat}, Lng: ${lng}`);
+        setLocation(`Миний байршил (${pos.coords.latitude.toFixed(2)}, ${pos.coords.longitude.toFixed(2)})`);
       },
-      () => alert("Байршил авахад алдаа гарлаа 😢")
+      () => alert("Байршил авахад алдаа гарлаа")
     );
   };
 
@@ -56,90 +40,73 @@ export default function SearchBar() {
   );
 
   return (
-    <div className="search-bar-wrapper w-100">
-      <div className="d-flex flex-column flex-md-row align-items-stretch gap-0 bg-white rounded-4 overflow-hidden border-0">
-        {/* 🔹 Query Field */}
-        <div className="flex-grow-1 position-relative d-flex align-items-center px-3 py-2 border-bottom border-md-bottom-0 border-md-end" style={{ minWidth: '0' }}>
-          <FaSearch className="text-muted me-2 opacity-50" />
-          <input
-            type="text"
+    <div className="search-bar-container bg-white rounded-xl shadow-md p-1 border border-gray-100">
+      <div className="d-flex flex-column flex-md-row align-items-stretch gap-1">
+
+        {/* 🔍 Search Input */}
+        <div className="flex-grow-1 position-relative">
+          <Input
             placeholder="Эмч, эмнэлэг хайх..."
-            className="border-0 w-100 py-2 outline-none fw-medium"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-            style={{ fontSize: '1rem', outline: 'none', boxShadow: 'none' }}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            leftIcon={<FaSearch />}
+            className="border-0 focus:shadow-none"
+            containerClassName="mb-0"
           />
 
           {showSuggestions && (
-            <div className="suggestion-dropdown position-absolute start-0 top-100 w-100 bg-white shadow-lg rounded-bottom-4 border-top z-3 fade-in overflow-hidden">
-              {filteredSuggestions.length > 0 ? (
-                filteredSuggestions.map((s) => (
-                  <div
-                    key={s.id}
-                    className="suggestion-item d-flex align-items-center gap-3 p-3 border-bottom-0 hover-bg-light cursor-pointer transition-all"
-                    onClick={() => {
-                      setQuery(s.name);
-                      setShowSuggestions(false);
-                    }}
-                    style={{ transition: 'background 0.2s' }}
-                  >
-                    <span className="fs-4">{s.logo}</span>
-                    <div className="suggestion-info overflow-hidden">
-                      <div className="text-dark fw-bold text-truncate">{s.name}</div>
-                      <div className="text-muted small text-truncate">{s.type} • {s.location}</div>
-                    </div>
+            <div className="position-absolute start-0 top-100 w-100 bg-white shadow-lg rounded-lg border mt-2 z-3 overflow-hidden">
+              {filteredSuggestions.map(s => (
+                <div
+                  key={s.id}
+                  className="p-3 d-flex align-items-center gap-3 hover:bg-gray-50 cursor-pointer border-bottom last:border-0"
+                  onClick={() => setQuery(s.name)}
+                >
+                  <span className="fs-4">{s.logo}</span>
+                  <div>
+                    <div className="fw-bold text-navy-900">{s.name}</div>
+                    <div className="text-body-xs">{s.type} • {s.location}</div>
                   </div>
-                ))
-              ) : (
-                <div className="p-4 text-muted small text-center">Илэрц олдсонгүй</div>
-              )}
+                </div>
+              ))}
             </div>
           )}
         </div>
 
-        {/* 🔹 Location Field */}
-        <div className="flex-grow-1 d-flex align-items-center px-3 py-2 border-bottom border-md-bottom-0" style={{ minWidth: '0' }}>
-          <FaMapMarkerAlt className="text-muted me-2 opacity-50" />
-          <input
-            type="text"
+        {/* 📍 Location Input */}
+        <div className="flex-grow-1 position-relative d-flex align-items-center">
+          <Input
             placeholder="Байршил"
-            className="border-0 w-100 py-2 outline-none fw-medium"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            style={{ fontSize: '1rem', outline: 'none', boxShadow: 'none' }}
+            leftIcon={<FaMapMarkerAlt />}
+            className="border-0 focus:shadow-none"
+            containerClassName="mb-0 flex-grow-1"
           />
-          <FaLocationArrow
-            className="text-primary cursor-pointer opacity-75 hover-opacity-100 ms-2"
+          <div
+            className="position-absolute end-0 me-3 text-primary-500 cursor-pointer p-2 hover:bg-primary-50 rounded-circle transition-all"
             onClick={handleNearMe}
-            title="Миний байршил"
-          />
+          >
+            <FaLocationArrow size={14} />
+          </div>
         </div>
 
-        {/* 🔹 Search Button */}
-        <button
-          className="search-submit-btn bg-primary text-white border-0 px-4 py-3 d-flex align-items-center justify-content-center transition-all"
+        {/* 🚀 Search Action */}
+        <Button
+          variant="primary"
+          className="rounded-lg px-4 py-2"
           onClick={handleSearch}
-          style={{ minWidth: '100px', fontWeight: '600' }}
+          rightIcon={<FaArrowRight />}
         >
-          <span className="d-md-none me-2">Хайх</span>
-          <FaArrowRight />
-        </button>
+          Хайх
+        </Button>
       </div>
 
       <style>{`
-        .search-bar-wrapper .hover-bg-light:hover {
-          background-color: #f8fbff;
-        }
-        .search-bar-wrapper input::placeholder {
-          color: #adb5bd;
-          font-weight: 400;
-        }
-        @media (max-width: 767.98px) {
-          .border-md-end { border-right: none !important; }
-          .border-md-bottom-0 { border-bottom: 0 !important; }
-        }
+        .search-bar-container .last\\:border-0:last-child { border-bottom: 0; }
+        .search-bar-container .hover\\:bg-gray-50:hover { background-color: var(--gray-50); }
       `}</style>
     </div>
   );

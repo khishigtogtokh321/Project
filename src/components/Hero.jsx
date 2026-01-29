@@ -1,79 +1,68 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
 import { motion } from "framer-motion";
-import HowToBook from "./HowToBook";
-import SearchCard from "./SearchCard";
-import MicroGuide from "./MicroGuide";
 import PartnerLogos from "./PartnerLogos";
+import Badge from "./ui/Badge";
 
 export default function Hero() {
-
-  const [keyword, _setKeyword] = useState("");
-  const [location, _setLocation] = useState("");
-
-  const _handleSearch = (e) => {
-    e.preventDefault();
-    alert(`Хайлт: ${keyword}, Байршил: ${location}`);
-  };
-
   return (
-    <div className="discovery-hub" style={{
-      background: 'linear-gradient(180deg, #f8fbff 0%, #ffffff 100%)',
-      minHeight: '75vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '40px 0'
-    }}>
+    <section className="py-5" style={{ background: 'var(--gray-25)' }}>
       <Container>
         <Row className="justify-content-center text-center">
-          <Col lg={8} md={10}>
+          <Col lg={10} xl={8}>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              {/* 🔹 Mini Badge */}
-              <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-primary bg-opacity-10 text-primary small fw-bold mb-4">
-                <span className="fs-6">✨</span> Таны эрүүл мэндийн хөтөч
+              {/* 🔹 Brand Badge */}
+              <div className="d-flex justify-content-center mb-4">
+                <Badge variant="primary" size="md">
+                  ✨ Танд хамгийн ойр, шилдэг мэргэжилтнүүд
+                </Badge>
               </div>
 
-              {/* 🔹 Refined Heading (Smaller, better composition) */}
-              <h1 className="fw-bold mb-3" style={{
-                fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-                lineHeight: 1.2,
-                color: '#0a1d37',
-                letterSpacing: '-0.01em'
-              }}>
+              {/* 🔹 Fluid Heading */}
+              <h1 className="text-h1 mb-3">
                 Мэргэжлийн эмч, эмнэлгийг <br />
-                <span className="text-primary">хялбараар олж захиалаарай</span>
+                <span className="text-primary-500">хялбараар олж захиалаарай</span>
               </h1>
 
-              <p className="text-muted mb-5 mx-auto opacity-75" style={{ maxWidth: '600px', fontSize: '1.1rem' }}>
-                Танд хамгийн ойр, шилдэг мэргэжилтнүүдийг нэг дороос.
+              {/* 🔹 Fluid Lead Text */}
+              <p className="text-body-lg text-gray-600 mb-5 mx-auto" style={{ maxWidth: '600px' }}>
+                Таны эрүүл мэндийн хөтөч. 300+ гаруй эмнэлэг, 1000+ мэргэжлийн эмч нарыг нэг дороос хайж, цаг захиалгаа баталгаажуулна уу.
               </p>
 
-              {/* 🔹 Main Search Focus */}
-              <div className="search-focus-container mb-4 shadow-sm rounded-4 p-1 bg-white border">
+              {/* 🔹 Refactored Search Focus */}
+              <div className="mb-5">
                 <SearchBar />
               </div>
 
-              {/* 🔹 Partner Logos (Subtle integration) */}
-              <div className="mt-2 opacity-80" style={{ transform: 'scale(0.95)' }}>
-                <PartnerLogos />
+              {/* 🔹 Trust Indicators */}
+              <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 text-gray-500">
+                <div className="d-flex align-items-center gap-2">
+                  <span className="text-success-500 fw-bold fs-5">✓</span>
+                  <span className="text-body-sm fw-medium">300+ Эмнэлэг</span>
+                </div>
+                <div className="d-flex align-items-center gap-2">
+                  <span className="text-success-500 fw-bold fs-5">✓</span>
+                  <span className="text-body-sm fw-medium">1000+ Эмч</span>
+                </div>
+                <div className="d-flex align-items-center gap-2">
+                  <span className="text-warning-500 fw-bold fs-5">★</span>
+                  <span className="text-body-sm fw-medium">4.9 Хэрэглэгчийн үнэлгээ</span>
+                </div>
               </div>
 
-              {/* 🔹 Trust Indicator */}
-              <div className="mt-5 d-flex justify-content-center align-items-center gap-4 text-muted small fw-medium">
-                <span className="d-flex align-items-center gap-1">✅ 300+ Эмнэлэг</span>
-                <span className="d-flex align-items-center gap-1">👨‍⚕️ 1000+ Эмч</span>
-                <span className="d-flex align-items-center gap-1">⭐ 4.9 Үнэлгээ</span>
+              {/* 🔹 Partner Logos Overlay */}
+              <div className="mt-5 pt-4 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <PartnerLogos />
               </div>
             </motion.div>
           </Col>
         </Row>
       </Container>
-    </div>
+    </section>
   );
 }

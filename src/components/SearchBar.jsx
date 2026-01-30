@@ -46,17 +46,27 @@ const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
 
       {/* Title */}
       <div className="px-5 mb-4">
-        <h2 className="text-xl font-bold text-gray-900">Та юу хайж байна вэ?</h2>
+        <h2 className="text-[22px] font-bold text-gray-900 tracking-tight">Та юу хайж байна вэ?</h2>
       </div>
 
       {/* Styled Input */}
-      <div className="px-5 mb-6">
-        <div className="relative">
-          <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+      <div className="px-5 mb-4">
+        <div className="position-relative -left-3">
+          <FiSearch
+            className="position-absolute start-0 top-50  translate-middle-y ms-4 text-gray-500"
+            size={18}
+            style={{ zIndex: 5 }}
+          />
           <input
             autoFocus
             type="text"
-            className="w-full pl-12 pr-4 py-3 rounded-full border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-gray-700 text-lg"
+            className="w-100 ps-5 pe-4 py-3 rounded-pill border outline-none text-gray-700 fs-body focus:border-gray-400"
+            style={{
+              height: '48px',
+              fontSize: '1rem',
+              backgroundColor: '#fff',
+              borderColor: '#d1d5db'
+            }}
             placeholder="Өвчин, эмчилгээ эсвэл эмчийн нэр"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -68,12 +78,12 @@ const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
       <div className="flex-1 overflow-y-auto px-5 pb-8">
         {categories.map((cat, idx) => (
           <div key={idx} className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">{cat.title}</h3>
-            <div className="flex flex-col">
+            <h3 className="text-[13px] font-medium text-gray-400 mb-4">{cat.title}</h3>
+            <div className="flex flex-col gap-1">
               {cat.items.map((item, i) => (
                 <button
                   key={i}
-                  className="text-left py-3 text-gray-700 text-base border-b border-gray-100 last:border-0 hover:text-blue-600 transition-colors"
+                  className="text-left py-2 text-gray-800 text-[16px] hover:text-blue-600 transition-colors"
                   onClick={() => {
                     setQuery(item);
                     onClose();
@@ -160,6 +170,11 @@ export default function SearchBar() {
 
           {/* 📏 Divider */}
           <div className="d-none d-md-block" style={{ height: '30px', width: '1px', background: 'rgba(0,0,0,0.08)', margin: '0 1.5rem' }}></div>
+
+          {/* 📱 Mobile Divider (Subtle) */}
+          <div className="d-md-none w-100 px-3">
+            <div style={{ height: '1px', background: 'rgba(0,0,0,0.05)' }}></div>
+          </div>
 
           {/* 📍 Location Input Sub-Island (50%) */}
           <div className="location-section flex-grow-1 d-flex align-items-center">

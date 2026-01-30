@@ -7,7 +7,7 @@ const MiniStatItem = ({ icon: Icon, count, label, suffix = "+" }) => (
             <Icon size={18} />
         </div>
         <div className="d-flex flex-column" style={{ lineHeight: 1.1 }}>
-            <span className="fw-bold text-gray-900" style={{ fontSize: '1rem' }}>
+            <span className="fw-bold text-gray-900" style={{ fontSize: '1rem', fontVariantNumeric: 'tabular-nums' }}>
                 <CountUp end={count} duration={2.5} separator="," suffix={suffix} />
             </span>
             <span className="text-xs text-gray-500" style={{ fontSize: '0.75rem' }}>{label}</span>

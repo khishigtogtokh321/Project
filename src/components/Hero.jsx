@@ -5,23 +5,23 @@ import TrustStats from "./TrustStats";
 
 export default function Hero() {
   return (
-    <section className="hero-refined d-flex flex-column align-items-center justify-content-center position-relative" style={{ minHeight: 'auto', paddingTop: '8rem', paddingBottom: '4rem' }}>
+    <section className="hero-refined d-flex flex-column position-relative" style={{ minHeight: 'auto', paddingTop: '8rem', paddingBottom: '4rem' }}>
       <Container className="position-relative z-1">
-        <Row className="justify-content-center text-center">
+        <Row className="justify-content-start text-start justify-content-lg-center text-lg-center">
           <Col lg={10} xl={9}>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* 🔹 Punchy Headline */}
-              <h1 className="text-h1 mb-3" style={{ letterSpacing: '-0.04em' }}>
+              {/* 🔹 Punchy Headline (Zocdoc Style) */}
+              <h1 className="text-h1 mb-4" >
                 Мэргэжлийн эмч эмнэлгийг <br />
-                <span className="text-gradient-primary">хялбараар олж захиалаарай</span>
+                <span className="text-navy-700 " >хялбараар олж захиалаарай</span>
               </h1>
 
               {/* 🔹 Centered Search Focus */}
-              <div className="mb-4 mt-5 px-1">
+              <div className="mb-5 mt-3 px-1">
                 <SearchBar />
               </div>
               <TrustStats variant="mini" />

@@ -20,9 +20,9 @@ export default function MyNavbar() {
       fixed="top"
       className={`navbar-custom ${scrolled ? 'navbar-scrolled' : ''}`}
     >
-      <Container className="d-flex justify-content-between align-items-center">
-        {/* 🔹 Logo */}
-        <Navbar.Brand as={Link} to="/" className="ps-0 d-flex align-items-center m-0">
+      <Container className="d-flex align-items-center">
+        {/* 🔹 Logo (Left) */}
+        <Navbar.Brand as={Link} to="/" className="me-lg-5 d-flex align-items-center m-0">
           <img
             src={ashidLogo}
             alt="Ashid Logo"
@@ -34,11 +34,11 @@ export default function MyNavbar() {
         <Navbar.Toggle aria-controls="main-navbar-nav" className="border-0 shadow-none p-0" />
 
         <Navbar.Collapse id="main-navbar-nav">
-          {/* 🔹 Center Menu */}
-          <Nav className="mx-auto text-center py-3 py-lg-0">
-            <Nav.Link as={Link} to="/" className="px-lg-4">Нүүр хуудас</Nav.Link>
-            <Nav.Link as={Link} to="/" className="px-lg-4">Бидний тухай</Nav.Link>
-            <Nav.Link as={Link} to="/emch-songoh" className="px-lg-4">Цаг авах</Nav.Link>
+          {/* 🔹 Navigation Links (Center) */}
+          <Nav className="mx-auto text-center py-2 py-lg-0">
+            <Nav.Link as={Link} to="/" className="px-lg-3 fw-medium">Нүүр хуудас</Nav.Link>
+            <Nav.Link as={Link} to="/" className="px-lg-3 fw-medium">Бидний тухай</Nav.Link>
+            <Nav.Link as={Link} to="/emch-songoh" className="px-lg-3 fw-medium">Цаг авах</Nav.Link>
           </Nav>
 
           {/* 🔹 Actions */}

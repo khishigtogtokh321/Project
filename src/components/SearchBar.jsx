@@ -180,7 +180,7 @@ export default function SearchBar() {
             onClick={handleSearch}
             aria-label="Search"
           >
-            <FiSearch size={18} className="search-btn-icon " style={{ color: 'black' }} />
+            <FiSearch size={18} className="search-btn-icon " />
             <span className="d-md-none fw-bold">Хайх</span>
           </button>
         </div>

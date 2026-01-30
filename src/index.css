@@ -178,6 +178,13 @@ a {
    Typography Utilities
    ========================================================================== */
 
+.navbar-brand-text {
+  font-size: 1.15rem;
+  color: #000000;
+  font-weight: 600;
+
+}
+
 .text-h1 {
   font-size: var(--fs-h1);
   font-weight: 500;
@@ -1774,4 +1781,5 @@ h5 {
   .search-btn-icon {
     color: #111010;
   }
+
 }

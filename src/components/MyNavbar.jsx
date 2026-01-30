@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import ashidLogo from "../assets/ashidlogo.png";
+import ashidLogo from "../assets/ASHID-LOGO.png";
 
 export default function MyNavbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -22,16 +22,23 @@ export default function MyNavbar() {
     >
       <Container className="d-flex align-items-center">
         {/* 🔹 Logo (Left) */}
-        <Navbar.Brand as={Link} to="/" className="me-lg-5 d-flex align-items-center m-0">
+        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center position-relative left-2 gap-2 m-0">
           <img
             src={ashidLogo}
             alt="Ashid Logo"
-            className="d-inline-block align-middle h-10 w-auto object-contain"
+            className="h-8 w-auto object-contain"
           />
+          <span className="navbar-brand-text ">ASHID SOFT</span>
         </Navbar.Brand>
 
         {/* 🔹 Toggle */}
-        <Navbar.Toggle aria-controls="main-navbar-nav" className="border-0 shadow-none p-0" />
+        {/* 🔹 Custom Clean Toggle (Zocdoc Style) */}
+        <Navbar.Toggle aria-controls="main-navbar-nav" className="navbar-toggler-custom">
+          <div className="hamburger-icon">
+            <span></span>
+            <span></span>
+          </div>
+        </Navbar.Toggle>
 
         <Navbar.Collapse id="main-navbar-nav">
           {/* 🔹 Navigation Links (Center) */}

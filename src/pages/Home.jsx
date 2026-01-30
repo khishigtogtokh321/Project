@@ -14,11 +14,6 @@ export default function Home() {
       <PartnerLogos />
 
 
-      <HowToBook />
-      <ExpertsSection />
-      <FeaturesSection />
-      <WhyChooseUs />
-      {/* <ActiveCustomers /> - Replaced by PartnerLogos */}
     </>
   );
 }

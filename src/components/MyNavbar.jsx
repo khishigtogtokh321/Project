@@ -26,7 +26,7 @@ export default function MyNavbar() {
           <img
             src={ashidLogo}
             alt="Ashid Logo"
-            height="50"
+            height="40"
             className="d-inline-block align-middle"
           />
         </Navbar.Brand>

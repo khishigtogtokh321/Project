@@ -36,23 +36,22 @@ export default function SearchBar() {
   );
 
   return (
-    <div className={`search-island ${isMobileSearchActive ? 'mobile-search-active' : ''}`}>
-      <div className="d-flex flex-column flex-md-row align-items-center gap-0">
+    <div className={`search-island-wrapper`}>
+      <div className="search-inner-wrapper d-flex flex-column flex-md-row align-items-stretch align-items-md-center gap-0">
 
-        {/* 🔍 Search Input */}
-        <div className="flex-grow-1 position-relative w-100">
+        {/* 🔍 Search Input Wrapper (50%) */}
+        <div className="search-input-section">
           <Input
-            placeholder="Эмч, эмнэлэг хайх..."
+            placeholder="Specialty, name, service"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => {
               setShowSuggestions(true);
-              if (window.innerWidth < 768) setIsMobileSearchActive(true);
+              setShowSuggestions(true);
             }}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-            leftIcon={<FiSearch size={18} className="text-gray-400" />}
-            className="border-0 focus:shadow-none bg-transparent ps-4"
-            containerClassName="mb-0"
+            className="search-main-input border-0 shadow-none ps-0 ps-md-2"
+            containerClassName="mb-0 w-100"
           />
 
           {showSuggestions && query.length > 0 && (
@@ -75,61 +74,32 @@ export default function SearchBar() {
         </div>
 
         {/* Divider */}
-        <div className="input-group-divider d-none d-md-block mx-2"></div>
+        {/* <div className="input-group-divider d-none d-md-block"></div> */}
 
-        {/* 📍 Location Input */}
-        <div className="flex-grow-1 position-relative d-flex align-items-center w-100">
-          <Input
-            placeholder="Байршил"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            leftIcon={<FaMapMarkerAlt className="text-gray-400" />}
-            className="border-0 focus:shadow-none bg-transparent ps-4"
-            containerClassName="mb-0 flex-grow-1"
-          />
-        </div>
-
-        <Button
-          variant="primary"
-          className="rounded-full px-5 py-2-5 ms-0 ms-md-2 w-100 w-md-auto"
-          onClick={handleSearch}
-          style={{ background: '#000', color: '#fff' }} // Premium black button
-        >
-          Хайх
-        </Button>
-      </div>
-
-      {isMobileSearchActive && (
-        <div className="d-md-none position-fixed top-0 start-0 w-100 h-100 bg-white z-max p-4 animate-fade-in" style={{ zIndex: 1100 }}>
-          <div className="d-flex justify-content-between align-items-center mb-5">
-            <h4 className="text-h3 mb-0">Хайлт</h4>
-            <button className="btn-close shadow-none" onClick={() => setIsMobileSearchActive(false)}></button>
-          </div>
-
-          <div className="d-flex flex-column gap-4">
+        {/* 📍 Location Input Sub-Island (50%) */}
+        <div className="location-section d-flex align-items-center">
+          <div className="location-sub-island d-flex align-items-center w-100">
             <Input
-              autoFocus
-              label="Юу хайх вэ?"
-              placeholder="Мэргэжил, эмчийн нэр..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              leftIcon={<FiSearch />}
-            />
-
-            <Input
-              label="Хаана?"
-              placeholder="Байршил эсвэл дүүрэг..."
+              placeholder="Address, area, city"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              leftIcon={<FaMapMarkerAlt />}
+              className="location-inner-input border-0 shadow-none"
+              containerClassName="mb-0 w-100"
+              style={{ fontSize: "0.9rem" }}
             />
-
-            <Button variant="primary" size="lg" className="w-100 mt-4 py-3" onClick={handleSearch} style={{ background: '#000' }}>
-              Хайж эхлэх
-            </Button>
           </div>
         </div>
-      )}
+
+        <button
+          className="search-btn-primary ms-md-2"
+          onClick={handleSearch}
+          aria-label="Search"
+        >
+          <FiSearch size={20} className="search-btn-icon" />
+          <span className="d-md-none fw-bold">Хайх</span>
+        </button>
+      </div>
+
     </div>
   );
 }

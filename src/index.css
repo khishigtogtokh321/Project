@@ -181,6 +181,14 @@ a {
   color: var(--navy-900);
 }
 
+.text-gradient-primary {
+  background: linear-gradient(135deg, #0052cc 0%, #00a8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
 .text-h2 {
   font-size: var(--fs-h2);
   font-weight: 700;
@@ -699,6 +707,40 @@ h5 {
   transform: translateY(-4px);
   transition: all 0.3s ease;
   box-shadow: 0 12px 32px rgba(0, 119, 255, 0.15);
+}
+
+/* Partner Logos Marquee */
+.logo-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.logo-track {
+  display: inline-flex;
+  gap: 4rem;
+  animation: scroll 30s linear infinite;
+}
+
+.logo-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-track {
+    gap: 2rem;
+    animation-duration: 20s;
+  }
 }
 
 /* Active state */

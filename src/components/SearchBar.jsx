@@ -87,16 +87,8 @@ export default function SearchBar() {
             className="border-0 focus:shadow-none bg-transparent ps-4"
             containerClassName="mb-0 flex-grow-1"
           />
-          <button
-            className="position-absolute end-0 me-2 btn btn-link p-2 text-primary-500 hover:bg-primary-50 rounded-circle transition-all border-0"
-            onClick={handleNearMe}
-            title="Миний байршил"
-          >
-            <FaLocationArrow size={12} />
-          </button>
         </div>
 
-        {/* 🚀 Search Action */}
         <Button
           variant="primary"
           className="rounded-full px-5 py-2-5 ms-0 ms-md-2 w-100 w-md-auto"

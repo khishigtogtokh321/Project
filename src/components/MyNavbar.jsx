@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import ashidLogo from "../assets/ashid_logo_bold.png";
+import ashidLogo from "../assets/ashidlogo.png";
 
 export default function MyNavbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -26,7 +26,7 @@ export default function MyNavbar() {
           <img
             src={ashidLogo}
             alt="Ashid Logo"
-            height="60"
+            height="50"
             className="d-inline-block align-middle"
           />
         </Navbar.Brand>

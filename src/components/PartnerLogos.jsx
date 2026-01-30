@@ -1,59 +1,54 @@
-import React from "react";
 import { Container } from "react-bootstrap";
+import globalLogo from "../assets/logos/global_greyscale.png";
+import gurvansorLogo from "../assets/logos/gurvansor_greyscale.png";
+import niislelLogo from "../assets/logos/niislel_greyscale.png";
+import premiumLogo from "../assets/logos/premiumedited1.png";
+import prodentLogo from "../assets/logos/prodent-greyscale.png";
+import uranlomboLogo from "../assets/logos/uranlombo-greyscale.png";
 
-const partners = [
-    { name: "Intermed Hospital", logo: "🏥" },
-    { name: "SOS Medica", logo: "🚑" },
-    { name: "Central Hospital", logo: "🏢" },
-    { name: "Grand Med", logo: "🏥" },
-    { name: "Songdo", logo: "🏢" },
-    { name: "Ulaanbaatar Clinic", logo: "🏥" },
-    { name: "Reflex Clinic", logo: "🦷" },
-    { name: "Healthy Smiles", logo: "🦷" },
+const logos = [
+  globalLogo,
+  gurvansorLogo,
+  niislelLogo,
+  premiumLogo,
+  prodentLogo,
+  uranlomboLogo,
 ];
 
-export default function PartnerLogos() {
-    // Duplicate the array for seamless scrolling
-    const list = [...partners, ...partners];
+export default function PartnerLogos({ variant = "default" }) {
+  // Duplicate logos to ensure seamless scrolling
+  const scrollLogos = [...logos, ...logos, ...logos];
 
-    return (
-        <div className="partner-slider py-4 mt-5 bg-white shadow-sm rounded-4 overflow-hidden border">
-            <div className="text-center mb-3">
-                <small className="text-muted fw-bold text-uppercase" style={{ letterSpacing: '2px' }}>
-                    Хамтран ажилладаг байгууллагууд
-                </small>
-            </div>
-            <div className="logo-track-container">
-                <div className="logo-track">
-                    {list.map((p, i) => (
-                        <div key={i} className="logo-item d-flex align-items-center gap-2 px-5">
-                            <span className="fs-3">{p.logo}</span>
-                            <span className="fw-bold text-navy text-nowrap" style={{ fontSize: '0.9rem' }}>{p.name}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
+  const isHero = variant === "hero";
+  const sectionClass = isHero
+    ? "py-3 overflow-hidden"
+    : "py-4 border-bottom border-gray-100 bg-white overflow-hidden";
 
-            <style>{`
-        .logo-track-container {
-          overflow: hidden;
-          width: 100%;
-          mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-        }
-        .logo-track {
-          display: flex;
-          width: calc(250px * ${list.length});
-          animation: scroll 30s linear infinite;
-        }
-        .logo-item {
-          flex: 0 0 auto;
-          width: 250px;
-        }
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-250px * ${partners.length})); }
-        }
-      `}</style>
+  const textClass = isHero
+    ? "text-center text-label text-gray-400 mb-3 opacity-60 letter-spacing-wide"
+    : "text-center text-label text-gray-400 mb-5 opacity-75 letter-spacing-wide";
+
+  return (
+    <section className={sectionClass}>
+      <Container fluid>
+        <p className={textClass} style={{ fontSize: isHero ? '0.7rem' : undefined }}>
+          ТОП ЭМНЭЛГҮҮД БИДЭНТЭЙ ХАМТРАН АЖИЛЛАДАГ
+        </p>
+
+        <div className="logo-marquee opacity-60 grayscale-hover transition-all">
+          <div className="logo-track">
+            {scrollLogos.map((logo, index) => (
+              <img
+                key={index}
+                src={logo}
+                alt="Partner Logo"
+                className="img-fluid"
+                style={{ maxHeight: isHero ? '24px' : '32px', filter: 'grayscale(100%)', opacity: 0.8, flexShrink: 0 }}
+              />
+            ))}
+          </div>
         </div>
-    );
+      </Container>
+    </section>
+  );
 }

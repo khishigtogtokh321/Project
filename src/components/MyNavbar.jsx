@@ -20,14 +20,13 @@ export default function MyNavbar() {
       fixed="top"
       className={`navbar-custom ${scrolled ? 'navbar-scrolled' : ''}`}
     >
-      <Container>
+      <Container className="d-flex justify-content-between align-items-center">
         {/* 🔹 Logo */}
-        <Navbar.Brand as={Link} to="/" className="ps-0 d-flex align-items-center">
+        <Navbar.Brand as={Link} to="/" className="ps-0 d-flex align-items-center m-0">
           <img
             src={ashidLogo}
             alt="Ashid Logo"
-            height="40"
-            className="d-inline-block align-middle"
+            className="d-inline-block align-middle h-10 w-auto object-contain"
           />
         </Navbar.Brand>
 
@@ -43,22 +42,16 @@ export default function MyNavbar() {
           </Nav>
 
           {/* 🔹 Actions */}
-          <div className="d-flex flex-column flex-lg-row align-items-center gap-4 mt-3 mt-lg-0">
-            <Link
-              to="/login"
-              className="btn-nav-login text-decoration-none"
-            >
+          <div className="d-flex flex-column flex-lg-row align-items-center gap-3 mt-3 mt-lg-0">
+            <Nav.Link as={Link} to="/login" className="btn-nav-login">
               Нэвтрэх
-            </Link>
-            <Link
-              to="/register"
-              className="btn-nav-register text-decoration-none text-center"
-            >
+            </Nav.Link>
+            <Nav.Link as={Link} to="/register" className="btn-nav-register">
               Бүртгүүлэх
-            </Link>
+            </Nav.Link>
           </div>
         </Navbar.Collapse>
       </Container>
-    </Navbar >
+    </Navbar>
   );
 }

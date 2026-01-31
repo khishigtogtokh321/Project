@@ -1,15 +1,44 @@
 import React, { useState } from "react";
 import { FaMapMarkerAlt, FaLocationArrow } from "react-icons/fa";
-import { FiSearch, FiX } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { FiSearch, FiX, FiFilter, FiMapPin } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 
+const aimags = [
+  "Архангай", "Баян-Өлгий", "Баянхонгор", "Булган", "Говь-Алтай",
+  "Говьсүмбэр", "Дархан-Уул", "Дорнод", "Дорноговь", "Дундговь",
+  "Завхан", "Орхон", "Өвөрхангай", "Өмнөговь", "Сүхбаатар",
+  "Сэлэнгэ", "Төв", "Увс", "Ховд", "Хөвсгөл", "Хэнтий"
+];
+
 const mockResults = [
-  { id: 1, name: "Ulaanbaatar Central Hospital", type: "Эмнэлэг", location: "Ulaanbaatar", logo: "🏥" },
-  { id: 2, name: "Zorig Clinic", type: "Шүдний эмнэлэг", location: "Bayanzurkh", logo: "🦷" },
-  { id: 3, name: "Health Partner", type: "Гэр бүлийн эмнэлэг", location: "Sukhbaatar", logo: "👨‍⚕️" },
-  { id: 4, name: "Eren Hospital", type: "Олон улсын эмнэлэг", location: "Songinokhairkhan", logo: "🌍" },
+  { id: 1, name: "Интермед Эмнэлэг", logo: "🏥", city: "Улаанбаатар", district: "Хан-Уул" },
+  { id: 2, name: "Грандмед Эмнэлэг", logo: "🏛️", city: "Улаанбаатар", district: "Хан-Уул" },
+  { id: 3, name: "Сонгдо Эмнэлэг", logo: "🏥", city: "Улаанбаатар", district: "Чингэлтэй" },
+  { id: 4, name: "Архангай Нэгдсэн Эмнэлэг", logo: "🏥", city: "Орон нутаг", province: "Архангай" },
+  { id: 5, name: "Баян-Өлгий Оношилгоо Төв", logo: "🏛️", city: "Орон нутаг", province: "Баян-Өлгий" },
+  { id: 6, name: "Баянхонгор Сувилал", logo: "🌿", city: "Орон нутаг", province: "Баянхонгор" },
+  { id: 7, name: "Булган Төв Эмнэлэг", logo: "🏥", city: "Орон нутаг", province: "Булган" },
+  { id: 8, name: "Говь-Алтай Нэгдсэн Эмнэлэг", logo: "🩹", city: "Орон нутаг", province: "Говь-Алтай" },
+  { id: 9, name: "Говьсүмбэр Эмнэлэг", logo: "🏠", city: "Орон нутаг", province: "Говьсүмбэр" },
+  { id: 10, name: "Дархан Нэгдсэн Эмнэлэг", logo: "🏥", city: "Орон нутаг", province: "Дархан-Уул" },
+  { id: 11, name: "Дорнод Бүсийн Төв", logo: "🏛️", city: "Орон нутаг", province: "Дорнод" },
+  { id: 12, name: "Дорноговь Оношилгоо", logo: "🔬", city: "Орон нутаг", province: "Дорноговь" },
+  { id: 13, name: "Дундговь Эмнэлэг", logo: "🏥", city: "Орон нутаг", province: "Дундговь" },
+  { id: 14, name: "Завхан Төв Эмнэлэг", logo: "🏛️", city: "Орон нутаг", province: "Завхан" },
+  { id: 15, name: "Орхон Медипас Эмнэлэг", logo: "🥼", city: "Орон нутаг", province: "Орхон" },
+  { id: 16, name: "Өвөрхангай Нэгдсэн", logo: "🏥", city: "Орон нутаг", province: "Өвөрхангай" },
+  { id: 17, name: "Өмнөговь Тавантолгой Эмнэлэг", logo: "🏗️", city: "Орон нутаг", province: "Өмнөговь" },
+  { id: 18, name: "Сүхбаатар Аймгийн Эмнэлэг", logo: "🏙️", city: "Орон нутаг", province: "Сүхбаатар" },
+  { id: 19, name: "Сэлэнгэ Нэгдсэн Эмнэлэг", logo: "🏥", city: "Орон нутаг", province: "Сэлэнгэ" },
+  { id: 20, name: "Төв Аймгийн Оношилгоо", logo: "🔬", city: "Орон нутаг", province: "Төв" },
+  { id: 21, name: "Увс Баруун Тур Эмнэлэг", logo: "🏥", city: "Орон нутаг", province: "Увс" },
+  { id: 22, name: "Ховд Бүсийн Төв Эмнэлэг", logo: "🏛️", city: "Орон нутаг", province: "Ховд" },
+  { id: 23, name: "Хөвсгөл Далай Эмнэлэг", logo: "🌊", city: "Орон нутаг", province: "Хөвсгөл" },
+  { id: 24, name: "Хэнтий Хаан Эмнэлэг", logo: "👑", city: "Орон нутаг", province: "Хэнтий" },
+  { id: 25, name: "Улсын Нэгдүгээр Төв Эмнэлэг", logo: "🏥", city: "Улаанбаатар", district: "Сүхбаатар" },
 ];
 
 const categories = [
@@ -26,76 +55,192 @@ const categories = [
 import { createPortal } from "react-dom";
 
 const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
+  const navigate = useNavigate();
+  const [filterType, setFilterType] = useState('all'); // 'all', 'city', 'locality'
+  const [selectedAimag, setSelectedAimag] = useState("Бүх аймаг");
+  const [showAimagDropdown, setShowAimagDropdown] = useState(false);
+
   if (!isOpen) return null;
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.03 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { opacity: 1, y: 0 }
+  };
 
   return createPortal(
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
       className="fixed inset-0 bg-white z-[9999] flex flex-col"
-      style={{ isolation: "isolate" }} // Ensure new stacking context
+      style={{ isolation: "isolate" }}
     >
-      {/* Header */}
-      <div className="p-4 flex justify-end">
-        <button onClick={onClose} className="p-2 text-gray-400 hover:text-gray-600">
-          <FiX size={24} />
+      {/* Header with Title and Close Button */}
+      <div className="p-4 px-5 d-flex align-items-center justify-content-between">
+        <h2 className="text-[22px] font-bold text-gray-900 tracking-tight mb-0">Эмнэлэг сонгох</h2>
+        <button onClick={onClose} className="p-2 text-gray-400 hover:text-primary transition-colors highlight-none" style={{ backgroundColor: 'transparent', border: 'none' }}>
+          <FiX size={26} />
         </button>
       </div>
 
-      {/* Title */}
-      <div className="px-5 mb-4">
-        <h2 className="text-[22px] font-bold text-gray-900 tracking-tight">Та юу хайж байна вэ?</h2>
-      </div>
-
-      {/* Styled Input */}
-      <div className="px-5 mb-4">
-        <div className="position-relative -left-3">
+      {/* Unified Search and Filter Row */}
+      <div className="px-5 mb-5 d-flex gap-2 align-items-center position-relative" style={{ zIndex: 110 }}>
+        <div className="position-relative flex-grow-1">
           <FiSearch
-            className="position-absolute start-0 top-50  translate-middle-y ms-4 text-gray-500"
+            className="position-absolute start-0 top-50 translate-middle-y ms-4 text-gray-400"
             size={18}
             style={{ zIndex: 5 }}
           />
           <input
             autoFocus
             type="text"
-            className="w-100 ps-5 pe-4 py-3 rounded-pill border outline-none text-gray-700 fs-body focus:border-gray-400"
+            className="w-100 ps-5 pe-4 py-2 rounded-pill border outline-none text-gray-700 fs-body focus:border-gray-400 focus:shadow-sm"
             style={{
               height: '48px',
               fontSize: '1rem',
-              backgroundColor: '#fff',
-              borderColor: '#d1d5db'
+              backgroundColor: '#f8fafc',
+              borderColor: '#e2e8f0',
+              transition: 'all 0.2s ease'
             }}
-            placeholder="Өвчин, эмчилгээ эсвэл эмчийн нэр"
+            placeholder="Эмнэлгийн нэрээр хайх..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
+
+        {/* Filter Button */}
+        <button
+          onClick={() => setShowAimagDropdown(!showAimagDropdown)}
+          className={`d-flex align-items-center justify-center p-0 rounded-pill border transition-all ${showAimagDropdown ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200'}`}
+          style={{
+            width: '48px',
+            height: '48px',
+            boxShadow: showAimagDropdown ? '0 4px 12px rgba(0,0,0,0.1)' : 'none'
+          }}
+        >
+          <FiFilter size={20} />
+        </button>
+
+        {/* Aimag Dropdown Overlay */}
+        <AnimatePresence>
+          {showAimagDropdown && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="position-absolute end-0 top-100 mt-2 w-100 px-5"
+              style={{ zIndex: 120, right: 0 }}
+            >
+              <div
+                className="bg-white rounded-2xl p-3 shadow-2xl border border-gray-100 overflow-y-auto no-scrollbar"
+                style={{ maxHeight: '320px', width: '100%' }}
+              >
+                <div className="grid grid-cols-2 gap-2">
+                  {["Бүх аймаг", ...aimags].map((aimag) => (
+                    <button
+                      key={aimag}
+                      onClick={() => {
+                        setSelectedAimag(aimag);
+                        setFilterType('locality');
+                        setShowAimagDropdown(false);
+                      }}
+                      className={`text-left px-3 py-2.5 rounded-xl text-[14px] transition-colors ${selectedAimag === aimag
+                        ? 'bg-primary text-white fw-bold shadow-sm'
+                        : 'text-gray-600 hover:bg-gray-50'
+                        }`}
+                    >
+                      {aimag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Filter Chips */}
+      <div className="px-5 mb-4 d-flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+        {[
+          { id: 'all', label: 'Бүгд' },
+          { id: 'city', label: 'Улаанбаатар' },
+          { id: 'locality', label: 'Орон нутаг' },
+        ].map((chip) => (
+          <button
+            key={chip.id}
+            onClick={() => setFilterType(chip.id)}
+            className={`px-4 py-1.5 rounded-pill text-[14px] fw-medium transition-all border whitespace-nowrap ${filterType === chip.id
+              ? 'bg-primary text-white border-primary shadow-sm'
+              : 'bg-white text-gray-600 border-gray-200'
+              }`}
+          >
+            {chip.label}
+          </button>
+        ))}
       </div>
 
       {/* Scrollable List */}
-      <div className="flex-1 overflow-y-auto px-5 pb-8">
-        {categories.map((cat, idx) => (
-          <div key={idx} className="mb-6">
-            <h3 className="text-[13px] font-medium text-gray-400 mb-4">{cat.title}</h3>
-            <div className="flex flex-col gap-1">
-              {cat.items.map((item, i) => (
-                <button
-                  key={i}
-                  className="text-left py-2 text-gray-800 text-[16px] hover:text-blue-600 transition-colors"
-                  onClick={() => {
-                    setQuery(item);
-                    onClose();
-                  }}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="flex-1 overflow-y-auto px-5 pb-8 no-scrollbar"
+      >
+        <div className="flex flex-col">
+          {mockResults
+            .filter(item => {
+              const matchesQuery = item.name.toLowerCase().includes(query.toLowerCase());
+              if (filterType === 'all') return matchesQuery;
+              if (filterType === 'city') return matchesQuery && item.city === 'Улаанбаатар';
+              if (filterType === 'locality') {
+                if (selectedAimag === "Бүх аймаг") return matchesQuery && item.city === 'Орон нутаг';
+                return matchesQuery && item.province === selectedAimag;
+              }
+              return matchesQuery;
+            })
+            .map((item) => (
+              <motion.button
+                key={item.id}
+                variants={itemVariants}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => {
+                  setQuery(""); // Clear search
+                  navigate("/emch-songoh", { state: { hospital: item } });
+                  onClose();
+                }}
+                className="w-100 text-left d-flex align-items-center gap-3 p-3 rounded-4 mb-2 border-0 bg-white transition-all hover:bg-gray-50 active:bg-gray-100 shadow-sm"
+                style={{ minHeight: '68px' }}
+              >
+                {/* Logo Box */}
+                <div
+                  className="rounded-3 border d-flex align-items-center justify-content-center bg-gray-50"
+                  style={{ width: '44px', height: '44px', fontSize: '20px' }}
                 >
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+                  {item.logo}
+                </div>
+
+                <div className="flex-grow-1">
+                  <div className="fw-bold text-gray-900 fs-body-sm mb-0">
+                    {item.name}
+                  </div>
+                  <div className="text-[12px] text-gray-400">
+                    {item.city === 'Улаанбаатар' ? `Улаанбаатар, ${item.district}` : `Монгол Улс, ${item.province}`}
+                  </div>
+                </div>
+              </motion.button>
+            ))}
+        </div>
+      </motion.div>
     </motion.div>,
     document.body
   );

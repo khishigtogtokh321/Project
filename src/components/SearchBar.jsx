@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaMapMarkerAlt, FaLocationArrow } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FiSearch, FiX, FiFilter, FiMapPin } from "react-icons/fi";
@@ -59,6 +59,16 @@ const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
   const [filterType, setFilterType] = useState('all'); // 'all', 'city', 'locality'
   const [selectedAimag, setSelectedAimag] = useState("Бүх аймаг");
   const [showAimagDropdown, setShowAimagDropdown] = useState(false);
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -244,7 +254,7 @@ export default function SearchBar() {
           {/* 🔍 Search Input Wrapper (50%) */}
           <div className="search-input-section flex-grow-1">
             <Input
-              placeholder="Мэргэжил, нэр, үйлчилгээ"
+              placeholder="Эмнэлгийн нэрээр хайх"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => {
@@ -283,16 +293,13 @@ export default function SearchBar() {
           {/* 📏 Divider */}
           <div className="d-none d-md-block" style={{ height: '30px', width: '1px', background: 'rgba(0,0,0,0.08)', margin: '0 1.5rem' }}></div>
 
-          {/* 📱 Mobile Divider (Subtle) */}
-          <div className="d-md-none w-100 px-3">
-            <div style={{ height: '1px', background: 'rgba(0,0,0,0.05)' }}></div>
-          </div>
+
 
           {/* 📍 Location Input Sub-Island (50%) */}
           <div className="location-section flex-grow-1 d-flex align-items-center">
             <div className="location-sub-island d-flex align-items-center w-100">
               <Input
-                placeholder="Хаяг, дүүрэг, хот"
+                placeholder="Google map ашиглах"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="location-inner-input border-0 shadow-none"

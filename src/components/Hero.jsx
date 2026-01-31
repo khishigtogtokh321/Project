@@ -15,8 +15,9 @@ export default function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* 🔹 Punchy Headline (Zocdoc Style) */}
-              <h1 className="text-h1 mb-4 mx-auto" style={{ maxWidth: '800px' }}>
-                Мэргэжлийн эмч эмнэлгийг хялбараар олж захиалаарай
+              <h1 className="text-h1 mb-4" >
+                Мэргэжлийн шүдний эмнэлэг
+                <span className="text-navy-700 " > найдвартай онлайн цаг</span>
               </h1>
 
               {/* 🔹 Centered Search Focus */}

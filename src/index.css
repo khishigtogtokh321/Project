@@ -112,12 +112,27 @@
 }
 
 /* Tactile feedback for mobile touch instead of hover */
-.btn:active,
-button:active,
-[role="button"]:active {
-  transform: scale(0.97);
-  opacity: 0.9;
-  transition: transform 0.1s ease;
+/* Tactile feedback for mobile touch - only apply if not scrolling */
+@media (pointer: coarse) {
+
+  .btn:active:not(.scrolling),
+  button:active:not(.scrolling),
+  [role="button"]:active:not(.scrolling) {
+    transform: scale(0.98);
+    opacity: 0.9;
+    transition: transform 0.1s ease;
+  }
+}
+
+@media (pointer: fine) {
+
+  .btn:active,
+  button:active,
+  [role="button"]:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+    transition: transform 0.1s ease;
+  }
 }
 
 /* Glass card */
@@ -907,6 +922,9 @@ h5 {
   gap: 20px;
   overflow-x: auto;
   border-bottom: 1px solid var(--gray-100);
+  flex-wrap: nowrap;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
 }
 
 .search-modal-chip {
@@ -944,6 +962,8 @@ h5 {
   flex: 1;
   overflow-y: auto;
   padding: 0 24px 32px;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .hospital-list-item {
@@ -1377,6 +1397,7 @@ h5 {
   margin: 0 auto;
   overflow: hidden;
   padding: 3rem 0;
+  touch-action: pan-y;
 }
 
 /* Premium Faded Edges - Wider for smoother transition */

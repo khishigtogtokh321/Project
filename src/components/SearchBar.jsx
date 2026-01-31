@@ -77,57 +77,36 @@ const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
 
   return createPortal(
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
-      className="fixed inset-0 bg-white z-[9999] flex flex-col"
-      style={{ isolation: "isolate" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 search-modal-container"
     >
-      {/* Header with Title and Close Button */}
-      <div className="p-4 px-5 d-flex align-items-center justify-content-between">
-        <h2 className="text-[22px] font-bold text-gray-900 tracking-tight mb-0">Эмнэлэг сонгох</h2>
-        <button onClick={onClose} className="p-2 text-gray-400 hover:text-primary transition-colors highlight-none" style={{ backgroundColor: 'transparent', border: 'none' }}>
-          <FiX size={26} />
+      <div className="search-modal-header">
+        <h2 className="search-modal-title">Эмнэлэг сонгох</h2>
+        <button onClick={onClose} className="search-modal-close">
+          <FiX size={28} />
         </button>
       </div>
 
-      {/* Unified Search and Filter Row */}
-      <div className="px-5 mb-5 d-flex gap-2 align-items-center position-relative" style={{ zIndex: 110 }}>
-        <div className="position-relative flex-grow-1">
-          <FiSearch
-            className="position-absolute start-0 top-50 translate-middle-y ms-4 text-gray-400"
-            size={18}
-            style={{ zIndex: 5 }}
-          />
+      <div className="search-modal-search-row">
+        <div className="search-modal-input-wrapper">
+          <FiSearch className="search-modal-input-icon" size={20} />
           <input
             autoFocus
             type="text"
-            className="w-100 ps-5 pe-4 py-2 rounded-pill border outline-none text-gray-700 fs-body focus:border-gray-400 focus:shadow-sm"
-            style={{
-              height: '48px',
-              fontSize: '1rem',
-              backgroundColor: '#f8fafc',
-              borderColor: '#e2e8f0',
-              transition: 'all 0.2s ease'
-            }}
-            placeholder="Эмнэлгийн нэрээр хайх..."
+            className="search-modal-input"
+            placeholder="Эмнэлэг хайх..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
 
-        {/* Filter Button */}
         <button
           onClick={() => setShowAimagDropdown(!showAimagDropdown)}
-          className={`d-flex align-items-center justify-center p-0 rounded-pill border transition-all ${showAimagDropdown ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200'}`}
-          style={{
-            width: '48px',
-            height: '48px',
-            boxShadow: showAimagDropdown ? '0 4px 12px rgba(0,0,0,0.1)' : 'none'
-          }}
+          className="search-modal-filter-btn"
         >
-          <FiFilter size={20} />
+          <FiFilter size={24} />
         </button>
 
         {/* Aimag Dropdown Overlay */}
@@ -169,8 +148,7 @@ const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
         </AnimatePresence>
       </div>
 
-      {/* Filter Chips */}
-      <div className="px-5 mb-4 d-flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+      <div className="search-modal-chips-container no-scrollbar">
         {[
           { id: 'all', label: 'Бүгд' },
           { id: 'city', label: 'Улаанбаатар' },
@@ -179,22 +157,18 @@ const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
           <button
             key={chip.id}
             onClick={() => setFilterType(chip.id)}
-            className={`px-4 py-1.5 rounded-pill text-[14px] fw-medium transition-all border whitespace-nowrap ${filterType === chip.id
-              ? 'bg-primary text-white border-primary shadow-sm'
-              : 'bg-white text-gray-600 border-gray-200'
-              }`}
+            className={`search-modal-chip ${filterType === chip.id ? 'active' : ''}`}
           >
             {chip.label}
           </button>
         ))}
       </div>
 
-      {/* Scrollable List */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="flex-1 overflow-y-auto px-5 pb-8 no-scrollbar"
+        className="hospital-list-container no-scrollbar"
       >
         <div className="flex flex-col">
           {mockResults
@@ -209,35 +183,28 @@ const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
               return matchesQuery;
             })
             .map((item) => (
-              <motion.button
+              <button
                 key={item.id}
-                variants={itemVariants}
-                whileTap={{ scale: 0.96 }}
                 onClick={() => {
-                  setQuery(""); // Clear search
+                  setQuery("");
                   navigate("/emch-songoh", { state: { hospital: item } });
                   onClose();
                 }}
-                className="w-100 text-left d-flex align-items-center gap-3 p-3 rounded-4 mb-2 border-0 bg-white transition-all hover:bg-gray-50 active:bg-gray-100 shadow-sm"
-                style={{ minHeight: '68px' }}
+                className="hospital-list-item"
               >
-                {/* Logo Box */}
-                <div
-                  className="rounded-3 border d-flex align-items-center justify-content-center bg-gray-50"
-                  style={{ width: '44px', height: '44px', fontSize: '20px' }}
-                >
+                <div className="hospital-item-logo-box">
                   {item.logo}
                 </div>
 
-                <div className="flex-grow-1">
-                  <div className="fw-bold text-gray-900 fs-body-sm mb-0">
+                <div className="hospital-item-info">
+                  <div className="hospital-item-name">
                     {item.name}
                   </div>
-                  <div className="text-[12px] text-gray-400">
-                    {item.city === 'Улаанбаатар' ? `Улаанбаатар, ${item.district}` : `Монгол Улс, ${item.province}`}
+                  <div className="hospital-item-meta">
+                    {item.city === 'Улаанбаатар' ? `${item.city}, ${item.district}` : `${item.province}`}
                   </div>
                 </div>
-              </motion.button>
+              </button>
             ))}
         </div>
       </motion.div>

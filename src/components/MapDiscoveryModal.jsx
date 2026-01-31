@@ -1,22 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-import { FiX, FiMapPin, FiNavigation } from "react-icons/fi";
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from "@react-google-maps/api";
+import { FiX, FiMapPin, FiNavigation, FiSearch, FiLayers, FiCompass, FiPhone, FiClock, FiInfo, FiChevronRight, FiStar } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { hospitals } from "../data/hospitals";
 import { useNavigate } from "react-router-dom";
 
-// Dark Mode Map Style (Hides some POIs to reduce clutter and emphasizes our markers)
-const mapStyles = [
+// 🍏 Apple Maps Aesthetic Styling (Clean, minimalist, high contrast labels)
+const appleMapStyles = [
+    {
+        featureType: "all",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#616161" }],
+    },
+    {
+        featureType: "all",
+        elementType: "labels.icon",
+        stylers: [{ visibility: "off" }],
+    },
+    {
+        featureType: "landscape",
+        elementType: "geometry",
+        stylers: [{ color: "#f5f5f5" }],
+    },
     {
         featureType: "poi",
-        elementType: "labels",
-        stylers: [{ visibility: "off" }],
+        elementType: "geometry",
+        stylers: [{ color: "#eeeeee" }],
     },
     {
         featureType: "road",
         elementType: "geometry",
-        stylers: [{ lightness: 100 }, { visibility: "simplified" }],
+        stylers: [{ color: "#ffffff" }],
+    },
+    {
+        featureType: "water",
+        elementType: "geometry",
+        stylers: [{ color: "#c9e2ff" }],
+    },
+    {
+        featureType: "transit",
+        elementType: "geometry",
+        stylers: [{ visibility: "off" }],
     },
 ];
 
@@ -33,18 +58,54 @@ const defaultCenter = {
 const MapDiscoveryModal = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
     const [selectedHospital, setSelectedHospital] = useState(null);
+    const [map, setMap] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [showSearchAreaBtn, setShowSearchAreaBtn] = useState(false);
+    const [userLocation, setUserLocation] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
-        googleMapsApiKey: "", // Dev mode: leave empty or use a placeholder if needed, but for 'dev mode' w/o billing, it works without key or with any key
+        googleMapsApiKey: "", // Dev mode
     });
 
-    // Prevent background scrolling
     useEffect(() => {
         if (isOpen) document.body.style.overflow = "hidden";
         else document.body.style.overflow = "unset";
         return () => { document.body.style.overflow = "unset"; };
     }, [isOpen]);
+
+    const onMapLoad = (mapInstance) => {
+        setMap(mapInstance);
+    };
+
+    const handleMarkerClick = (hospital) => {
+        setSelectedHospital(hospital);
+        if (map) {
+            map.panTo(hospital.geo);
+            map.setZoom(15);
+        }
+    };
+
+    const handleMyLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    setUserLocation(pos);
+                    if (map) {
+                        map.panTo(pos);
+                        map.setZoom(15);
+                    }
+                },
+                () => {
+                    alert("Байршил тогтооход алдаа гарлаа.");
+                }
+            );
+        }
+    };
 
     if (!isOpen) return null;
 
@@ -53,104 +114,169 @@ const MapDiscoveryModal = ({ isOpen, onClose }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-none"
+            className="fixed inset-0 z-[9999] flex flex-col"
         >
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/20 backdrop-blur-sm pointer-events-auto" onClick={onClose}></div>
-
-            {/* Map Card */}
-            <motion.div
-                initial={{ scale: 0.9, opacity: 0, y: 20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                className="pointer-events-auto w-[90%] h-[60vh] md:w-[800px] md:h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden relative flex flex-col"
-            >
-                {/* Header */}
-                <div className="absolute top-4 right-4 z-[1000]">
+            {/* 🍏 Top Integrated Search Bar (Elegant Minimalist) */}
+            <div className="absolute top-6 left-4 right-4 z-[1000] flex gap-3 items-center">
+                <div className="flex-1 bg-white/90 backdrop-blur-2xl shadow-sm rounded-full flex items-center px-6 py-2 gap-4 left-4 border-none">
+                    <FiSearch className="text-gray-400 " size={20} style={{ position: 'relative', left: '15px' }} />
+                    <input
+                        type="text"
+                        placeholder="Эмнэлэг хайх..."
+                        className="bg-transparent border-none outline-none w-full text-navy-900 font-medium placeholder:text-gray-400 text-[15px]"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+                <div className="w-11 h-11 rounded-full overflow-hidden shadow-sm bg-white/90 backdrop-blur-2xl">
                     <button
                         onClick={onClose}
-                        className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                        className="w-full h-full flex items-center justify-center text-gray-800 hover:bg-white/20 transition-all transform active:scale-90 border-none outline-none"
                     >
-                        <FiX size={20} className="text-gray-800" />
+                        <FiX size={20} />
                     </button>
                 </div>
+            </div>
 
-                {/* Map */}
-                <div className="w-full h-full bg-gray-100">
-                    {isLoaded ? (
-                        <GoogleMap
-                            mapContainerStyle={containerStyle}
-                            center={defaultCenter}
-                            zoom={13}
-                            options={{
-                                disableDefaultUI: false,
-                                zoomControl: true,
-                                styles: mapStyles,
-                                clickableIcons: false, // Turn off default clickable POIs
-                            }}
-                            onClick={() => setSelectedHospital(null)}
-                        >
-                            {hospitals.map((hospital) => (
+
+            {/* Map Canvas */}
+            <div className="flex-1 relative overflow-hidden">
+                {isLoaded ? (
+                    <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={defaultCenter}
+                        zoom={13}
+                        onLoad={onMapLoad}
+                        options={{
+                            disableDefaultUI: true,
+                            styles: appleMapStyles,
+                            clickableIcons: false,
+                        }}
+                        onCenterChanged={() => {
+                            if (map && !showSearchAreaBtn) setShowSearchAreaBtn(true);
+                        }}
+                        onClick={() => setSelectedHospital(null)}
+                    >
+
+                        {/* 🍏 My Location FAB (Circular Pin Style) */}
+                        <div className="absolute bottom-10 right-4 z-[1000] w-14 h-14 rounded-full overflow-hidden shadow-sm bg-white/90 backdrop-blur-2xl">
+                            <button
+                                onClick={handleMyLocation}
+                                className="w-full h-full flex items-center justify-center text-navy-900 hover:bg-gray-50/50 transition-all active:scale-90 border-none outline-none"
+                            >
+                                <FiMapPin size={24} />
+                            </button>
+                        </div>
+                        {userLocation && (
+                            <Marker
+                                position={userLocation}
+                                icon={{
+                                    path: window.google?.maps?.SymbolPath?.CIRCLE,
+                                    fillColor: "#007AFF", // Apple Blue
+                                    fillOpacity: 1,
+                                    strokeWeight: 3,
+                                    strokeColor: "#FFFFFF",
+                                    scale: 8,
+                                }}
+                            />
+                        )}
+
+                        {hospitals
+                            .filter(h => h.name.toLowerCase().includes(searchQuery.toLowerCase()))
+                            .map((hospital) => (
                                 <Marker
                                     key={hospital.id}
                                     position={hospital.geo}
-                                    onClick={() => setSelectedHospital(hospital)}
-                                    animation={window.google?.maps?.Animation?.DROP}
+                                    onClick={() => handleMarkerClick(hospital)}
+                                    icon={{
+                                        path: window.google?.maps?.SymbolPath?.CIRCLE,
+                                        fillColor: "#007AFF", // Apple Blue
+                                        fillOpacity: 1,
+                                        strokeWeight: 3,
+                                        strokeColor: "#FFFFFF",
+                                        scale: 10,
+                                    }}
                                 />
                             ))}
-                        </GoogleMap>
-                    ) : (
-                        <div className="flex items-center justify-center h-full">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-                        </div>
-                    )}
-                </div>
+                    </GoogleMap>
+                ) : (
+                    <div className="flex flex-col items-center justify-center h-full gap-4">
+                        <div className="w-12 h-12 border-4 border-blue-100 border-t-blue-500 rounded-full animate-spin"></div>
+                        <p className="text-gray-400 font-medium animate-pulse">Газрын зураг ачаалж байна...</p>
+                    </div>
+                )}
+            </div>
 
-                {/* Bottom Sheet / Card */}
-                <AnimatePresence>
-                    {selectedHospital && (
-                        <motion.div
-                            initial={{ y: "100%" }}
-                            animate={{ y: 0 }}
-                            exit={{ y: "100%" }}
-                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="absolute bottom-0 left-0 right-0 p-4 z-[1000] md:left-auto md:right-4 md:bottom-4 md:w-96"
-                        >
-                            <div className="bg-white rounded-3xl shadow-2xl p-4 border border-gray-100">
-                                <div className="flex items-start gap-4">
-                                    <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-3xl">
-                                        {selectedHospital.logo}
-                                    </div>
-                                    <div className="flex-1">
-                                        <h3 className="font-bold text-lg text-navy-900">{selectedHospital.name}</h3>
-                                        <p className="text-gray-500 text-sm flex items-center gap-1 mt-1">
-                                            <FiMapPin size={14} />
-                                            {selectedHospital.district}, {selectedHospital.city}
-                                        </p>
-                                        <div className="mt-2 flex items-center gap-2">
-                                            <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-medium">
-                                                {selectedHospital.meta.openStatus}
-                                            </span>
-                                            <span className="text-yellow-500 text-sm font-bold">★ {selectedHospital.meta.rating}</span>
-                                        </div>
-                                    </div>
+            {/* 🍏 Native-Style Bottom Detail Sheet (Ultra-Minimalist) */}
+            <AnimatePresence>
+                {selectedHospital && (
+                    <motion.div
+                        initial={{ y: "100%" }}
+                        animate={{ y: 0 }}
+                        exit={{ y: "100%" }}
+                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                        className="hospital-details-modal"
+                    >
+                        <div className="hospital-details-card">
+                            {/* Header Section */}
+                            <div className="hospital-details-header">
+                                <div className="hospital-header-content">
+                                    <span className="hospital-type-badge">
+                                        {selectedHospital.type}
+                                    </span>
+                                    <h3 className="hospital-name-title">
+                                        {selectedHospital.name}
+                                    </h3>
+                                </div>
+                                <div className="hospital-logo-container">
+                                    {selectedHospital.logo}
+                                </div>
+                            </div>
+
+                            {/* Info Section */}
+                            <div className="hospital-info-section">
+                                <div className="hospital-info-item">
+                                    <FiMapPin className="hospital-info-icon" size={18} />
+                                    <p className="hospital-info-text">
+                                        {selectedHospital.address}
+                                    </p>
                                 </div>
 
+                                <div className="hospital-info-item">
+                                    <FiClock className="hospital-info-icon" size={18} />
+                                    <p className="hospital-info-text">
+                                        {selectedHospital.hours}
+                                    </p>
+                                </div>
+
+                                <div className="hospital-info-item">
+                                    <FiPhone className="hospital-info-icon" size={18} />
+                                    <p className="hospital-info-text hospital-info-phone">
+                                        {selectedHospital.phone}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Actions bar */}
+                            <div className="hospital-actions-bar">
                                 <button
                                     onClick={() => {
                                         onClose();
                                         navigate("/emch-songoh", { state: { hospital: selectedHospital } });
                                     }}
-                                    className="w-full mt-4 bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+                                    className="hospital-btn-book"
                                 >
-                                    <FiNavigation />
-                                    Захиалах
+                                    Цаг захиалах
+                                </button>
+                                <button className="hospital-btn-nav">
+                                    <FiNavigation size={18} />
+                                    Чиглэл
                                 </button>
                             </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.div>,
         document.body
     );

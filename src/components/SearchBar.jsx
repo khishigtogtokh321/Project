@@ -5,6 +5,7 @@ import { FiSearch, FiX, FiFilter, FiMapPin } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
+import MapDiscoveryModal from "./MapDiscoveryModal";
 
 const aimags = [
   "Архангай", "Баян-Өлгий", "Баянхонгор", "Булган", "Говь-Алтай",
@@ -228,6 +229,7 @@ export default function SearchBar() {
   const [location, setLocation] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [showMobileOverlay, setShowMobileOverlay] = useState(false);
+  const [showMapModal, setShowMapModal] = useState(false);
 
   const handleSearch = () => {
     alert(`Хайлт: ${query}, Байршил: ${location}`);
@@ -302,7 +304,9 @@ export default function SearchBar() {
                 placeholder="Google map ашиглах"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="location-inner-input border-0 shadow-none"
+                onClick={() => setShowMapModal(true)}
+                readOnly
+                className="location-inner-input border-0 shadow-none cursor-pointer hover:bg-gray-50 transition-colors"
                 containerClassName="mb-0 w-100"
                 style={{ fontSize: "1rem" }}
               />
@@ -327,6 +331,12 @@ export default function SearchBar() {
             onClose={() => setShowMobileOverlay(false)}
             query={query}
             setQuery={setQuery}
+          />
+        )}
+        {showMapModal && (
+          <MapDiscoveryModal
+            isOpen={showMapModal}
+            onClose={() => setShowMapModal(false)}
           />
         )}
       </AnimatePresence>

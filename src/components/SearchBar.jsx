@@ -224,29 +224,136 @@ const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
   );
 };
 
+const PremiumSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
+  const navigate = useNavigate();
+  const [filterType, setFilterType] = useState('all'); // 'all', 'city', 'locality'
+
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+    return () => { document.body.style.overflow = "unset"; };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.2, staggerChildren: 0.03 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 5 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const filteredItems = mockResults.filter(item => {
+    const matchesQuery = item.name.toLowerCase().includes(query.toLowerCase());
+    if (filterType === 'all') return matchesQuery;
+    if (filterType === 'city') return matchesQuery && item.city === 'Улаанбаатар';
+    if (filterType === 'locality') return matchesQuery && item.city === 'Орон нутаг';
+    return matchesQuery;
+  });
+
+  return createPortal(
+    <div className="search-premium-overlay" onClick={onClose}>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        className="search-premium-modal"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button onClick={onClose} className="search-modal-close-top">
+          <FiX size={20} />
+        </button>
+
+        <div className="search-premium-header">
+          <h2 className="search-premium-title">Хайлт</h2>
+          <div className="search-premium-box">
+            <FiSearch className="text-gray-400" size={20} />
+            <input
+              autoFocus
+              type="text"
+              className="search-premium-input"
+              placeholder="Эмнэлгийн нэр, мэргэжил..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="search-premium-content no-scrollbar">
+          {/* 📍 Location Filter Chips (Desktop Version) */}
+          <motion.div variants={itemVariants} className="d-flex gap-1 mb-4">
+            {[
+              { id: 'all', label: 'Бүгд' },
+              { id: 'city', label: 'Улаанбаатар' },
+              { id: 'locality', label: 'Орон нутаг' },
+              { id: 'others', label: 'Бусад' },
+            ].map((chip) => (
+              <button
+                key={chip.id}
+                onClick={() => setFilterType(chip.id)}
+                className={`px-5 py-2.5 rounded-full text-[12px] font-bold transition-all border ${filterType === chip.id
+                  ? 'bg-[#007AFF] text-white border-transparent shadow-md'
+                  : 'bg-white text-gray-500 border-gray-100 hover:bg-gray-50'
+                  }`}
+              >
+                {chip.label}
+              </button>
+            ))}
+          </motion.div>
+          {/* 
+          <motion.div variants={itemVariants} className="search-section-title">
+            {query.length > 0 ? 'Хайлтын үр дүн' : 'Онцлох эмнэлгүүд'}
+          </motion.div> */}
+
+          {filteredItems.length > 0 ? (
+            <div className="search-popular-grid">
+              {filteredItems.slice(0, 10).map((item) => (
+                <motion.div
+                  key={item.id}
+                  variants={itemVariants}
+                  onClick={() => {
+                    navigate("/emch-songoh", { state: { hospital: item } });
+                    onClose();
+                  }}
+                  className="search-popular-card"
+                >
+                  <div className="search-popular-logo">{item.logo}</div>
+                  <div>
+                    <div className="search-popular-name">{item.name}</div>
+                    <div className="search-popular-type">{item.city === 'Улаанбаатар' ? `${item.city}, ${item.district}` : `${item.province}`}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="py-10 text-center text-gray-400 font-medium">
+              Ийм эмнэлэг олдсонгүй
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </div>,
+    document.body
+  );
+};
+
 export default function SearchBar() {
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showPremiumOverlay, setShowPremiumOverlay] = useState(false);
   const [showMobileOverlay, setShowMobileOverlay] = useState(false);
   const [showMapModal, setShowMapModal] = useState(false);
 
   const handleSearch = () => {
     alert(`Хайлт: ${query}, Байршил: ${location}`);
-    setShowSuggestions(false);
   };
-
-  const handleNearMe = () => {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(
-      (pos) => setLocation(`Миний байршил`),
-      () => { }
-    );
-  };
-
-  const filteredSuggestions = mockResults.filter((r) =>
-    r.name.toLowerCase().includes(query.toLowerCase())
-  );
 
   return (
     <>
@@ -259,43 +366,22 @@ export default function SearchBar() {
               placeholder="Эмнэлгийн нэрээр хайх"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onFocus={() => {
+              onClick={() => {
                 if (window.innerWidth < 768) {
                   setShowMobileOverlay(true);
-                  document.activeElement.blur();
                 } else {
-                  setShowSuggestions(true);
+                  setShowPremiumOverlay(true);
                 }
               }}
-              onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-              className="search-main-input border-0 shadow-none ps-0"
+              readOnly={window.innerWidth >= 0} // Always open overlay for unified feel
+              className="search-main-input border-0 shadow-none ps-0 cursor-pointer"
               containerClassName="mb-0 w-100"
               style={{ fontSize: "1rem" }}
             />
-
-            {showSuggestions && query.length > 0 && (
-              <div className="position-absolute start-0 top-100 w-100 bg-white shadow-xl rounded-xl border border-gray-100 mt-3 z-3 overflow-hidden animate-fade-in" style={{ borderRadius: '24px' }}>
-                {filteredSuggestions.map(s => (
-                  <div
-                    key={s.id}
-                    className="p-3 d-flex align-items-center gap-3 hover:bg-gray-50 cursor-pointer transition-colors"
-                    onClick={() => setQuery(s.name)}
-                  >
-                    <span className="fs-5">{s.logo}</span>
-                    <div>
-                      <div className="fw-semibold text-navy-900 fs-body-sm">{s.name}</div>
-                      <div className="text-gray-500" style={{ fontSize: '0.75rem' }}>{s.type} • {s.location}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* 📏 Divider */}
           <div className="d-none d-md-block" style={{ height: '30px', width: '1px', background: 'rgba(0,0,0,0.08)', margin: '0 1.5rem' }}></div>
-
-
 
           {/* 📍 Location Input Sub-Island (50%) */}
           <div className="location-section flex-grow-1 d-flex align-items-center">
@@ -329,6 +415,14 @@ export default function SearchBar() {
           <MobileSearchOverlay
             isOpen={showMobileOverlay}
             onClose={() => setShowMobileOverlay(false)}
+            query={query}
+            setQuery={setQuery}
+          />
+        )}
+        {showPremiumOverlay && (
+          <PremiumSearchOverlay
+            isOpen={showPremiumOverlay}
+            onClose={() => setShowPremiumOverlay(false)}
             query={query}
             setQuery={setQuery}
           />

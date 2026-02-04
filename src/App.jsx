@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import BottomNav from "./components/ui/BottomNav";
 import Home from "./pages/Home";
 import Booking from "./pages/Booking";
+import BookingPage from "./pages/BookingPage";
 import CalendarPage from "./pages/CalendarPage";
 import Login from "./pages/Login";
 import PaymentUI from "./pages/PaymentUI";
@@ -20,6 +21,7 @@ export default function App() {
       <MyNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/booking" element={<BookingPage />} />
         <Route path="/emch-songoh" element={<Booking />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/login" element={<Login />} />

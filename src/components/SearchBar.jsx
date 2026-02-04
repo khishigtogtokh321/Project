@@ -198,7 +198,7 @@ const MobileSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
                 key={item.id}
                 onClick={() => {
                   setQuery("");
-                  navigate("/emch-songoh", { state: { hospital: item } });
+                  navigate("/booking", { state: { hospital: item } });
                   onClose();
                 }}
                 className="hospital-list-item"
@@ -319,7 +319,7 @@ const PremiumSearchOverlay = ({ isOpen, onClose, query, setQuery }) => {
                   key={item.id}
                   variants={itemVariants}
                   onClick={() => {
-                    navigate("/emch-songoh", { state: { hospital: item } });
+                    navigate("/booking", { state: { hospital: item } });
                     onClose();
                   }}
                   className="search-popular-card"

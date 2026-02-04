@@ -1,5 +1,54 @@
 @import "tailwindcss";
 
+/* ===== Tailwind v4 Theme Configuration ===== */
+@theme {
+  /* Zocdoc-style Yellow (Action Color) */
+  --color-zocdoc-yellow: #FFCC00;
+  --color-zocdoc-yellow-light: #FFF4CC;
+  --color-zocdoc-yellow-dark: #E6B800;
+
+  /* Brand Primary from existing CSS vars */
+  --color-brand-100: #e4c879;
+  --color-brand-500: #FFF000;
+  --color-brand-600: #D9901D;
+
+  /* Medical Trust Colors */
+  --color-trust-green: #12b76a;
+  --color-trust-blue: #00A8B8;
+
+  /* Warm Background */
+  --color-warm-bg: #FDFBF4;
+
+  /* Spacing custom values */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+}
+
+/* ===== Booking-specific Utility Classes ===== */
+.booking-time-slot {
+  @apply px-3 py-2 text-sm font-medium rounded-lg bg-zocdoc-yellow-light text-gray-800 hover:bg-zocdoc-yellow transition-colors cursor-pointer active:scale-95;
+}
+
+.booking-time-slot.selected {
+  @apply bg-zocdoc-yellow ring-2 ring-zocdoc-yellow-dark;
+}
+
+.branch-card {
+  @apply flex-shrink-0 px-4 py-3 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md hover:border-brand-500 transition-all cursor-pointer snap-start;
+}
+
+.branch-card.selected {
+  @apply border-brand-500 bg-brand-100/20 ring-1 ring-brand-500;
+}
+
+.doctor-card {
+  @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-4 hover:shadow-lg transition-shadow;
+}
+
+.sticky-booking-bar {
+  @apply fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 p-4 z-50;
+}
+
 :root {
   /* 🎨 Color System (Ashid Amber Theme) */
   /* --primary-50: #bdcb40d6; */

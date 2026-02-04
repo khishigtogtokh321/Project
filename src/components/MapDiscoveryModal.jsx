@@ -262,7 +262,7 @@ const MapDiscoveryModal = ({ isOpen, onClose }) => {
                                 <button
                                     onClick={() => {
                                         onClose();
-                                        navigate("/emch-songoh", { state: { hospital: selectedHospital } });
+                                        navigate("/booking", { state: { hospital: selectedHospital } });
                                     }}
                                     className="hospital-btn-book"
                                 >

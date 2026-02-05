@@ -193,9 +193,9 @@ export default function DoctorSelector({ doctors = defaultDoctors }) {
                                         <svg className="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
-                                        <span className="text-[14px] font-bold text-gray-800">Боломжит цаг</span>
+                                        <span className="text-[14px] font-bold text-gray-700">Боломжит цаг</span>
                                     </div>
-                                    <button className="text-[13px] font-semibold text-amber-500 hover:text-amber-600">See all</button>
+                                    <button className="text-[13px] font-semibold text-gray-800 hover:text-amber-600">See all</button>
                                 </div>
 
                                 <div className="flex gap-2.5 overflow-x-auto no-scrollbar snap-x pb-1 px-1">

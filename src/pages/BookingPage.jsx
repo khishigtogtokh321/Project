@@ -23,24 +23,8 @@ export default function BookingPage() {
             {/* Branch Selection Section */}
             <BranchSelector />
 
-            {/* Phase 3: Doctor Selection Section - Conditionally Rendered */}
-            {selectedBranch && (
-                <>
-                    <div className="h-2 bg-gray-50" />
-                    <DoctorSelector />
-                </>
-            )}
-
-            {/* Placeholder for next phases */}
-            {!selectedBranch && (
-                <div className="p-4 md:p-6">
-                    <div className="bg-white rounded-xl p-6 border border-dashed border-gray-300 text-center">
-                        <p className="text-sm text-gray-500">
-                            Эмч нарын жагсаалтыг харахын тулд салбараа сонгоно уу...
-                        </p>
-                    </div>
-                </div>
-            )}
+            <div className="h-2 bg-gray-50" />
+            <DoctorSelector />
         </div>
     );
 }

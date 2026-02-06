@@ -27,6 +27,8 @@ const initialState = {
 
     // UI state
     isBookingModalOpen: false,
+    isTimeSlotModalOpen: false, // New: for the Zocdoc time picker modal
+    initialScrollDate: null,    // New: to auto-scroll to a specific date
     isLoading: false,
     error: null,
 };
@@ -81,6 +83,15 @@ export const useBookingStore = create(
             // ============ MODAL CONTROL ============
             openBookingModal: () => set({ isBookingModalOpen: true }),
             closeBookingModal: () => set({ isBookingModalOpen: false }),
+
+            openTimeSlotModal: (date) => set({
+                isTimeSlotModalOpen: true,
+                initialScrollDate: date || null
+            }),
+            closeTimeSlotModal: () => set({
+                isTimeSlotModalOpen: false,
+                initialScrollDate: null
+            }),
 
             // ============ LOADING & ERROR STATE ============
             setLoading: (isLoading) => set({ isLoading }),

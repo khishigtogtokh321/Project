@@ -11,6 +11,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBookingStore } from '../../store/BookingStore';
+import TimeSlotModal from './TimeSlotModal';
 
 // Mock data reflecting the Zocdoc structure
 const defaultDoctors = [
@@ -101,7 +102,14 @@ const defaultDoctors = [
 ];
 
 export default function DoctorSelector({ doctors = defaultDoctors }) {
-    const { selectedDoctor, selectDoctor, selectedBranch } = useBookingStore();
+    const {
+        selectedDoctor,
+        selectDoctor,
+        selectedBranch,
+        selectedTimeSlot,
+        selectTimeSlot,
+        openTimeSlotModal
+    } = useBookingStore();
     const [expandedBios, setExpandedBios] = useState({});
 
     // Filtering logic based on selected branch
@@ -195,22 +203,34 @@ export default function DoctorSelector({ doctors = defaultDoctors }) {
                                         </svg>
                                         <span className="text-[14px] font-bold text-gray-700">Боломжит цаг</span>
                                     </div>
-                                    <button className="text-[13px] font-semibold text-gray-800 hover:text-amber-600">See all</button>
+                                    <button
+                                        onClick={() => openTimeSlotModal()}
+                                        className="text-[13px] font-semibold text-gray-800 hover:text-amber-600"
+                                    >
+                                        See all
+                                    </button>
                                 </div>
 
                                 <div className="flex gap-2.5 overflow-x-auto no-scrollbar snap-x pb-1 px-1">
                                     {doctor.availability.map((slot, idx) => {
                                         const isDisabled = slot.appts === 0;
+                                        const isSlotSelected = selectedDoctor?.id === doctor.id &&
+                                            selectedTimeSlot?.date === slot.date &&
+                                            selectedTimeSlot?.day === slot.day;
+
                                         return (
                                             <button
                                                 key={idx}
                                                 disabled={isDisabled}
-                                                onClick={() => selectDoctor(doctor)}
+                                                onClick={() => {
+                                                    selectDoctor(doctor);
+                                                    openTimeSlotModal(slot.date); // Show modal and scroll to this date
+                                                }}
                                                 className={`
                                                     snap-start flex flex-col items-center justify-center min-w-[105px] h-[95px] rounded-lg transition-all
                                                     ${isDisabled
                                                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                                        : isSelected
+                                                        : isSlotSelected
                                                             ? 'bg-[#FFFFFF] border-2 border-gray-900 shadow-md transform scale-[1.02]'
                                                             : 'bg-[#FFFFFF] hover:bg-gray-50 text-gray-900 shadow-sm'}
                                                 `}
@@ -233,6 +253,9 @@ export default function DoctorSelector({ doctors = defaultDoctors }) {
                     );
                 })}
             </div>
+
+            {/* Detailed Time Slot Selection Modal */}
+            <TimeSlotModal />
         </div >
     );
 }

@@ -6,3 +6,4 @@
 export { default as ClinicProfile } from './ClinicProfile';
 export { default as BranchSelector } from './BranchSelector';
 export { default as DoctorSelector } from './DoctorSelector';
+export { default as TimeSlotModal } from './TimeSlotModal';

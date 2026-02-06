@@ -115,13 +115,49 @@ export default function TimeSlotModal() {
                             >
                                 <FiX className="w-7 h-7" />
                             </button>
-                            <h2 className="text-xl  font-bold text-gray-700 ml-4">Цаг захиалах</h2>
+                            <h2 className="text-xl mt-2 font-bold text-gray-700 ml-4">Цаг захиалах</h2>
+                        </div>
+
+                        {/* Horizontal Date Navigation */}
+                        <div className="sticky top-0 bg-white border-b border-gray-100 z-30 px-2 py-2">
+                            <div className="flex gap-2 overflow-x-auto no-scrollbar">
+                                {availabilityData.map((section, idx) => {
+                                    // Extract short date label (e.g., "2-5", "2-6", "2-19~22")
+                                    const monthMatch = section.day.match(/(\d+)-р сарын (\d+)/);
+                                    let shortLabel = monthMatch
+                                        ? `${monthMatch[1]}-${monthMatch[2]}`
+                                        : section.day.split(',')[0]?.trim() || section.day;
+
+                                    // Special handling for ranges like "2-р сарын 19 - Ням, 2-р сарын 22"
+                                    if (section.noAppts && section.day.includes(' - ')) {
+                                        const matches = [...section.day.matchAll(/(\d+)-р сарын (\d+)/g)];
+                                        if (matches.length >= 2) {
+                                            shortLabel = `${matches[0][1]}-${matches[0][2]}~${matches[1][2]}`;
+                                        }
+                                    }
+
+                                    return (
+                                        <button
+                                            key={idx}
+                                            onClick={() => scrollToDate(section.day)}
+                                            className={`
+                                                px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all
+                                                ${section.noAppts
+                                                    ? 'bg-gray-100 text-gray-400'
+                                                    : 'bg-white text-gray-900 border border-gray-900  hover:bg-gray-50 active:scale-95'}
+                                            `}
+                                        >
+                                            {shortLabel}
+                                        </button>
+                                    );
+                                })}
+                            </div>
                         </div>
 
                         {/* Scrollable Content */}
-                        <div className="flex-1 overflow-y-auto no-scrollbar  scroll-smooth">
-                            <div className="max-w-2xl mx-auto py-6">
-                                <div className="space-y-20">
+                        <div className="flex-1 overflow-y-auto no-scrollbar scroll-smooth">
+                            <div className="max-w-2xl mx-auto py-4 px-0">
+                                <div className="space-y-6">
                                     {availabilityData.map((section, idx) => {
                                         const groups = categorizeSlots(section.slots);
 
@@ -129,11 +165,11 @@ export default function TimeSlotModal() {
                                             <div
                                                 key={idx}
                                                 ref={el => dateRefs.current[section.day] = el}
-                                                className="relative px-10 scroll-mt-4"
+                                                className="relative px-4 sm:px-8 scroll-mt-4"
                                             >
                                                 {/* Date Label */}
-                                                <div className="sticky top-0 bg-white py-1 z-10 mb-1 border-b border-gray-50">
-                                                    <h4 className="text-[13px] text-gray-600 tracking-tight">
+                                                <div className="sticky top-0 bg-white py-1.5 z-10 mb-1 border-b border-gray-50">
+                                                    <h4 className="text-[14px] font-bold text-gray-800 tracking-tight">
                                                         {section.day}
                                                     </h4>
                                                 </div>
@@ -143,14 +179,14 @@ export default function TimeSlotModal() {
                                                         <p className="text-[14px] text-gray-400 font-medium italic">Боломжит цаг байхгүй</p>
                                                     </div>
                                                 ) : (
-                                                    <div className="pl-2 space-y-3">
+                                                    <div className="pl-2 mb-4 space-y-3">
                                                         {groups.morning.length > 0 && (
-                                                            <div className="space-y-1.5">
-                                                                <div className="flex items-center gap-2 opacity-30">
-                                                                    <span className="text-[8px] font-bold tracking-widest uppercase">Өглөө</span>
+                                                            <div className="space-y-1">
+                                                                <div className="flex items-center gap-2 opacity-50">
+                                                                    <span className="text-[10px] font-medium tracking-wide uppercase">Өглөө</span>
                                                                     <div className="h-px bg-gray-100 flex-1" />
                                                                 </div>
-                                                                <div className="grid grid-cols-4 gap-2">
+                                                                <div className="grid grid-cols-4 gap-1.5">
                                                                     {groups.morning.map((time, sIdx) => (
                                                                         <TimeButton key={sIdx} time={time} day={section.day} isSelected={selectedTimeSlot?.time === time && selectedTimeSlot?.date === section.day} selectTimeSlot={selectTimeSlot} />
                                                                     ))}
@@ -158,12 +194,12 @@ export default function TimeSlotModal() {
                                                             </div>
                                                         )}
                                                         {groups.afternoon.length > 0 && (
-                                                            <div className="space-y-1.5">
-                                                                <div className="flex items-center gap-2 opacity-30">
-                                                                    <span className="text-[8px] font-bold tracking-widest uppercase">Өдөр</span>
+                                                            <div className="space-y-1">
+                                                                <div className="flex items-center gap-2 opacity-50">
+                                                                    <span className="text-[10px] font-medium tracking-wide uppercase">Өдөр</span>
                                                                     <div className="h-px bg-gray-100 flex-1" />
                                                                 </div>
-                                                                <div className="grid grid-cols-4 gap-2">
+                                                                <div className="grid grid-cols-4 gap-1.5">
                                                                     {groups.afternoon.map((time, sIdx) => (
                                                                         <TimeButton key={sIdx} time={time} day={section.day} isSelected={selectedTimeSlot?.time === time && selectedTimeSlot?.date === section.day} selectTimeSlot={selectTimeSlot} />
                                                                     ))}
@@ -171,12 +207,12 @@ export default function TimeSlotModal() {
                                                             </div>
                                                         )}
                                                         {groups.evening.length > 0 && (
-                                                            <div className="space-y-1.5">
-                                                                <div className="flex items-center gap-2 opacity-30">
-                                                                    <span className="text-[8px] font-bold tracking-widest uppercase">Орой</span>
+                                                            <div className="space-y-1">
+                                                                <div className="flex items-center gap-2 opacity-50">
+                                                                    <span className="text-[10px] font-medium tracking-wide uppercase">Орой</span>
                                                                     <div className="h-px bg-gray-100 flex-1" />
                                                                 </div>
-                                                                <div className="grid grid-cols-4 gap-2">
+                                                                <div className="grid grid-cols-4 gap-1.5">
                                                                     {groups.evening.map((time, sIdx) => (
                                                                         <TimeButton key={sIdx} time={time} day={section.day} isSelected={selectedTimeSlot?.time === time && selectedTimeSlot?.date === section.day} selectTimeSlot={selectTimeSlot} />
                                                                     ))}
@@ -205,9 +241,9 @@ function TimeButton({ time, day, isSelected, selectTimeSlot }) {
         <button
             onClick={() => selectTimeSlot({ time, date: day })}
             className={`
-                py-3.5 text-[15px] font-bold rounded-xl transition-all duration-300
+                py-2 text-[14px] font-semibold rounded-lg transition-all duration-300
                 ${isSelected
-                    ? 'bg-gray-900 text-white shadow-xl scale-[1.08] z-10'
+                    ? 'bg-gray-900 text-white shadow-lg scale-[1.05] z-10'
                     : 'bg-[#FFF200] text-gray-900 hover:brightness-95 active:scale-95 shadow-sm border border-black/5'}
             `}
         >

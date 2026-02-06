@@ -13,7 +13,8 @@ export default function TimeSlotModal() {
         selectedDoctor,
         selectedTimeSlot,
         selectTimeSlot,
-        initialScrollDate
+        initialScrollDate,
+        openBookingDetails,
     } = useBookingStore();
 
     const dateRefs = useRef({});
@@ -188,7 +189,7 @@ export default function TimeSlotModal() {
                                                                 </div>
                                                                 <div className="grid grid-cols-4 gap-1.5">
                                                                     {groups.morning.map((time, sIdx) => (
-                                                                        <TimeButton key={sIdx} time={time} day={section.day} isSelected={selectedTimeSlot?.time === time && selectedTimeSlot?.date === section.day} selectTimeSlot={selectTimeSlot} />
+                                                                        <TimeButton key={sIdx} time={time} day={section.day} isSelected={selectedTimeSlot?.time === time && selectedTimeSlot?.date === section.day} selectTimeSlot={selectTimeSlot} openBookingDetails={openBookingDetails} />
                                                                     ))}
                                                                 </div>
                                                             </div>
@@ -201,7 +202,7 @@ export default function TimeSlotModal() {
                                                                 </div>
                                                                 <div className="grid grid-cols-4 gap-1.5">
                                                                     {groups.afternoon.map((time, sIdx) => (
-                                                                        <TimeButton key={sIdx} time={time} day={section.day} isSelected={selectedTimeSlot?.time === time && selectedTimeSlot?.date === section.day} selectTimeSlot={selectTimeSlot} />
+                                                                        <TimeButton key={sIdx} time={time} day={section.day} isSelected={selectedTimeSlot?.time === time && selectedTimeSlot?.date === section.day} selectTimeSlot={selectTimeSlot} openBookingDetails={openBookingDetails} />
                                                                     ))}
                                                                 </div>
                                                             </div>
@@ -214,7 +215,7 @@ export default function TimeSlotModal() {
                                                                 </div>
                                                                 <div className="grid grid-cols-4 gap-1.5">
                                                                     {groups.evening.map((time, sIdx) => (
-                                                                        <TimeButton key={sIdx} time={time} day={section.day} isSelected={selectedTimeSlot?.time === time && selectedTimeSlot?.date === section.day} selectTimeSlot={selectTimeSlot} />
+                                                                        <TimeButton key={sIdx} time={time} day={section.day} isSelected={selectedTimeSlot?.time === time && selectedTimeSlot?.date === section.day} selectTimeSlot={selectTimeSlot} openBookingDetails={openBookingDetails} />
                                                                     ))}
                                                                 </div>
                                                             </div>
@@ -236,10 +237,15 @@ export default function TimeSlotModal() {
     );
 }
 
-function TimeButton({ time, day, isSelected, selectTimeSlot }) {
+function TimeButton({ time, day, isSelected, selectTimeSlot, openBookingDetails }) {
+    const handleClick = () => {
+        selectTimeSlot({ time, date: day });
+        openBookingDetails();
+    };
+
     return (
         <button
-            onClick={() => selectTimeSlot({ time, date: day })}
+            onClick={handleClick}
             className={`
                 py-2 text-[14px] font-semibold rounded-lg transition-all duration-300
                 ${isSelected

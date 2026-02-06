@@ -4,9 +4,10 @@
  * This page demonstrates Phase 2 components:
  * - ClinicProfile
  * - BranchSelector
+ * - BookingDetails (Service & Patient Info overlay)
  */
 
-import { ClinicProfile, BranchSelector, DoctorSelector } from '../components/booking';
+import { ClinicProfile, BranchSelector, DoctorSelector, BookingDetails } from '../components/booking';
 import { useBookingStore } from '../store/BookingStore';
 
 export default function BookingPage() {
@@ -25,6 +26,9 @@ export default function BookingPage() {
 
             <div className="h-2 bg-gray-50" />
             <DoctorSelector />
+
+            {/* Booking Details Overlay */}
+            <BookingDetails />
         </div>
     );
 }

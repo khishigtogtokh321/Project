@@ -19,7 +19,8 @@ const initialState = {
     selectedTimeSlot: null,    // { date, time, formattedDate, ... }
 
     patientInfo: {
-        name: '',
+        firstName: '',
+        lastName: '',
         phone: '',
         email: '',
         note: '',
@@ -27,7 +28,8 @@ const initialState = {
 
     // UI state
     isBookingModalOpen: false,
-    isTimeSlotModalOpen: false, // New: for the Zocdoc time picker modal
+    isTimeSlotModalOpen: false,
+    isBookingDetailsOpen: false, // New: for the service & patient info overlay
     initialScrollDate: null,    // New: to auto-scroll to a specific date
     isLoading: false,
     error: null,
@@ -93,6 +95,9 @@ export const useBookingStore = create(
                 initialScrollDate: null
             }),
 
+            openBookingDetails: () => set({ isBookingDetailsOpen: true }),
+            closeBookingDetails: () => set({ isBookingDetailsOpen: false }),
+
             // ============ LOADING & ERROR STATE ============
             setLoading: (isLoading) => set({ isLoading }),
             setError: (error) => set({ error }),
@@ -107,7 +112,7 @@ export const useBookingStore = create(
                     time: state.selectedTimeSlot
                         ? `${state.selectedTimeSlot.formattedDate} ${state.selectedTimeSlot.time}`
                         : 'Сонгогдоогүй',
-                    patient: state.patientInfo.name || 'Мэдээлэлгүй',
+                    patient: `${state.patientInfo.lastName} ${state.patientInfo.firstName}`.trim() || 'Мэдээлэлгүй',
                 };
             },
 
@@ -119,7 +124,7 @@ export const useBookingStore = create(
                     case 2: return !!state.selectedDoctor;
                     case 3: return !!state.selectedService;
                     case 4: return !!state.selectedTimeSlot;
-                    case 5: return state.patientInfo.name && state.patientInfo.phone;
+                    case 5: return state.patientInfo.firstName && state.patientInfo.lastName && state.patientInfo.phone;
                     default: return false;
                 }
             },
